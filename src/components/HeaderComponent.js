@@ -15,9 +15,6 @@ const HeaderComponent = () => {
                 </span>
             </div>
 
-
-
-
             {/* This section is the collasped window */}
             <section className="MOBILE-MENU flex lg:hidden ">
                 <div
