@@ -11,7 +11,7 @@ const HeaderComponent = () => {
         <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-6">
 
             <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <span className="font-semibold text-xl tracking-tight">Elida's Bouquets
+                <span className="font-semibold text-2xl tracking-tight">Elida's Bouquets
                 </span>
             </div>
 
@@ -31,7 +31,8 @@ const HeaderComponent = () => {
 
                 <div className={isNavOpen ? "showMenuNav p-12" : "hideMenuNav"}>
 
-                    <span className="font-semibold text-xl tracking-tight ">Elida's Bouquets
+                    <span className="font-semibold text-2xl tracking-tight ">
+                        Elida's Bouquets
                     </span>
                     <div
                         className=" CROSS-ICON absolute top-0 right-0 px-7 py-8"
@@ -81,29 +82,30 @@ const HeaderComponent = () => {
                     </div>
                 </div>
             </section>
+            {/* END OF RESPONSIVE SECTION */}
 
-            <div className="w-full block lg:flex lg:items-center lg:w-auto DESKTOP-MENU hidden space-x-8 lg:flex">
+            <div className="w-full block lg:flex lg:items-center lg:w-auto DESKTOP-MENU hidden space-x-8 ">
                 <div className="text-sm lg:flex-grow">
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <a href="#responsive-header" className="block mt-4 text-xl lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Home
                     </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <a href="#responsive-header" className="block mt-4 text-xl lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Shop All
                     </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                    <a href="#responsive-header" className="block mt-4 text-xl lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
                         Occasions
                     </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+                    <a href="#responsive-header" className="block mt-4 text-xl lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                         About us
                     </a>
                 </div>
             </div>
 
-            <div className="DESKTOP-MENU hidden space-x-8 lg:flex row">
-                <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            <div className="w-full block lg:flex lg:items-center lg:w-auto DESKTOP-MENU hidden space-x-8 lg:flex">
+                <a href="#responsive-header" className="block lg:inline-block lg:mt-0 text-teal-200 hover:text-white ">
                     Register
                 </a>
-                <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+                <a href="#responsive-header" className="block lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
                     Login
                 </a>
                 <a href="#" className="text-sm px-4 py-2 leading-none  rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
@@ -139,37 +141,3 @@ const HeaderComponent = () => {
 }
 
 export default HeaderComponent;
-{/* <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-6">
-
-            <div className="flex items-center flex-shrink-0 text-white mr-6">
-                <span className="font-semibold text-xl tracking-tight">Elida's Bouquets</span>
-            </div>
-            <div className="w-full block lg:flex lg:items-center lg:w-auto">
-                <div className="text-sm lg:flex-grow">
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        Home
-                    </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        Shop All
-                    </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                        Occasions
-                    </a>
-                    <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
-                        About us
-                    </a>
-                </div>
-            </div>
-
-            <div>
-                <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    Register
-                </a>
-                <a href="#responsive-header" className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
-                    Login
-                </a>
-                <a href="#" className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                    Shopping Cart
-                </a>
-            </div>
-        </nav> */}
