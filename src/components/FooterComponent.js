@@ -58,7 +58,7 @@ const FooterComponent = () => {
                         <ul className="mt-5 flex flex-row justify-around items-center">
                             <li className="p-1" >
                                 <a href="https://www.instagram.com/elidasbouquets/?hl=en"
-                                    target="_blank">
+                                    >
                                     <button
                                         id="instagram"
                                         type="button"
@@ -79,7 +79,7 @@ const FooterComponent = () => {
                             </li>
                             <li>
                                 <a href="https://www.tiktok.com/@elidasbouquets"
-                                target="_blank">
+                                >
 
                                 
                                 <button
@@ -103,7 +103,7 @@ const FooterComponent = () => {
                         </ul>
 
                     </div>
-                </nav>
+                </nav>                
             </footer>
         </>
     )
