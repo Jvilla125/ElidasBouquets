@@ -1,11 +1,10 @@
 import React from "react"
+import LoginPageComponent from "./components/LoginPageComponent";
 
 const LoginPage = () => {
     return (
         <>
-            <h1>
-                This is the Login page
-            </h1>
+        <LoginPageComponent/>
         </>
     )
 }
