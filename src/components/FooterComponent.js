@@ -1,5 +1,6 @@
 import React from "react";
 import "../index.css"
+import { Link } from "react-router-dom";
 
 const FooterComponent = () => {
     return (
@@ -12,9 +13,10 @@ const FooterComponent = () => {
                         </h5>
                         <ul className="mb-0 list-none">
                             <li>
-                                <a href="#!" className="text-neutral-800 dark:text-neutral-200"
-                                >About Us</a
-                                >
+                                <Link to="/about" className="text-neutral-800 dark:text-neutral-200">
+                                About Us
+                                </Link>
+                                
                             </li>
                             <br />
                             <li>
@@ -51,10 +53,6 @@ const FooterComponent = () => {
                         <a href="#!" className="text-neutral-800 dark:text-neutral-200">
                             Q&A Section
                         </a>
-
-
-
-
                         <ul className="mt-5 flex flex-row justify-around items-center">
                             <li className="p-1" >
                                 <a href="https://www.instagram.com/elidasbouquets/?hl=en"
