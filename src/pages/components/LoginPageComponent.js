@@ -5,7 +5,7 @@ const LoginPageComponent = () => {
     return (
         <>
             <div className="grid h-screen place-items-center">
-                <div className="bg-white w-full md:w-1/3 h-2/3 shadow-md rounded px-8 pt-6 pb-8 border-2 border-black bg-fuchsia-300">
+                <div className="bg-white w-full md:w-1/3 shadow-md rounded px-8 pt-6 pb-8 border-2 border-black bg-fuchsia-400">
                     <h1 className="text-center text-2xl">Login to your account</h1> <br />
                     <form>
                         <div className="mb-4">

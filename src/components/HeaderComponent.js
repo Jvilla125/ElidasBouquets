@@ -7,9 +7,11 @@ const HeaderComponent = () => {
         <>
             <nav className="flex items-center justify-between flex-wrap bg-pink-500 p-6">
                 <Link to="/">
-                    <div className="flex items-center flex-shrink-0 text-white mr-6">
-                        <span className="font-semibold text-2xl tracking-tight">Elida's Bouquets
+                    <div className="flex flex-col items-center flex-shrink-0 text-white">
+                        <span className="font-semibold text-3xl">Elida's Bouquets
                         </span>
+                        <br/>
+                        <p>Made in East Los Angeles</p>
                     </div>
                 </Link>
 
@@ -21,10 +23,11 @@ const HeaderComponent = () => {
                         <span className="block h-0.5 w-8 animate-pulse bg-gray-600"></span>
                     </div>
                     <div className={isNavOpen ? "showMenuNav p-12" : "hideMenuNav"}>
-                        <Link to="/" onClick={() => setIsNavOpen(false)}>
-                            <span className="font-semibold text-2xl tracking-tight ">
+                        <Link to="/" onClick={() => setIsNavOpen(false)} >
+                            <span className="font-semibold text-3xl tracking-tight ">
                                 Elida's Bouquets
                             </span>
+                        <p>Made in East Los Angeles</p>
                         </Link>
                         {/* change isNavOpen state to false to close the menu */}
                         <div className=" CROSS-ICON absolute top-0 right-0 px-7 py-8" onClick={() => setIsNavOpen(false)}>
@@ -62,19 +65,19 @@ const HeaderComponent = () => {
                             </li>
 
                         </ul>
-                        <div className="MENU-LINK-MOBILE-OPEN flex flex-row items-center justify-between min-h-[50px]">
+                        <div className="MENU-LINK-MOBILE-OPEN flex flex-row items-center justify-between min-h-[50px]" onClick={() => setIsNavOpen(false)}>
 
-                            <Link to="/register" className="border-b border-gray-400 mr-4 uppercase" onClick={() => setIsNavOpen(false)} >
+                            <Link to="/register" className="border-b border-gray-400 mr-4 uppercase"  >
                                 Register
                             </Link>
-                            <Link to="/login" className="border-b border-gray-400  mr-4 uppercase" onClick={() => setIsNavOpen(false)}>
+                            <Link to="/login" className="border-b border-gray-400  mr-4 uppercase" >
                                 Login
                             </Link>
-                            <a href="#" className="border-b border-gray-400 uppercase">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                            <Link to="/cart" className="border-b border-gray-400 uppercase">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                                     <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                                 </svg>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 </section>
@@ -108,12 +111,11 @@ const HeaderComponent = () => {
                         Login
                     </Link>
 
-                    <a href="#" className="text-sm px-4 py-2 leading-none  rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
+                    <Link to="/cart" className="text-sm px-4 py-2 leading-none  rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6">
                             <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                         </svg>
-
-                    </a>
+                    </Link>
                 </div>
 
                 <style>{`
