@@ -44,7 +44,6 @@ const BrowseBouquets = () => {
 
                                 <span class="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
                                 <a href="#">Buy Now -</a>
-
                             </div>
                         </div>
                     ))}
