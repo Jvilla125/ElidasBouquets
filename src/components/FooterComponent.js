@@ -20,19 +20,21 @@ const FooterComponent = () => {
                             </li>
                             <br />
                             <li>
-                                <a href="#!" className="text-neutral-800 dark:text-neutral-200"
-                                >Delivery Options</a
-                                >
+                                <Link to="/delivery-options" className="text-neutral-800 dark:text-neutral-200">
+                                Delivery Options
+                                </Link>
+                            
                             </li><br />
                             <li>
-                                <a href="#!" className="text-neutral-800 dark:text-neutral-200"
-                                >Refund Policy</a
-                                >
+                                <Link to="/refund-policy" className="text-neutral-800 dark:text-neutral-200">
+                                Refund policy
+                                </Link>
                             </li><br />
                             <li>
-                                <a href="#!" className="text-neutral-800 dark:text-neutral-200"
-                                >Terms of Service</a
-                                >
+                                <Link to="termsofservice" className="text-neutral-800 dark:text-neutral-200">
+                                Terms of Service
+                                </Link>
+                                
                             </li><br />
                         </ul>
                     </div>
@@ -56,6 +58,7 @@ const FooterComponent = () => {
                         <ul className="mt-5 flex flex-row justify-around items-center">
                             <li className="p-1" >
                                 <a href="https://www.instagram.com/elidasbouquets/?hl=en"
+                                target="_blank" rel="noreferrer"
                                     >
                                     <button
                                         id="instagram"
@@ -77,6 +80,7 @@ const FooterComponent = () => {
                             </li>
                             <li>
                                 <a href="https://www.tiktok.com/@elidasbouquets"
+                                target="_blank" rel="noreferrer"
                                 >
 
                                 
