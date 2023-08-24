@@ -24,7 +24,7 @@ const BrowseBouquets = () => {
 
     return (
         <>
-            <div className="flex flex-col bg-slate-300 border border-gray-900 rounded-lg  dark:bg-gray-200 dark:border-gray-900 ">
+            <div className="flex flex-col bg-slate-300 border border-gray-900 rounded-lg ml-8 mr-8 dark:bg-gray-200 dark:border-gray-900 ">
                 <div className="flex flex-row items-end mb-4 ml-8">
                     <h1 className="font-semibold text-3xl mr-4 ">
                         Browse Bouquets
