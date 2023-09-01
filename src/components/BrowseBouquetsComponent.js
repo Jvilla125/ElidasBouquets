@@ -31,7 +31,7 @@ const BrowseBouquets = () => {
                     </h1>
                     <p>See all Flowers -</p>
                 </div>
-                <div className="flex flex-row justify-center items-center space-x-12">
+                <div className="flex flex-row flex-wrap justify-center items-center space-x-12 ">
                     {bouquets.map((item, idx) => (
                         <div class="w-full max-w-xs ">
                             <a href="#">

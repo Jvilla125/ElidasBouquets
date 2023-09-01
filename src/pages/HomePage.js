@@ -1,16 +1,15 @@
 import React from "react";
 
 import BrowseBouquets from "../components/BrowseBouquetsComponent";
-import CarouselComponent from "../components/CarouselComponent";
+import HomeBannerComponent from "../components/HomeBannerComponent";
+import ShopbyOccassionComponent from "../components/ShopByOccasionComponent";
 
 const HomePage = () => {
     return(
         <>
-        <h1>
-            This is the home page
-        </h1>
-        <CarouselComponent/>
+        <HomeBannerComponent/>
         <BrowseBouquets/>
+        <ShopbyOccassionComponent/>
         </>
         
     )
