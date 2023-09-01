@@ -40,7 +40,7 @@ const ShopAllPageComponent = () => {
                     <ShopAllBreadCrumbComponent />
                 </div>
 
-                <div className="w-2/3 absolute right-0 justify-end text-lg font-bold p-10 rounded-lg col-span-3 ">
+                <div className="lg:w-10/12 md:w-2/3 absolute right-0 justify-end text-lg font-bold p-10 rounded-lg col-span-3 ">
                     <ul className="flex flex-col sm:flex-row items-center justify-between">
                         <li><h1 className="text-4xl ">Shop All</h1></li>
                         <li>
@@ -62,40 +62,32 @@ const ShopAllPageComponent = () => {
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
 
-                <div className="shadow-lg bg-green-100 text-lg font-bold text-center p-10 rounded-lg col-span-3 flex flex-col sm:flex-row items-start ">
-                    <div className=" bg-blue-200 text-lg font-bold text-center p-10 rounded-lg row-span-2 col-span-1 flex flex-col items-start">
+                <div className="shadow-lg bg-green-100 text-lg font-bold p-10 rounded-lg col-span-3 flex flex-col sm:flex-row items-start  ">
+                    <div className="bg-blue-200 p-10 ">
                         <h1 className="text-2xl"><u>Shopping Options </u></h1>
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
                         <ColorFilterComponent />
                     </div>
-
-
-                    <div class="w-2/3 shadow-lg bg-green-100 text-green-500 text-lg font-bold p-10 rounded-lg col-span-2 flex flex-col sm:flex-row p-2 ">
-                        <div className=" bg-pink-200 border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 flex flex-col sm:flex-row">
+                    {/* Start of Cards */}
+                    <div className="grid md:mb-10 md:grid-cols-3 lg:grid-cols-4 pl-10 sm:ml-0 md:ml-24 lg:ml-2 md:gap-6 lg:gap-8">
                             {bouquets.map((item, idx) => (
-                                <div className="w-full max-w-xs ">
+                                <div className="w-full max-w-xs rounded-xl bg-pink-200 border-2 border-black">
                                     <a href="#">
-                                        <img className="p-2 rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
+                                        <img className=" rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
                                     </a>
                                     <div className="px-5 pb-5 flex flex-col items-center">
                                         <a href="#">
                                             <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                                         </a>
-
                                         <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
                                         <a href="#">Buy Now -</a>
                                     </div>
                                 </div>
                             ))}
-                        </div>
-
+                        
                     </div>
                 </div>
-
-
-
-
                 <div className="shadow-lg bg-green-100 text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">
                     <PaginationComponent />
                 </div>

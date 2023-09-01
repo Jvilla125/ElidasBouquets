@@ -11,6 +11,7 @@ import CartPage from './pages/CartPage';
 import DeliveryOptionsPage from './pages/DeliveryOptionsPage';
 import RefundPolicyPage from './pages/RefundPolicyPage';
 import TermsOfServicePage from './pages/TermsOfServicePage';
+import ProductDetailsPage from './pages/ProductDetailsPage';
 
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
@@ -35,6 +36,8 @@ function App() {
       <Route path="/delivery-options" element={<DeliveryOptionsPage/>}/>
       <Route path="/refund-policy" element={<RefundPolicyPage/>}/>
       <Route path="/termsofservice" element={<TermsOfServicePage/>} />
+      <Route path="/product-details" element={<ProductDetailsPage/>} />
+      <Route path="*" element="Page not exists 404" />
     </Routes>
       
     <FooterComponent />

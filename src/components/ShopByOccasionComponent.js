@@ -31,7 +31,7 @@ const ShopbyOccassionComponent = () => {
             </div>
             {/* Start of Occasion Cards Section */}
             
-                <div class="grid md:mb-12 md:grid-cols-2">
+                <div class="grid md:mb-12 md:grid-cols-2 pb-10">
                     {bouquets.map((item, idx) => (
                         <figure class="flex flex-col items-center justify-center text-center bg-pink-200">
                             <a href="#">
