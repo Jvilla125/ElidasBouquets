@@ -71,21 +71,19 @@ const ShopAllPageComponent = () => {
                     </div>
                     {/* Start of Cards */}
                     <div className="grid md:mb-10 md:grid-cols-3 lg:grid-cols-4 pl-10 sm:ml-0 md:ml-24 lg:ml-2 md:gap-6 lg:gap-8">
-                            {bouquets.map((item, idx) => (
+                        {bouquets.map((item, idx) => (
+                            <Link to="/product-details">
                                 <div className="w-full max-w-xs rounded-xl bg-pink-200 border-2 border-black">
-                                    <a href="#">
-                                        <img className=" rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
-                                    </a>
+                                    <img className=" rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
                                     <div className="px-5 pb-5 flex flex-col items-center">
-                                        <a href="#">
-                                            <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
-                                        </a>
+                                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                                         <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
-                                        <a href="#">Buy Now -</a>
+                                        Buy Now -
                                     </div>
                                 </div>
-                            ))}
-                        
+                            </Link>
+                        ))}
+
                     </div>
                 </div>
                 <div className="shadow-lg bg-green-100 text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">
