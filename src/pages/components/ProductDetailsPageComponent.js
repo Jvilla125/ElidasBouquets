@@ -1,6 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ProductDetailsPageComponent = () => {
+    const [quantity, setQuantity] = useState(1);
+
+    const addQuanity = () => {
+        setQuantity(quantity + 1);
+    }
+    const subtractQuantity = () => {
+        if (quantity > 1){
+            setQuantity(quantity - 1)
+        }
+        
+    }
+
     return (
         <>
             <div className="grid grid-cols-3 grid-rows-7 gap-4 p-8 sm:grid-auto-row sm:grid-auto-col">
@@ -50,20 +62,70 @@ const ProductDetailsPageComponent = () => {
                     <img className="object-contain md:object-scale-down sm:w-8 sm:h-8 lg:w-28 lg:h-32" src="/images/BouquetOne.jpg" alt="product image" />
                 </div>
                 {/* Select Additional Add ons Div */}
-                <div className="row-span-2 col-start-2 row-start-3 row-end-6 bg-blue-400">
+                <div className="row-span-2 col-start-2 row-start-3 row-end-4 bg-blue-400">
                     <h1 className="text-xl font-semibold p-1">2. Additional Add-ons</h1>
-                    <div>
-                        <select className="bg-pink-300 rounded-lg">
-                            <option>Featured</option>
-                            <option value="price_1">Price: Low to High</option>
-                            <option value="price_-1">Price: High to Low</option>
-                            <option value="name_1">Name A-Z</option>
-                            <option value="name_-1">Name Z-A</option>
-                        </select>
+                    <div className="grid p-4 w-full gap-6 md:grid-cols-2 ">
+                        <div>
+                            <h1 className="sm:text-lg font-semibold w-full sm:w-auto text-sm">Additional Add ons</h1>
+                            <select className="bg-gray-300 rounded-lg ">
+                                <option>Featured</option>
+                                <option value="price_1">Price: Low to High</option>
+                                <option value="price_-1">Price: High to Low</option>
+                                <option value="name_1">Name A-Z</option>
+                                <option value="name_-1">Name Z-A</option>
+                            </select>
+                            <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                Add to Bouquet
+                            </button>
+                        </div>
+                        <div >
+                            <h1 className="text-lg font-semibold ">Wrapping Paper Color</h1>
+                            <select className="bg-gray-300 rounded-lg">
+                                <option>Featured</option>
+                                <option value="price_1">Price: Low to High</option>
+                                <option value="price_-1">Price: High to Low</option>
+                                <option value="name_1">Name A-Z</option>
+                                <option value="name_-1">Name Z-A</option>
+                            </select>
+                            <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold mt-2 py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                Add to Bouquet
+                            </button>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div className="col-start-1 row-start-7 bg-blue-400">
+                    This will be the description
+                    <ul>
+                        <li>
+                            list one
+                        </li>
+                        <li>
+                            list two
+                        </li>
+                    </ul>
+                </div>
+                {/* This will be the quantity selector section */}
+                <div className="row-span-2 col-start-3 row-start-2 bg-blue-400">
+                <h1 className="text-xl font-semibold p-1">Select your quantity</h1>
+                    <div className="flex items-center">
+                        <button
+                            className="p-4 bg-blue-500 text-white rounded-l"
+                            onClick={subtractQuantity}
+                        >
+                            -
+                        </button>
+                        <span className="p-4 bg-gray-200">{quantity}</span>
+                        <button
+                            className="p-4 bg-blue-500 text-white rounded-r"
+                            onClick={addQuanity}
+                        >
+                            +
+                        </button>
                     </div>
                 </div>
-                <div className="col-start-1 row-start-7 bg-blue-400">12</div>
-                <div className="row-span-2 col-start-3 row-start-2 bg-blue-400">13</div>
+
                 <div className="row-span-2 col-start-3 row-start-4 bg-blue-400">14</div>
             </div>
         </>

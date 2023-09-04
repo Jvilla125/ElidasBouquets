@@ -56,7 +56,6 @@ const ShopAllPageComponent = () => {
                                     </select>
                                 </div>
                             </div>
-
                         </li>
                     </ul>
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
