@@ -35,11 +35,10 @@ const ShopAllPageComponent = () => {
 
     return (
         <>
-            <div class=" grid grid-cols-3 gap-4 p-5 ">
-                <div class="text-lg font-bold text-center p-10 rounded-lg col-span-3">
+            <div className=" grid grid-cols-3 gap-4 p-5 ">
+                <div className="text-lg font-bold text-center p-10 rounded-lg col-span-3">
                     <ShopAllBreadCrumbComponent />
                 </div>
-
                 <div className="lg:w-10/12 md:w-2/3 absolute right-0 justify-end text-lg font-bold p-10 rounded-lg col-span-3 ">
                     <ul className="flex flex-col sm:flex-row items-center justify-between">
                         <li><h1 className="text-4xl ">Shop All</h1></li>

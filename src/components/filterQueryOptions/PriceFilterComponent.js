@@ -5,13 +5,13 @@ const PriceFilterComponent = () => {
 
     return (
         <>
-            <h3 class=" font-semibold text-gray-900 dark:text-white">Price</h3>
-            <ul class="w-48 text-sm font-medium ">
+            <h3 className=" font-semibold text-gray-900 dark:text-white">Price</h3>
+            <ul className="w-48 text-sm font-medium ">
                 {prices.map((item, idx) =>(
-                    <li class="w-full dark:border-gray-600">
-                    <div class="flex items-center">
-                        <input id="vue-checkbox" type="checkbox" value="" class="w-4 h-4 "/>
-                            <label for="vue-checkbox" class="pl-4 py-1 text-sm font-medium text-gray-900 dark:text-gray-300">
+                    <li className="w-full dark:border-gray-600">
+                    <div className="flex items-center">
+                        <input id="vue-checkbox" type="checkbox" value="" className="w-4 h-4 "/>
+                            <label for="vue-checkbox" className="pl-4 py-1 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {item}
                             </label>
                     </div>

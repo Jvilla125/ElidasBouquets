@@ -33,16 +33,16 @@ const BrowseBouquets = () => {
                 </div>
                 <div className="flex flex-row flex-wrap justify-center items-center space-x-12 ">
                     {bouquets.map((item, idx) => (
-                        <div class="w-full max-w-xs ">
+                        <div className="w-full max-w-xs ">
                             <a href="#">
-                                <img class="p-2 rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
+                                <img className="p-2 rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
                             </a>
-                            <div class="px-5 pb-5 flex flex-col items-center">
+                            <div className="px-5 pb-5 flex flex-col items-center">
                                 <a href="#">
-                                    <h5 class="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
+                                    <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                                 </a>
 
-                                <span class="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
+                                <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
                                 <a href="#">Buy Now -</a>
                             </div>
                         </div>
