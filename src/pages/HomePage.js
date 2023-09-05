@@ -7,9 +7,13 @@ import ShopbyOccassionComponent from "../components/ShopByOccasionComponent";
 const HomePage = () => {
     return(
         <>
+        <div className="bg-gray-200">
+            
         <HomeBannerComponent/>
         <BrowseBouquets/>
         <ShopbyOccassionComponent/>
+
+        </div>
         </>
         
     )
