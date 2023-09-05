@@ -5,8 +5,8 @@ import CheckOutFormComponent from "../../components/CheckOutFormComponent";
 const CartPageComponent = () => {
     return (
         <>
-            <div className="flex sm:flex-row flex-col">
-                <div class="bg-gray-200 w-2/3 border m-8 ">
+            <div className="flex sm:flex-row flex-col pb-12">
+                <div class=" w-2/3 border m-8">
                     <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                         <caption class="p-2 text-3xl font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
                             Your Cart
@@ -135,7 +135,6 @@ const CartPageComponent = () => {
                                         </button>
                                     </div>
                                 </td>
-
                                 <td class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                                     $999
                                 </td>
@@ -146,15 +145,15 @@ const CartPageComponent = () => {
                         </tbody>
                     </table>
                 </div>
-                <div>
+                <div className="p-3 flex flex-col justify-center">
                     <div>
-                        <h1 className="text-3xl p-2">Subtotal</h1>
+                        <h1 className="text-3xl ">Subtotal (# of Products)</h1>
+                        <p >$250</p>                        
                     </div>
                     <div>
                         <CheckOutFormComponent/>
                     </div>
                 </div>
-
             </div>
         </>
     )
