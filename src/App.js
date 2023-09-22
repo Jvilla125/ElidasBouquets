@@ -16,6 +16,7 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 
 //User Pages
 import UserProfilePage from "./pages/user/UserProfilePage";
+import UserOrdersPage from './pages/user/UserOrdersPage';
 
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
@@ -48,6 +49,7 @@ function App() {
         {/* pass the admin prop to the ProtectedRoutesComponent */}
         {/* <Route element={<ProtectedRoutesComponent admin={false} />}  > */}
           <Route path="/user" element={<UserProfilePage />} />
+          <Route path="/user/order-history" element={<UserOrdersPage />} />
         {/* </Route> */}
       </Routes>
 
