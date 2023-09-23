@@ -18,6 +18,9 @@ import ProductDetailsPage from './pages/ProductDetailsPage';
 import UserProfilePage from "./pages/user/UserProfilePage";
 import UserOrdersPage from './pages/user/UserOrdersPage';
 
+//Admin Pages 
+import AdminUsersPage from './pages/admin/AdminUsersPage';
+
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
 import FooterComponent from './components/FooterComponent';
@@ -54,17 +57,17 @@ function App() {
 
         {/* admin protected routes */}
         {/* pass the admin prop to the ProtectedRoutesComponent */}
-        <Route element={<ProtectedRoutesComponent admin={true} />} >
+        {/* <Route element={<ProtectedRoutesComponent admin={true} />} > */}
           <Route path="/admin/users" element={<AdminUsersPage />} />
-          <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
+          {/* <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
           <Route path="/admin/create-new-product" element={<AdminCreateProductPage />} />
           <Route path="/admin/edit-product/:id" element={<AdminEditProductPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
           <Route path="/admin/order-details/:id" element={<AdminOrderDetailsPage />} />
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
-          <Route path="/admin/chats" element={<AdminChatsPage />} />
-        </Route>
+          <Route path="/admin/chats" element={<AdminChatsPage />} /> */}
+        {/* </Route> */}
 
       </Routes>
 
