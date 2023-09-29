@@ -2,14 +2,32 @@ import React from "react"
 
 
 const HomeBannerComponent = () => {
-
+    const backgroundImageStyle = {
+        backgroundImage: 'url("/images/bfday.jpeg")', // Replace with your image path
+        backgroundSize: 'cover', // Adjust as needed
+        backgroundPosition: 'center', // Adjust as needed
+      };
 
     return (
         <>
-            <figure className="max-w-s rounded-lg ml-8 mr-8">
-                <img className="object-cover h-96 w-screen p-1 pb-4 rounded-lg flex justify-center items-center " src="/images/Homebanner.jpg" alt="image description"/>
-                    {/* <figcaption class="mt-2 text-sm text-center text-gray-500 dark:text-gray-400">Image caption</figcaption> */}
-            </figure>
+            <div className="flex justify-center items-center">
+                <div className="w-full md:w-4/5 lg:w-3/4 ">
+                    <img
+                        src="/images/bfday.jpeg" // Replace with the actual image source
+                        alt="Centered Image"
+                        className="mx-auto h-46 p-4"
+                    />
+                </div>
+            </div>
+            {/* <div className="flex justify-center items-center">
+            <div class="w-full  md:w-4/5 lg:w-4/5 h-64 rounded-md bg-cover bg-center" style={backgroundImageStyle}>
+                <div class="flex items-center justify-center ">
+                    <div class="px-10 max-w-xl">
+                        <h2 class="text-5xl font-semibold">Oct. 3rd National Boyfriends Day</h2>
+                    </div>
+                </div>
+            </div>
+            </div> */}
         </>
     )
 }
