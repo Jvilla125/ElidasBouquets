@@ -7,7 +7,9 @@ const AdminEditProductPageComponent = () => {
     const [product, setProduct] = useState({
         name: '',
         description: '',
-        price: '',
+        smallPrice: '',
+        mediumPrice: '',
+        largePrice: '',
         imageUrl: '',
     });
 
@@ -15,11 +17,12 @@ const AdminEditProductPageComponent = () => {
     const sampleProduct = {
         name: 'Sample Product',
         description: 'A beautiful flower bouquet.',
-        price: '19.99',
+        smallPrice: '19.99',
+        mediumPrice: '29.99',
+        largePrice: '39.99',
         imageUrl: 'https://example.com/sample-image.jpg',
     };
 
-    // Fetch product data when the component mounts
     useEffect(() => {
         // Simulated API request to fetch product data based on match.params.productId
         // Replace this with actual API call in your application
@@ -27,7 +30,6 @@ const AdminEditProductPageComponent = () => {
         setProduct(sampleProduct);
     }, []);
 
-    // Function to handle form input changes
     const handleInputChange = (e) => {
         const { name, value } = e.target;
         setProduct({
@@ -36,23 +38,23 @@ const AdminEditProductPageComponent = () => {
         });
     };
 
-    // Function to handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
-        // Add logic to update the product data (e.g., send it to an API)
+        // Add logic here to update the product data, considering optional prices
         console.log('Updated Product Data:', product);
     };
 
     return (
         <>
         <Link to="/admin/users">
-            <button
-                type="submit"
-                className="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 focus:outline-none"
-            >
-                Back
-            </button>
-            </Link>
+          <button
+              type="submit"
+              className="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 focus:outline-none"
+          >
+              Back
+          </button>
+          </Link>
+     
         <div className="container mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
             <h1 className="text-3xl font-semibold mb-6 text-center">Edit Product</h1>
             <form onSubmit={handleSubmit} className="max-w-md mx-auto">
@@ -85,17 +87,42 @@ const AdminEditProductPageComponent = () => {
                     ></textarea>
                 </div>
                 <div className="mb-4">
-                    <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
-                        Price
+                    <label htmlFor="smallPrice" className="block text-gray-700 text-sm font-bold mb-2">
+                        Small Price (Optional)
                     </label>
                     <input
                         type="number"
-                        id="price"
-                        name="price"
-                        value={product.price}
+                        id="smallPrice"
+                        name="smallPrice"
+                        value={product.smallPrice}
                         onChange={handleInputChange}
                         className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                        required
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="mediumPrice" className="block text-gray-700 text-sm font-bold mb-2">
+                        Medium Price (Optional)
+                    </label>
+                    <input
+                        type="number"
+                        id="mediumPrice"
+                        name="mediumPrice"
+                        value={product.mediumPrice}
+                        onChange={handleInputChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label htmlFor="largePrice" className="block text-gray-700 text-sm font-bold mb-2">
+                        Large Price (Optional)
+                    </label>
+                    <input
+                        type="number"
+                        id="largePrice"
+                        name="largePrice"
+                        value={product.largePrice}
+                        onChange={handleInputChange}
+                        className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                     />
                 </div>
                 <div className="mb-4">

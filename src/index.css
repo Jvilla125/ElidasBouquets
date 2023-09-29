@@ -23,3 +23,15 @@ footer {
 #tiktok{
   background-color: #6a76ac
 }
+
+
+.background-container {
+  background-image: url('/public/images/background.jpg'); /* Replace with the path to your image */
+  background-size: cover; /* Adjust as needed */
+  background-position: center; /* Adjust as needed */
+  background-repeat: no-repeat; /* Adjust as needed */
+  /* Other CSS properties to style your container as needed */
+  
+  width: 100vw;
+  
+}

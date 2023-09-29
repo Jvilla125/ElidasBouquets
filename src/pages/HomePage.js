@@ -5,17 +5,17 @@ import HomeBannerComponent from "../components/HomeBannerComponent";
 import ShopbyOccassionComponent from "../components/ShopByOccasionComponent";
 
 const HomePage = () => {
-    return(
+    return (
         <>
-        <div className="bg-gray-200">
-            
-        <HomeBannerComponent/>
-        <BrowseBouquets/>
-        <ShopbyOccassionComponent/>
+            <div className="background-container">
 
-        </div>
+                <HomeBannerComponent />
+                <BrowseBouquets />
+                <ShopbyOccassionComponent />
+
+            </div>
         </>
-        
+
     )
 }
 

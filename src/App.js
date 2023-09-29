@@ -37,6 +37,7 @@ import ScrollToTop from './utils/ScrollToTop';
 function App() {
   return (
     <>
+    
       {/* Importing ScrollToTop will be included in all of the pages */}
       <ScrollToTop />
       <HeaderComponent />
