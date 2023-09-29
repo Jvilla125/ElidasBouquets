@@ -23,7 +23,8 @@ import AdminUsersPage from './pages/admin/AdminUsersPage';
 import AdminOrdersPage from './pages/admin/AdminOrdersPage';
 import AdminOrdersDetailsPage from './pages/admin/AdminOrdersDetailsPage';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
-
+import AdminCreateProductPage from './pages/admin/AdminCreateProductPage';
+import AdminEditProductPage from './pages/admin/AdminEditProductPage';
 
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
@@ -66,10 +67,12 @@ function App() {
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
           <Route path="/admin/order-details" element={<AdminOrdersDetailsPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
+          <Route path="/admin/create-new-product" element={<AdminCreateProductPage />} />
+          <Route path="/admin/edit-product" element={<AdminEditProductPage />} />
           {/* <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
           
-          <Route path="/admin/create-new-product" element={<AdminCreateProductPage />} />
-          <Route path="/admin/edit-product/:id" element={<AdminEditProductPage />} />
+          
+          
          
           
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
