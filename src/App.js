@@ -20,6 +20,10 @@ import UserOrdersPage from './pages/user/UserOrdersPage';
 
 //Admin Pages 
 import AdminUsersPage from './pages/admin/AdminUsersPage';
+import AdminOrdersPage from './pages/admin/AdminOrdersPage';
+import AdminOrdersDetailsPage from './pages/admin/AdminOrdersDetailsPage';
+import AdminProductsPage from './pages/admin/AdminProductsPage';
+
 
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
@@ -59,12 +63,15 @@ function App() {
         {/* pass the admin prop to the ProtectedRoutesComponent */}
         {/* <Route element={<ProtectedRoutesComponent admin={true} />} > */}
           <Route path="/admin/users" element={<AdminUsersPage />} />
-          {/* <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
+          <Route path="/admin/orders" element={<AdminOrdersPage />} />
+          <Route path="/admin/order-details" element={<AdminOrdersDetailsPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
+          {/* <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
+          
           <Route path="/admin/create-new-product" element={<AdminCreateProductPage />} />
           <Route path="/admin/edit-product/:id" element={<AdminEditProductPage />} />
-          <Route path="/admin/orders" element={<AdminOrdersPage />} />
-          <Route path="/admin/order-details/:id" element={<AdminOrderDetailsPage />} />
+         
+          
           <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
           <Route path="/admin/chats" element={<AdminChatsPage />} /> */}
         {/* </Route> */}
