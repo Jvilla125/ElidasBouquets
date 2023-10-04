@@ -59,7 +59,7 @@ const ShopAllPageComponent = () => {
                     </ul>
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
-                <div className="shadow-lg bg-green-100 text-lg font-bold p-10 rounded-lg col-span-3 flex flex-col sm:flex-row items-start  ">
+                <div className=" text-lg font-bold p-10 rounded-lg col-span-3 flex flex-col sm:flex-row items-start  ">
                     <div className="bg-blue-200 p-10 ">
                         <h1 className="text-2xl"><u>Shopping Options </u></h1>
                         <PriceFilterComponent />
@@ -83,7 +83,7 @@ const ShopAllPageComponent = () => {
 
                     </div>
                 </div>
-                <div className="shadow-lg bg-green-100 text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">
+                <div className=" text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">
                     <PaginationComponent />
                 </div>
             </div>

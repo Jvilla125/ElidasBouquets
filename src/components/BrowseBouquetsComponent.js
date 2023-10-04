@@ -25,7 +25,7 @@ const BrowseBouquets = () => {
 
     return (
         <>
-            <div className=" flex flex-col w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900 ">
+            <div className="flex flex-col w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900 ">
                 <div className="flex flex-row justify-center items-center items-end ">
                     <h1 className="font-semibold text-4xl ml-4 mr-4 ">
                         Browse All Bouquets
