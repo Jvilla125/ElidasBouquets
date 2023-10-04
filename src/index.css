@@ -24,6 +24,9 @@ footer {
   background-color: #6a76ac
 }
 
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
 
 .background-container {
   background-image: url('/public/images/background.jpg'); /* Replace with the path to your image */
@@ -33,5 +36,5 @@ footer {
   /* Other CSS properties to style your container as needed */
   
   width: 100vw;
-  
+ 
 }
