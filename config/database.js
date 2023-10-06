@@ -1,6 +1,5 @@
-require('dotenv').config();
-
-const mongoose = require(mongoose);
+require("dotenv").config();
+const mongoose = require('mongoose')
 
 const connectDB = async () => {
     try {
@@ -8,9 +7,9 @@ const connectDB = async () => {
             useNewUrlParser: true,
             useUnifiedTopology: true,
         })
-        console.log("MongoDB connection SUCCESS");
-    } catch (error) {
-        console.error("Mongodb Connection FAIL");
+        console.log("MongoDB connection SUCCESS")
+    } catch (error){
+        console.error("MongoDB connection FAIL")
         process.exit(1);
     }
 }

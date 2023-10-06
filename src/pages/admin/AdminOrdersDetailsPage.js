@@ -1,6 +1,6 @@
 import React from "react";
 
-import AdminOrdersDetailsPageComponent from "../admin/components/AdminOrdersDetailsPageComponent"
+import AdminOrdersDetailsPageComponent from "./components/AdminOrdersDetailsPageComponent"
 
 const AdminOrdersDetailsPage = () => {
     return (
