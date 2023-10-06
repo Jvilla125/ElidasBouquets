@@ -10,19 +10,19 @@ const UserProfilePageComponent = () => {
                 <UserLinksComponent />
                 {/* start of second div */}
                 <div className=" w-full row-start-2 col-start-4 col-span-4">
-                    <div class="bg-white overflow-hidden shadow rounded-lg border">
-                        <div class="px-4 py-5 sm:px-6">
-                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                    <div className="bg-white overflow-hidden shadow rounded-lg border">
+                        <div className="bg-gray-200 px-4 py-5 sm:px-6">
+                            <h3 className="text-lg leading-6 font-medium text-gray-900">
                                 User Profile
                             </h3>
-                            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+                            <p className="mt-1 max-w-2xl text-sm text-gray-500">
                                 This is some information about the user.
                             </p>
                         </div>
                         <form>
-                            <div class="border-t border-gray-200 px-4 py-5 sm:p-0">
-                                <dl class="sm:divide-y sm:divide-gray-200">
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                            <div className=" border-t border-gray-200 px-4 py-5 sm:p-0">
+                                <dl className="sm:divide-y sm:divide-gray-200">
+                                    <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label className="text-sm font-medium text-gray-500"
                                             for="firstName">
                                             First Name
@@ -32,7 +32,7 @@ const UserProfilePageComponent = () => {
                                             type="text"
                                             placeholder="First Name" />
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label className="text-sm font-medium text-gray-500"
                                             for="lastName">
                                             Last Name
@@ -42,7 +42,7 @@ const UserProfilePageComponent = () => {
                                             type="text"
                                             placeholder="Last Name" />
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 
                                         <label className="text-sm font-medium text-gray-500"
                                             for="phone">
@@ -53,7 +53,7 @@ const UserProfilePageComponent = () => {
                                             type="tel"
                                             placeholder="Phone Number" />
                                     </div>
-                                    <div class="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
+                                    <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                         <label className="text-sm font-medium text-gray-500"
                                             for="email">
                                             Email Address
@@ -63,7 +63,7 @@ const UserProfilePageComponent = () => {
                                             type="email"
                                             placeholder="Email Address" />
                                     </div>
-                                    <button type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
+                                    <button type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Update</button>
                                 </dl>
                             </div>
                         </form>
