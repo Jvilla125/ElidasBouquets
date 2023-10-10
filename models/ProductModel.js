@@ -1,4 +1,6 @@
 const mongoose = require("mongoose");
+const AddOn = require("./AddOnsModel")
+const Image = require("./ImageModel")
 
 // productSchema is responsible for fetching, creating, updating, and deleting from the database;
 const productSchema = mongoose.Schema({
@@ -29,8 +31,19 @@ const productSchema = mongoose.Schema({
         default: 0
     },
     attrs: [
+        {key: {type: String}, value: {type: String}}
         // [{key: "color, value: "red}, {key: "flowerType, value: "roses},  ]
-    ]
+    ],
+    images: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: Image,
+        }
+    ],
+    addOns: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: AddOn,
+    }],
 }, {
     timestamps: true, 
 })
