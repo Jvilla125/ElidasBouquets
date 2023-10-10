@@ -1,25 +1,35 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-
-
-const port = process.env.PORT || 5000;
+const port = process.env.PORT || 3000;
+const apiRoutes = require("./routes/apiRoutes");
 
 app.use(cors());
 app.use(express.json());
 
-// get driver connection
-const dbo = require("./config/database.js");
-
 // mongodb connection
-const connectDB = require('./config/database.js')
+const connectDB = require("./config/database.js");
 connectDB();
 
-app.get('/', (req, res ) => {
-  res.send("Hello World!")
+// middleware
+app.get('/', async (req, res, next) => {
+  res.json({message: "API running..."})
 })
 
+// all routes will be handled by apiRoutes in routes folder
+app.use('/api', apiRoutes)
 
-app.listen(port, function() {
-  console.log(`Express app listening on port ${port}`);
-});
+app.use((error, req, res, next) => {
+    console.error(error);
+    next(error)
+})
+app.use((error, req, res, next) => {
+    res.status(500).json({
+        message: error.message,
+        stack: error.stack
+    })
+})
+
+app.listen(port, () => {
+  console.log(`Example app listening on port ${port}`)
+})
