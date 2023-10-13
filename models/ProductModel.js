@@ -10,8 +10,8 @@ const productSchema = mongoose.Schema({
         unique: true,
     },
     description: {
-        type: String, 
-        required: true, 
+        type: String,
+        required: true,
     },
     category: {
         type: String,
@@ -31,7 +31,7 @@ const productSchema = mongoose.Schema({
         default: 0
     },
     attrs: [
-        {key: {type: String}, value: {type: String}}
+        { key: { type: String }, value: { type: String } }
         // [{key: "color, value: "red}, {key: "flowerType, value: "roses},  ]
     ],
     images: [
@@ -45,11 +45,11 @@ const productSchema = mongoose.Schema({
         ref: AddOn,
     }],
 }, {
-    timestamps: true, 
+    timestamps: true,
 })
 
 productSchema.index()
-
+productSchema.index({"attrs.key": 1, "attrs.value": 1})
 const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;
