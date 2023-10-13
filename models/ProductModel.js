@@ -11,11 +11,11 @@ const productSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        required: true,
+        // required: true,
     },
     category: {
         type: String,
-        required: true,
+        // required: true,
     },
     smallPrice: {
         type: Number,
