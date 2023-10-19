@@ -42,21 +42,20 @@ const HeaderComponent = () => {
                         <div className="grid sm:grid-cols-1 grid-cols-3 sm:gap-4 flex items-center text-center py-2">
                             {/* First column (visible on all screen sizes) */}
                             <div className="flex items-center justify-between ">
-
                                 <nav>
                                     <section className="MOBILE-MENU flex lg:hidden">
                                         <div
-                                            className="HAMBURGER-ICON space-y-2"
+                                            className="HAMBURGER-ICON space-y-2 "
                                             onClick={() => setIsNavOpen((prev) => !prev)} // toggle isNavOpen state on click
                                         >
-                                            <span className="block h-0.5 w-8 animate-pulse bg-black"></span>
-                                            <span className="block h-0.5 w-8 animate-pulse bg-black"></span>
-                                            <span className="block h-0.5 w-8 animate-pulse bg-black"></span>
+                                            <span className="block h-0.5 w-8  bg-black"></span>
+                                            <span className="block h-0.5 w-8 bg-black"></span>
+                                            <span className="block h-0.5 w-8  bg-black"></span>
                                         </div>
 
-                                        <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+                                        <div className={isNavOpen ? "showMenuNav" : "hideMenuNav "}>
                                             <div
-                                                className="CROSS-ICON absolute top-0 right-0 px-8 py-8"
+                                                className="CROSS-ICON absolute top-0 right-0 px-8 py-8 "
                                                 onClick={() => setIsNavOpen(false)} // change isNavOpen state to false to close the menu
                                             >
                                                 <svg
@@ -72,41 +71,41 @@ const HeaderComponent = () => {
                                                     <line x1="6" y1="6" x2="18" y2="18" />
                                                 </svg>
                                             </div>
-                                            
-                                            
-                                            <ul className="flex flex-col lg:flex-row justify-between items-center py-2">
-                        <li className="mb-4 lg:mb-0">
-                            <Link to="/" className="text-xl lg:text-base lg:inline-block hover:text-blue-500 mr-4">
-                                Home
-                            </Link>
-                        </li>
-                        <li className="mb-4 lg:mb-0">
-                            <Link to="shopAll" className="text-xl lg:text-base lg:inline-block hover:text-blue-500 mr-4">
-                                Shop All
-                            </Link>
-                        </li>
-                        <li className="mb-4 lg:mb-0">
-                            <div className="dropdown inline-block relative">
-                                <button className="py-2 px-4 rounded inline-flex items-center">
-                                    <span className="text-xl lg:text-base lg:inline-block hover:text-blue-500">Occasions</span>
-                                    <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg>
-                                </button>
-                                <ul className="dropdown-menu absolute grid grid-cols-2 gap-4 hidden text-gray-700 pt-1">
-                                    <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Anniversary</a></li>
-                                    <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Birthday</a></li>
-                                    <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Graduation</a></li>
-                                    <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Mother's Day</a></li>
-                                    <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Get Well Soon</a></li>
-                                    <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Just Because</a></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li className="mb-4 lg:mb-0">
-                            <Link to="/about" className="text-xl lg:text-base lg:inline-block hover:text-blue-500">
-                                About us
-                            </Link>
-                        </li>
-                    </ul>
+
+
+                                            <ul className="flex flex-col lg:flex-row justify-between items-center py-2 ">
+                                                <li className="mb-4 lg:mb-0">
+                                                    <Link to="/" className="text-xl lg:text-base lg:inline-block hover:text-blue-500 mr-4">
+                                                        Home
+                                                    </Link>
+                                                </li>
+                                                <li className="mb-4 lg:mb-0">
+                                                    <Link to="shopAll" className="text-xl lg:text-base lg:inline-block hover:text-blue-500 mr-4">
+                                                        Shop All
+                                                    </Link>
+                                                </li>
+                                                <li className="mb-4 lg:mb-0">
+                                                    <div className="dropdown inline-block relative">
+                                                        <button className="py-2 px-4 rounded inline-flex items-center">
+                                                            <span className="text-xl lg:text-base lg:inline-block hover:text-blue-500">Occasions</span>
+                                                            <svg className="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" /> </svg>
+                                                        </button>
+                                                        <ul className="dropdown-menu absolute grid grid-cols-2 gap-4 hidden text-gray-700 pt-1">
+                                                            <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Anniversary</a></li>
+                                                            <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Birthday</a></li>
+                                                            <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Graduation</a></li>
+                                                            <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Mother's Day</a></li>
+                                                            <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Get Well Soon</a></li>
+                                                            <li className=""><a className="bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Just Because</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </li>
+                                                <li className="mb-4 lg:mb-0">
+                                                    <Link to="/about" className="text-xl lg:text-base lg:inline-block hover:text-blue-500">
+                                                        About us
+                                                    </Link>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </section>
                                 </nav>
@@ -115,13 +114,13 @@ const HeaderComponent = () => {
         display: none;
       }
       .showMenuNav {
+        background-color: pink;
         display: block;
         position: absolute;
         width: 100%;
         height: 100vh;
         top: 0;
         left: 0;
-        background: white;
         z-index: 10;
         display: flex;
         flex-direction: column;
