@@ -10,7 +10,7 @@ const HomePage = () => {
         <>
             <div className="background-container">
                 <CustomBouquetsComponent/>
-                <HomeBannerComponent />
+                {/* <HomeBannerComponent /> */}
                 <BrowseBouquets />
                 <ShopbyOccassionComponent />
 
