@@ -1,21 +1,17 @@
 import React, { useState } from "react";
 
 const ProductDetailsPageComponent = () => {
-    const [quantity, setQuantity] = useState(1);
+    const [isDropdownOpen, setDropdownOpen] = useState(false);
 
-    const addQuanity = () => {
-        setQuantity(quantity + 1);
-    }
-    const subtractQuantity = () => {
-        if (quantity > 1) {
-            setQuantity(quantity - 1)
-        }
+   
+    const toggleDropdown = () => {
+        setDropdownOpen(!isDropdownOpen);
+    };
 
-    }
 
     return (
         <>
-            <div className="mx-auto grid grid-cols-1 gap-2 mt-4 p-8 sm:grid-cols-2 bg-gray-200 w-11/12 border border-black rounded-xl">
+            <div className="mx-auto grid grid-cols-1 gap-2 mt-4 p-8 sm:grid-cols-2  bg-gray-200 w-10/12 border border-black rounded-xl">
                 <div className="mx-auto w-4/5">
                     {/* Large Image Div */}
                     <div >
@@ -28,13 +24,33 @@ const ProductDetailsPageComponent = () => {
                     </div>
 
                 </div>
-                <div className="w-11/12">
+                <div className="w-11/12 ">
                     {/* Select Bouquet Size Div */}
                     <div>
                         <div className="text-3xl text-left ml-3 pb-2">
                             <h1>"Sunset Serenade Bouquet"</h1>
+                            <p className="text-2xl p-2">$125</p>
                         </div>
-                        <div className="bg-gray-300 border border-black rounded-xl p-4 md:w-11/12 w-4/5 mx-auto">
+                        <div className="p-2">
+                            <p>Price Options</p>
+                            <select className=" rounded-lg w-11/12 sm:w-1/2">
+
+                                <option value="price_small">Small: $24.99</option>
+                                <option value="price_medium">Medium: $49.99</option>
+                                <option value="name_large">Large: $74.99</option>
+
+                            </select>
+                        </div>
+                        <div className="p-2 ">
+                            <p className="mb-2">Quantity</p>
+                            <div>
+                                <input type="number" id="first_product" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required />
+                            </div>
+                            
+                        </div>
+
+                        {/* reduced the following code to a drop down menu as shown above */}
+                        {/* <div className="bg-gray-300 border border-black rounded-xl p-4 md:w-11/12 w-4/5 mx-auto">
                             <h1 className="text-xl font-semibold p-1">Select Size</h1>
                             <ul className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center">
                                 <li className="relative md:w-4/5 w-3/5 mx-auto ">
@@ -92,7 +108,7 @@ const ProductDetailsPageComponent = () => {
                                     </label>
                                 </li>
                             </ul>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Update the following section when we have additional items to add */}
@@ -107,10 +123,49 @@ const ProductDetailsPageComponent = () => {
                     </div> */}
 
                     {/* Quantity selector section */}
-                    <div className="bg-gray-300 border border-black rounded-xl mt-4 mb-4 md:w-11/12 w-4/5 mx-auto text-center">
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded-lg w-11/12 sm:w-1/2">
                             Add to Cart
                         </button>
+                    
+                    <div className="p-4">
+                        <div className="flex items-center">
+                            <p className="text-lg font-semibold">Delivery Policy</p>
+                            <button
+                                onClick={toggleDropdown}
+                                className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                            >
+                                {isDropdownOpen ? '▲' : '▼'}
+                            </button>
+                        </div>
+                        {isDropdownOpen && (
+                            <div className="mt-2 bg-white shadow-md p-4">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                                    convallis libero justo.
+                                </p>
+                                {/* Add more content as needed */}
+                            </div>
+                        )}
+                    </div>
+                    <div className="p-4">
+                        <div className="flex items-center" >
+                            <p className="text-lg font-semibold">Substitution Policy</p>
+                            <button
+                                onClick={toggleDropdown}
+                                className="ml-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                            >
+                                {isDropdownOpen ? '▲' : '▼'}
+                            </button>
+                        </div>
+                        {isDropdownOpen && (
+                            <div className="mt-2 bg-white shadow-md p-4">
+                                <p>
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla
+                                    convallis libero justo.
+                                </p>
+                                {/* Add more content as needed */}
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
@@ -132,9 +187,9 @@ const ProductDetailsPageComponent = () => {
                 </p>
                 <p>*As with any pllpant material there could be concern for vomiting or gastrointestinal discomfort when ingested.</p>
             </div>
-            
+
             <div >
-                
+
             </div>
         </>
     )

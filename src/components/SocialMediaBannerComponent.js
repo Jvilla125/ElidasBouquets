@@ -5,9 +5,9 @@ const SocialMediaBannerComponent = () => {
         <>
             <div className="mx-auto w-11/12 grid grid-cols-1 sm:grid-cols-2 bg-gray-400">
                 <a href="https://www.tiktok.com/@elidasbouquets">
-                    <div className="border border-b">
+                    <div className="containerimg border border-b">
                         <img src="/images/tiktok.png" alt="tiktok" />
-                        <div className="centered text-white sm:text-7xl text-5xl"> Check out my tiktok Page!</div>
+                        <div className="centered text-blue-600 sm:text-7xl text-5xl"> Check out my tiktok Page!</div>
                     </div>
                 </a>
 
