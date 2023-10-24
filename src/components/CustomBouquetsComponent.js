@@ -40,8 +40,8 @@ const CustomBouquetsComponent = () => {
         <>
             <div className="flex-grow border-t border-gray-900 pt-5"></div>
             <div className="containerimg flex flex-col sm:w-7/12 w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900  ">
-                <img src="/images/custom.avif" />
-                <div className="centered text-white sm:text-7xl  text-5xl"> Elida's Bouquets are customizable!</div>
+                <img src="/images/custom.avif" alt="banner"/>
+                <div className="centered text-white sm:text-7xl text-5xl"> Elida's Bouquets are customizable!</div>
             </div>
             <div className="relative flex py-5 items-center">
 
@@ -53,14 +53,14 @@ const CustomBouquetsComponent = () => {
 
             
             <div className="w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900 ">
-                <div className="flex flex-row sm:h-96 h-88 overflow-x-scroll snap-x snap-mandatory space-x-12  pt-2 mt-2 ">
+                <div className="flex flex-row sm:h-96 h-88 overflow-x-scroll snap-x snap-mandatory space-x-12 pt-2 mt-2 ">
                     {Occasions.map((item, idx) => {
                         return (
                             <div key={idx} className="p-2 flex-none flex-shrink-0 snap-start ">
                                 <img
                                     src={item.img}
                                     alt="images"
-                                    className="border border-black rounded-lg object-cover h-full sm:h-80 h-72 "
+                                    className="border border-black rounded-lg object-cover lg:h-80 sm:h-80 h-72 "
                                 /> 
                                 <p className="text-center">
                                     {item.name}
