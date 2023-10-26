@@ -1,20 +1,33 @@
-import React from "react"
+import React, {useState} from "react"
 import { Link } from "react-router-dom";
 
 const LoginPageComponent = () => {
+    const [validated, setValidated] = useState(false);
+
+    const handleSubmit = (event) => {
+        const form = event.currentTarget;
+        if (form.checkValidity() === false){
+            event.preventDefault()
+            event.stopPropagation();
+        }
+        setValidated(true)
+    }
+
     return (
         <>
             <div className="grid h-screen place-items-center">
                 <div className="bg-white w-full md:w-1/3 shadow-md rounded px-8 pt-6 pb-8 border-2 border-black bg-fuchsia-400">
                     <h1 className="text-center text-2xl">Login to your account</h1> <br />
-                    <form>
+                    <form noValidate validated={validated} onSubmit={handleSubmit}>
                         <div className="mb-4">
                             <label className="block text-gray-700 text-sm font-bold mb-2 text-xl"
                                 for="email">
                                 Email Address
                             </label>
                             <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                required
                                 id="email"
+                                name="email"
                                 type="email"
                                 placeholder="Email" />
                         </div>
@@ -23,11 +36,13 @@ const LoginPageComponent = () => {
                                 Password
                             </label>
                             <input className="shadow appearance-none border border-red-500 rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"
+                                required
                                 id="password"
                                 type="password"
-                                placeholder="******************" />
+                                name="password"
+                                placeholder="password" />
                             <p className="text-red-500 text-xs italic">Please choose a password.</p>
-                            <a className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800" href="#">
+                            <a className="align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">
                                 Forgot Password?
                             </a>
                             <div className="flex justify-center items-center">

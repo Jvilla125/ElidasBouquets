@@ -36,6 +36,16 @@ const CheckOutFormComponent = () => {
                         className="px-0 w-full text-sm text-gray-900 border-0 focus:ring-0 focus:outline-none dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
                         placeholder="Special instructions or comments" required></textarea>
                 </div>
+                <div className="p-2">
+                            <p>Perferred method of contact for Order Confirmation:</p>
+                            <select className=" rounded-lg w-11/12 sm:w-1/2">
+
+                                <option value="text">Text</option>
+                                <option value="call">Call</option>
+                                <option value="email">Email</option>
+
+                            </select>
+                        </div>
                 <button type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Check Out!
                 </button>
