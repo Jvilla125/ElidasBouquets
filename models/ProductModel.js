@@ -20,11 +20,7 @@ const productSchema = mongoose.Schema({
         type: String,
         // required: true,
     },
-    price: [{
-        smallPrice: { type: Number},
-        mediumPrice: { type: Number},
-        largePrice: { type: Number}
-    }],
+    price: [{key: {type: String}, value: {type: Number}}],
     sales: {
         type: Number,
         default: 0

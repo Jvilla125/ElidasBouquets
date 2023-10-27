@@ -23,7 +23,6 @@ const orderSchema = mongoose.Schema({
             createTime: {type: String},
             amount: {type: Number}
         },
-
     }
 }, {
     timestamps: true, 

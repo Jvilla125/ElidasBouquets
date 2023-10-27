@@ -4,11 +4,7 @@ const products = [
         description: "Amazing Bouquets!",
         itemList: ["roses", "daisies"],
         category: "Birthday",
-        price: [{
-            smallPrice: 20,
-            mediumPrice: 30,
-            largePrice: 40
-        }],
+        price: [{key: "small", value: "25.99"}, {key: "medium", value: "34.99"}, {key: "large", value: "49.99"}],
         attrs: [
             {key: "color", value: "red"},
         ],
