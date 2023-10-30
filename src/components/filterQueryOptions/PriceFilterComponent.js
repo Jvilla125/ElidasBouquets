@@ -5,7 +5,7 @@ const PriceFilterComponent = () => {
 
     return (
         <>
-            <h3 className=" font-semibold text-gray-900 dark:text-white">Price</h3>
+            <h3 className=" font-semibold text-gray-900 dark:text-white ">Price</h3>
             <ul className="w-48 text-sm font-medium ">
                 {prices.map((item, idx) =>(
                     <li className="w-full dark:border-gray-600">
@@ -16,8 +16,7 @@ const PriceFilterComponent = () => {
                             </label>
                     </div>
                 </li>
-                ))}
-                
+                ))} 
             </ul>
         </>
     )

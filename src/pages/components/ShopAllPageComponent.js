@@ -47,7 +47,7 @@ const ShopAllPageComponent = () => {
                                 <h1 className="m-2">Sort</h1>
                                 <div>
                                     <select className="bg-pink-300 rounded-lg">
-                                        <option>Featured</option>
+                                        <option>SORT BY</option>
                                         <option value="price_1">Price: Low to High</option>
                                         <option value="price_-1">Price: High to Low</option>
                                         <option value="name_1">Name A-Z</option>
@@ -59,18 +59,24 @@ const ShopAllPageComponent = () => {
                     </ul>
                     <hr className="h-px my-8 bg-gray-900 border-0" />
                 </div>
-                <div className="text-lg font-bold  rounded-lg col-span-3 flex flex-col sm:flex-row items-start">
-                    <div className="bg-blue-200 p-6">
+                <div className="text-lg font-bold w-11/12 rounded-lg col-span-3 flex flex-col sm:flex-row items-start">
+                    <div className="bg-blue-200 p-6 sm:p-4 sm:w-11/12 w-full flex flex-col sm:items-start items-center ">
                         <h1 className="text-2xl"><u>Shopping Options</u></h1>
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
                         <ColorFilterComponent />
+                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                            Apply filters
+                        </button>
+                        <button className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                            Reset
+                        </button>
                     </div>
                     {/* Start of Cards */}
                     <div className="grid md:mb-10 md:grid-cols-2 lg:grid-cols-3 pl-10 sm:ml-0 md:ml-24 lg:ml-2 md:gap-6 lg:gap-8">
                         {bouquets.map((item, idx) => (
                             <Link to="/product-details" key={idx}>
-                                <div className="w-full  rounded-xl bg-pink-200 border-2 border-black">
+                                <div className="w-full rounded-xl bg-pink-200 border-2 border-black">
                                     <img className="rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
                                     <div className="px-5 pb-5 flex flex-col items-center">
                                         <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
