@@ -11,7 +11,7 @@ const getProducts = async (req, res, next) => {
         let priceQueryCondition = {}
         // NEED TO FIGURE THIS ONE OUT
         // if(req.query.price){
-            // queryCondition = true 
+        // queryCondition = true 
         //     priceQueryCondition = {price: {$in: req.query.price.split(",")}}
         // }
 
@@ -26,13 +26,8 @@ const getProducts = async (req, res, next) => {
             categoryQueryCondition = { category: regEx }
         }
 
-        // give users the results of all query criterias
-        if(queryCondition){
-            query = {
-                $and: [priceQueryCondition, categoryQueryCondition]
-            }
-        }
-        
+
+
         // filtering by category
         if (req.query.category) {
             queryCondition = true
@@ -42,6 +37,33 @@ const getProducts = async (req, res, next) => {
             categoryQueryCondition = {
                 category: { $in: a }
             }
+        }
+
+        // filtering by attributes
+        let attrsQueryCondition = [];
+        if (req.query.attrs) {
+            //attrs=Color-red-blue,flowerType-roses-lillies
+            //['Color-Red-Blue', 'flowerType-roses-lillies']
+            // turn string into an array
+            attrsQueryCondition = req.query.attrs.split(",").reduce((acc, item) => {
+                if (item) {
+                    // item.split("-") will result in ['color', 'red', 'blue'],['flowerType', 'roses', 'lillies']
+                    let a = item.split("-")
+                    let values = [...a]
+                    values.shift() // removes first item in a on line 54 -> ['red', 'blue'],['roses', 'lillies']
+                    let a1 = {
+                        attrs: {
+                            $elemMatch: {
+                                key: a[0],
+                                value: { $in: values }
+                            }
+                        }
+                    }
+                    acc.push(a1)
+                    return acc
+                } else return acc
+            }, [])
+            queryCondition = true;
         }
 
 
@@ -57,6 +79,13 @@ const getProducts = async (req, res, next) => {
             // we separate price = sortOpt[0] and 1 = sortOpt[1]
             sort = { [sortOpt[0]]: Number(sortOpt[1]) }
             console.log(sort)
+        }
+
+        // give users the results of all query criterias
+        if (queryCondition) {
+            query = {
+                $and: [priceQueryCondition, categoryQueryCondition, ...attrsQueryCondition]
+            }
         }
 
         // list of all products
