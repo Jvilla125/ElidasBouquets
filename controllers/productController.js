@@ -1,5 +1,6 @@
-const recordsPerPage = require("../config/pagination")
-const Product = require("../models/ProductModel")
+const recordsPerPage = require("../config/pagination");
+const Product = require("../models/ProductModel");
+const imageValidate = require("../utils/imageValidate");
 
 const getProducts = async (req, res, next) => {
     try {
@@ -105,4 +106,122 @@ const getProducts = async (req, res, next) => {
     }
 }
 
-module.exports = getProducts
+const getProductById = async (req, res, next) => {
+    try {
+        // req.params.id is from productRoutes.js line 11 "/:id"
+        const product = await Product.findById(req.params.id).orFail()
+        res.json(product)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const adminGetProducts = async (req, res, next) => {
+    try {
+        const products = await Product.find({}).sort({ category: 1 }).select("name price category ")
+        return res.json(products)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const adminDeleteProduct = async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id).orFail()
+        await product.deleteOne()
+        res.json({ message: "product removed" })
+    } catch (err) {
+        next(err)
+    }
+}
+
+const adminCreateProduct = async (req, res, next) => {
+    try {
+        const product = new Product()
+        const { name, description, count, price, category, attributesTable } = req.body;
+        product.name = name;
+        product.description = description;
+        product.count = count;
+        product.price = price;
+        product.category = category;
+        if (attributesTable.length > 0) {
+            attributesTable.map((item) => {
+                product.attrs.push(item) // bc attrs is an array in the model
+            })
+        }
+        await product.save()
+        res.json({
+            message: "product created",
+            productId: product._id
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+const adminUpdateProduct = async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id).orFail()
+        const { name, description, count, price, category, attributesTable } = req.body;
+        product.name = name || product.name
+        product.description = description || product.description
+        product.count = count || product.count
+        product.price = price || product.price
+        product.category = category || product.category
+        if (attributesTable.length > 0) {
+            product.attrs = [];
+            attributesTable.map((item) => {
+                product.attrs.push(item)
+            })
+        } else {
+            product.attrs = []
+        }
+        await product.save()
+        res.json({
+            message: "product updated"
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+// install npm i express-fileupload@^1.3.1
+// use as a middleware in server.js
+
+const adminUpload = async (req, res, next) => {
+    try {
+        if(!req.files || !! req.files.images === false) {
+            return res.status(400).send("No files were uploaded.")
+        }
+
+        const validateResult = imageValidate(req.files.images)
+        if(validateResult.error) {
+            return res.status(400).send(validateResult.error)
+        }
+
+        const path = require("path")
+        const {v4: uuidv4} = require("uuid") //npm i uuid to generate random strings\
+        const uploadDirectory = path.resolve(__dirname, "../", "public", "images", "products")
+
+        let imagesTable = []
+
+        if (Array.isArray(req.files.images)) {
+            imagesTable = req.files.images
+        } else {
+            imagesTable.push(req.files.images)
+        }
+        for (let image of imagesTable){
+            var uploadPath = uploadDirectory + "/" +uuidv4() + path.extname(image.name)
+            image.mv(uploadPath, function(err) {
+                if(err){
+                    return res.status(500).send(err)
+                }
+            })
+        }
+        return res.send("Files uploaded!")
+    } catch(error) {
+        next(error)
+    }
+}
+
+module.exports = { getProducts, getProductById, adminGetProducts, adminDeleteProduct, adminCreateProduct, adminUpdateProduct, adminUpload }

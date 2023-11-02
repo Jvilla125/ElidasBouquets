@@ -1,4 +1,5 @@
 const express = require("express");
+const fileUpload = require("express-fileupload")
 const app = express();
 const cors = require("cors");
 const port = process.env.PORT || 3000;
@@ -6,7 +7,7 @@ const apiRoutes = require("./routes/apiRoutes");
 
 app.use(cors());
 app.use(express.json());
-
+app.use(fileUpload());
 // mongodb connection
 const connectDB = require("./config/database.js");
 connectDB();
