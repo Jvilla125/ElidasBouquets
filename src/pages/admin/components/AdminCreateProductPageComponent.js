@@ -4,9 +4,7 @@ const AdminCreateProductPageComponent = () => {
     const [product, setProduct] = useState({
         name: '',
         description: '',
-        smallPrice: '',
-        mediumPrice: '',
-        largePrice: '',
+        price: '',
         imageUrl: '',
     });
 
@@ -63,41 +61,22 @@ const AdminCreateProductPageComponent = () => {
                         ></textarea>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="smallPrice" className="block text-gray-600">Small Price (Optional)</label>
+                        <label htmlFor="smallPrice" className="block text-gray-600"> Price </label>
                         <input
                             type="number"
-                            id="smallPrice"
-                            name="smallPrice"
-                            value={product.smallPrice}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="mediumPrice" className="block text-gray-600">Medium Price (Optional)</label>
-                        <input
-                            type="number"
-                            id="mediumPrice"
-                            name="mediumPrice"
-                            value={product.mediumPrice}
-                            onChange={handleInputChange}
-                            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
-                        />
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="largePrice" className="block text-gray-600">Large Price (Optional)</label>
-                        <input
-                            type="number"
-                            id="largePrice"
-                            name="largePrice"
-                            value={product.largePrice}
+                            id="price"
+                            name="price"
+                            value={product.price}
                             onChange={handleInputChange}
                             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                         />
                     </div>
                     <div>
+                        Attributes
+                    </div>
+                    <div>
                         <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                        <select id="categoriires" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select id="categorires" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Choose a Category</option>
                             <option value="US">United States</option>
                             <option value="CA">Canada</option>

@@ -190,18 +190,21 @@ const adminUpdateProduct = async (req, res, next) => {
 
 const adminUpload = async (req, res, next) => {
     try {
-        if(!req.files || !! req.files.images === false) {
+        if (!req.files || !!req.files.images === false) {
             return res.status(400).send("No files were uploaded.")
         }
 
         const validateResult = imageValidate(req.files.images)
-        if(validateResult.error) {
+        if (validateResult.error) {
             return res.status(400).send(validateResult.error)
         }
 
         const path = require("path")
-        const {v4: uuidv4} = require("uuid") //npm i uuid to generate random strings\
+        const { v4: uuidv4 } = require("uuid") //npm i uuid to generate random strings\
         const uploadDirectory = path.resolve(__dirname, "../", "public", "images", "products")
+
+        // console.log(req.query.productId);
+        let product = await Product.findById(req.query.productId).orFail()
 
         let imagesTable = []
 
@@ -210,18 +213,46 @@ const adminUpload = async (req, res, next) => {
         } else {
             imagesTable.push(req.files.images)
         }
-        for (let image of imagesTable){
-            var uploadPath = uploadDirectory + "/" +uuidv4() + path.extname(image.name)
-            image.mv(uploadPath, function(err) {
-                if(err){
+        for (let image of imagesTable) {
+            var fileName = uuidv4() + path.extname(image.name)
+            var uploadPath = uploadDirectory + "/" + fileName
+            product.images.push({ path: "/images/products/" + fileName })
+            image.mv(uploadPath, function (err) {
+                if (err) {
                     return res.status(500).send(err)
                 }
             })
         }
+        await product.save()
         return res.send("Files uploaded!")
-    } catch(error) {
+    } catch (error) {
         next(error)
     }
 }
 
-module.exports = { getProducts, getProductById, adminGetProducts, adminDeleteProduct, adminCreateProduct, adminUpdateProduct, adminUpload }
+const adminDeleteProductImage = async (req, res, next) => {
+    try {
+        const imagePath = decodeURIComponent(req.params.imagePath)
+        const path = require("path")
+        const finalPath = path.resolve("./public") + imagePath;
+        console.log(imagePath, "image")
+        const fs = require("fs") // built in node file system 
+        fs.unlink(finalPath, (err) => {
+            if (err) {
+                res.status(500).send(err);
+            }
+        });
+        await Product.findOneAndUpdate(
+            { _id: req.params.productId }, // find product with specified ID
+            { $pull: { images: { path: imagePath } } } // if found pull specified path from images array
+        ).orFail();
+
+        return res.end() // if we do not want to return any data, we can use res.end()
+    } catch (error) {
+        next(error)
+    }
+
+}
+
+
+module.exports = { getProducts, getProductById, adminGetProducts, adminDeleteProduct, adminCreateProduct, adminUpdateProduct, adminUpload, adminDeleteProductImage }

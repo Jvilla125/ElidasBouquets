@@ -1,17 +1,17 @@
 const mongoose = require("mongoose");
-const Image = require("./ImageModel")
+// const Image = require("./ImageModel")
 
 const addOnsSchema = mongoose.Schema({
     name: {
         type: String, 
         required: true
     },
-    images: [
-        {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: Image,
-    }
-],
+    // images: [
+    //     {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: Image,
+    // }
+
     price: {
         type: Number,
     }

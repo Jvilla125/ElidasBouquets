@@ -8,7 +8,9 @@ const products = [
         attrs: [
             {key: "color", value: "red"},
         ],
-        image: ["/images/happy.jpeg"]
+        images: [
+            {path: "/images/happy.jpeg"}
+        ]
     },
     {
         name: "Yellow Bouquet",
@@ -19,7 +21,9 @@ const products = [
         attrs: [
             {key: "color", value: "red"},
         ],
-        image: ["/images/happy.jpeg"]
+        images: [
+            {path: "/images/happy.jpeg"}
+        ]
     }
 ]
 

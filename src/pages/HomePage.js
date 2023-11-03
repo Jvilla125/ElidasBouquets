@@ -9,12 +9,12 @@ import SocialMediaBannerComponent from "../components/SocialMediaBannerComponent
 const HomePage = () => {
     return (
         <>
-            <div className="background-container">
+            <div className="background-container pb-4">
                 <CustomBouquetsComponent />
-                <HomeBannerComponent />
+                {/* <HomeBannerComponent /> */}
                 <BrowseBouquets />
                 <ShopbyOccassionComponent />
-                <SocialMediaBannerComponent/>
+                {/* <SocialMediaBannerComponent/> */}
             </div>
         </>
 
