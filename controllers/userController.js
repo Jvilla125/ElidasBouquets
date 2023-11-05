@@ -97,4 +97,38 @@ const loginUser = async (req, res, next) => {
     }
 }
 
-module.exports = { getUsers, registerUser, loginUser }
+const updateUserProfile = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.user._id).orFail();
+        user.name = req.body.name || user.name;
+        user.lastName = req.body.lastName || user.lastName;
+        user.email = req.body.email || user.email;
+        if (req.body.password !== user.password){
+            user.password = hashPassword(req.body.password);
+        } 
+        await user.save();
+        res.json({
+            success: "user updated",
+            userUpdated: {
+                _id: user._id,
+                name: user.name,
+                lastName: user.lastName,
+                email: user.email,
+                isAdmin: user.isAdmin
+            }, 
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+const getUserProfile = async(req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).orFail()
+        return res.send(user)
+    } catch(err){
+        next(err)
+    }
+}
+
+module.exports = { getUsers, registerUser, loginUser, updateUserProfile, getUserProfile}
