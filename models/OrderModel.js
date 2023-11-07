@@ -1,11 +1,16 @@
 const mongoose = require("mongoose");
 const User = require("./UserModel")
+const Guest = require("./GuestModel")
 
 const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
         ref: User,
+    },
+    guest: {
+        type: mongoose.Schema.Types.ObjectId,
+        required: true,
+        ref: Guest,
     },
     orderTotal: {
         itemsCount: { type: Number, required: true },

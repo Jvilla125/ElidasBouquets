@@ -103,9 +103,9 @@ const updateUserProfile = async (req, res, next) => {
         user.name = req.body.name || user.name;
         user.lastName = req.body.lastName || user.lastName;
         user.email = req.body.email || user.email;
-        if (req.body.password !== user.password){
+        if (req.body.password !== user.password) {
             user.password = hashPassword(req.body.password);
-        } 
+        }
         await user.save();
         res.json({
             success: "user updated",
@@ -115,20 +115,55 @@ const updateUserProfile = async (req, res, next) => {
                 lastName: user.lastName,
                 email: user.email,
                 isAdmin: user.isAdmin
-            }, 
+            },
         })
     } catch (err) {
         next(err)
     }
 }
 
-const getUserProfile = async(req, res, next) => {
+const getUserProfile = async (req, res, next) => {
     try {
         const user = await User.findById(req.params.id).orFail()
         return res.send(user)
-    } catch(err){
+    } catch (err) {
         next(err)
     }
 }
 
-module.exports = { getUsers, registerUser, loginUser, updateUserProfile, getUserProfile}
+const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).select("name lastName email isAdmin").orFail()
+        return res.send(user)
+    } catch (err) {
+        next(err)
+    }
+}
+
+const updateUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).orFail()
+        user.name = req.body.name || user.name;
+        user.lastName = req.body.lastName || user.lastName
+        user.email = req.body.email || user.email
+        user.isAdmin = req.body.isAdmin || user.isAdmin
+
+        await user.save();
+
+        res.send("user updated!")
+    } catch (err) {
+        next(err)
+    }
+}
+
+const deleteUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id).orFail()
+        await user.deleteOne();
+        res.send("user removed")
+    } catch (err) {
+        next(err)
+    }
+}
+
+module.exports = { getUsers, registerUser, loginUser, updateUserProfile, getUserProfile, getUser, updateUser, deleteUser }
