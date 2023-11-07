@@ -14,6 +14,7 @@ router.get("/profile/:id", getUserProfile)
 // admin routes: 
 router.use(verifyIsAdmin)
 router.get("/", getUsers)
+
 // to edit a single user
 router.get("/:id", getUser)
 router.put("/:id", updateUser)

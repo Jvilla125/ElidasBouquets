@@ -1,11 +1,13 @@
 const User = require("../models/UserModel")
+const Guest = require("../models/GuestModel")
 const { hashPassword, comparePasswords } = require("../utils/hashPassword")
 const generateAuthToken = require("../utils/generateAuthToken");
 
 const getUsers = async (req, res, next) => {
     try {
         const users = await User.find({}).select("-password")
-        return res.json(users)
+        const guests = await Guest.find({})
+        return res.json([users,guests])
     } catch (err) {
         next(err)
     }

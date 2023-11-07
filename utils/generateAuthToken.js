@@ -8,4 +8,12 @@ const generateAuthToken = (_id, name, lastName, email, isAdmin) => {
     );
 };
 
+// const generateGuestAuthToken = (_id, name, lastName, email, phoneNumber, date) => {
+//     return jwt.sign(
+//         { _id, name, lastName, email, phoneNumber, date},
+//         process.env.JWT_SECRET_KEY,
+//         { expiresIn: "1h" }
+//     );
+// };
+
 module.exports = generateAuthToken
