@@ -30,7 +30,7 @@ const createOrder = async (req, res, next) => {
         })
 
         await Product.find({ _id: { $in: ids } }).then((products) => {
-            products.forEach(function(product, idx) {
+            products.forEach(function (product, idx) {
                 product.sales += qty[idx];
                 product.save()
             })
@@ -51,4 +51,14 @@ const createOrder = async (req, res, next) => {
     }
 }
 
-module.exports = { getUserOrders, createOrder }
+// update to include guest orders
+const getOrders = async (req, res, next) => {
+    try{
+        const orders = await Order.find({}).populate("user", "-password");
+        res.send(orders)
+    } catch(err){
+        next(err)
+    }
+}
+
+module.exports = { getUserOrders, createOrder, getOrders }

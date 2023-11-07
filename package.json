@@ -30,7 +30,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "server-prod": "node server.js",
+    "server-dev": "npx nodemon server.js",
+    "client": "npm start --prefix ./",
+    "dev": "concurrently --kill-others-on-fail \"npm run server-dev \" \"npm run client\"",
+    "seed:data": "node seeder/seeder",
+    "seed:data-d": "node seeder/seeder -d"
   },
   "eslintConfig": {
     "extends": [
@@ -53,6 +59,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "autoprefixer": "^10.4.15",
+    "concurrently": "^7.6.0",
     "postcss": "^8.4.28",
     "tailwindcss": "^3.3.3"
   }

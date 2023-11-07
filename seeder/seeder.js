@@ -15,6 +15,7 @@ const Guest = require("../models/GuestModel")
 
 const importData = async () => {
     try {
+        
         await Category.collection.dropIndexes()
         await Product.collection.dropIndexes()
 
@@ -24,14 +25,20 @@ const importData = async () => {
         await Order.collection.deleteMany({})
         await Guest.collection.deleteMany({})
 
+    if (process.argv[2] !== "-d") {
         await Category.insertMany(categoryData)
         await Product.insertMany(productData)
         await User.insertMany(userData)
         await Order.insertMany(orderData)
         await Guest.insertMany(guestData)
         
-        console.log("Seeder data proceeded successfully")
+        console.log("Seeder data imported successfully")
         process.exit()
+        return 
+    }
+    console.log("Seeder data deleted successfully");
+    process.exit();
+
     } catch (error) {
         console.error("Error while processing seeder data", error)
     }

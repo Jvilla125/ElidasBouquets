@@ -3,7 +3,7 @@ const fileUpload = require("express-fileupload")
 const cookieParser = require("cookie-parser")
 const app = express();
 const cors = require("cors");
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 const apiRoutes = require("./routes/apiRoutes");
 
 app.use(cors());
