@@ -1,14 +1,33 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
+import { Link } from "react-router-dom";
 
-const AdminUsersPageComponent = () => {
+const AdminUsersPageComponent = ({ fetchUsers }) => {
+
+    const [users, setUsers] = useState([]);
+
+    const deleteHandler = () => {
+        if (window.confirm("Are you sure?")) alert("user deleted")
+    }
+
+    useEffect(() => {
+        const abctrl = new AbortController();
+        fetchUsers(abctrl).then(res => setUsers(res)).catch((er) =>
+            console.log(er.response.data.message ? er.response.data.message : er.response.data
+            )
+        );
+        return () => abctrl.abort();
+    }, [])
+
     return (
         <>
             <div className="grid mt-6 md:mb-10 grid-cols-1 lg:grid-cols-10">
                 <AdminLinksComponent />
                 <div className=" w-full row-start-2 col-start-4 col-span-6">
-                    <h1>Users page</h1>
+                    <h1>Users page
+
+                    </h1>
+                    {console.log(users)}
                     <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                             <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -34,48 +53,29 @@ const AdminUsersPageComponent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        1
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Doe
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        JohnDoe@gmail.com
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        300-200-1000
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        2
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Doe
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        JohnDoe@gmail.com
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        300-200-1000
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
+                                {users.map((user, idx) => (
+                                    <tr key={idx}>
+                                        <td>{idx + 1} </td>
+                                        <td>{user.name} </td>
+                                        <td>{user.lastName}</td>
+                                        <td>{user.email}</td>
+                                        <td>
+                                            {user.isAdmin ? <i className="bi bi-check-lg text-success"></i> : <i className="bi bi-x-lg text-danger"></i>}
+                                        </td>
+                                        <td>
+                                            <Link to={`/admin/edit-user/${user._id}`}>
+                                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                                                    edit
+                                                </button>
+                                            </Link>
+                                            {" / "}
+                                            <button variant="danger" className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={() => deleteHandler(user._id)}>
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+
 
                             </tbody>
                         </table>

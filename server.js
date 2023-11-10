@@ -16,21 +16,30 @@ connectDB();
 
 // middleware
 app.get('/', async (req, res, next) => {
-  res.json({message: "API running..."})
+  res.json({ message: "API running..." })
 })
 
 // all routes will be handled by apiRoutes in routes folder
 app.use('/api', apiRoutes)
 
 app.use((error, req, res, next) => {
+  // best practice to only display errors in development and not production mode
+  if (process.env.NODE_ENV === "development") {
     console.error(error);
-    next(error)
+  }
+  next(error)
 })
 app.use((error, req, res, next) => {
+  if (process.env.NODE_ENV === "development") {
     res.status(500).json({
-        message: error.message,
-        stack: error.stack
+      message: error.message,
+      stack: error.stack
     })
+  } else {
+    res.status(500).json({
+      message: error.message
+    })
+  }
 })
 
 app.listen(port, () => {

@@ -1,5 +1,6 @@
 {
   "name": "elidas-bouquets",
+  "proxy": "http://localhost:5000",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -7,6 +8,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "axios": "^0.26.1",
     "bcryptjs": "^2.4.3",
     "cookie-parser": "^1.4.6",
     "cors": "^2.8.5",
@@ -33,7 +35,7 @@
     "eject": "react-scripts eject",
     "server-prod": "node server.js",
     "server-dev": "npx nodemon server.js",
-    "client": "npm start --prefix ./",
+    "client": "npm start --prefix ",
     "dev": "concurrently --kill-others-on-fail \"npm run server-dev \" \"npm run client\"",
     "seed:data": "node seeder/seeder",
     "seed:data-d": "node seeder/seeder -d"

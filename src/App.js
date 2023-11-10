@@ -25,6 +25,7 @@ import AdminOrdersDetailsPage from './pages/admin/AdminOrdersDetailsPage';
 import AdminProductsPage from './pages/admin/AdminProductsPage';
 import AdminCreateProductPage from './pages/admin/AdminCreateProductPage';
 import AdminEditProductPage from './pages/admin/AdminEditProductPage';
+import AdminEditUserPage from "./pages/admin/AdminEditUserProfile"
 
 // Import Components
 import HeaderComponent from './components/HeaderComponent';
@@ -37,7 +38,7 @@ import ScrollToTop from './utils/ScrollToTop';
 function App() {
   return (
     <>
-    
+
       {/* Importing ScrollToTop will be included in all of the pages */}
       <ScrollToTop />
       <HeaderComponent />
@@ -56,28 +57,22 @@ function App() {
 
         {/* user protected routes */}
         {/* pass the admin prop to the ProtectedRoutesComponent */}
-        {/* <Route element={<ProtectedRoutesComponent admin={false} />}  > */}
-        <Route path="/user" element={<UserProfilePage />} />
-        <Route path="/user/order-history" element={<UserOrdersPage />} />
-        {/* </Route> */}
+        <Route element={<ProtectedRoutesComponent admin={false} />}  >
+          <Route path="/user" element={<UserProfilePage />} />
+          <Route path="/user/order-history" element={<UserOrdersPage />} />
+        </Route>
 
         {/* admin protected routes */}
         {/* pass the admin prop to the ProtectedRoutesComponent */}
-        {/* <Route element={<ProtectedRoutesComponent admin={true} />} > */}
+        <Route element={<ProtectedRoutesComponent admin={true} />} >
           <Route path="/admin/users" element={<AdminUsersPage />} />
           <Route path="/admin/orders" element={<AdminOrdersPage />} />
           <Route path="/admin/order-details" element={<AdminOrdersDetailsPage />} />
           <Route path="/admin/products" element={<AdminProductsPage />} />
           <Route path="/admin/create-new-product" element={<AdminCreateProductPage />} />
           <Route path="/admin/edit-product" element={<AdminEditProductPage />} />
-          {/* <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
-          
-          
-          
-         
-          
-          <Route path="/admin/analytics" element={<AdminAnalyticsPage />} />
-          <Route path="/admin/chats" element={<AdminChatsPage />} /> */}
+          <Route path="/admin/edit-user/:id" element={<AdminEditUserPage />} />
+        </Route>
         {/* </Route> */}
 
       </Routes>

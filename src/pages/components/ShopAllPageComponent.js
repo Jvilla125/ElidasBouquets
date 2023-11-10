@@ -8,8 +8,13 @@ import PriceFilterComponent from "../../components/filterQueryOptions/PriceFilte
 import FlowerTypeFilterComponent from "../../components/filterQueryOptions/FlowerTypeFilterComponent";
 import ColorFilterComponent from "../../components/filterQueryOptions/ColorFilterComponent";
 
+// connects frontend with backend
+import axios from "axios";
+
 
 const ShopAllPageComponent = () => {
+    axios.get("/api/products").then((res) => console.log(res))
+
     const bouquets = [
         {
             name: "bouquet1",
@@ -67,7 +72,7 @@ const ShopAllPageComponent = () => {
                         <ColorFilterComponent />
                         <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
                             Apply filters
-                        </button>
+                        </button> {" "}
                         <button className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
                             Reset
                         </button>

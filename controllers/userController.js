@@ -7,7 +7,7 @@ const getUsers = async (req, res, next) => {
     try {
         const users = await User.find({}).select("-password")
         const guests = await Guest.find({})
-        return res.json([users,guests])
+        return res.json(users)
     } catch (err) {
         next(err)
     }
