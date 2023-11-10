@@ -12,6 +12,17 @@ const getUserOrders = async (req, res, next) => {
 
 }
 
+const getOrder = async (req, res, next) => {
+    try {
+        // Getting users info from order model (reference) by getting Order's ID
+        // populate users info without password, isAdmin, id, createdAt, and updatedAt infro
+        const order = await Order.findById(req.params.id).populate("user", "-password -isAdmin -_id -__v -createdAt -updatedAt").orFail()
+        res.send(order)
+    } catch (error) {
+        next(error)
+    }
+}
+
 // TODO update create order to have guest information 
 
 const createOrder = async (req, res, next) => {
@@ -61,4 +72,4 @@ const getOrders = async (req, res, next) => {
     }
 }
 
-module.exports = { getUserOrders, createOrder, getOrders }
+module.exports = { getUserOrders, createOrder, getOrders, getOrder }

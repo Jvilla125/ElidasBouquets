@@ -1,7 +1,17 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
+import { Link } from "react-router-dom";
 
-const AdminOrdersPageComponent = () => {
+const AdminOrdersPageComponent = ({ getOrders }) => {
+    const [orders, setOrders] = useState([]);
+
+    useEffect(() => {
+        getOrders().then((orders) => setOrders(orders))
+        .catch(er => console.log(er.response.data.message ? er.response.data.message : er.response.datat))
+    }, [])
+
+    console.log(orders)
+
     return (
         <>
             <div className="grid mt-6 md:mb-10 grid-cols-1 lg:grid-cols-10">
@@ -29,91 +39,23 @@ const AdminOrdersPageComponent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        1
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $2999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-                                    </td>
-                                </tr>
-                                <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        2
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop PC
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $1999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-                                    </td>
-                                </tr>
-                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        3
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Accessories
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $99
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-                                    </td>
-                                </tr>
-                                <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        4
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Phone
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $799
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        5
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Wearables
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">View Details</a>
-                                    </td>
-                                </tr>
+                            {orders.map((order, idx) => (
+                            <tr key={idx}>
+                                <td>{idx + 1} </td>
+                                <td>
+                                    {order.user !== null ? (
+                                        <>
+                                            {order.user.name} {order.user.lastName}
+                                        </>
+                                    ) : null}
+                                </td>
+                                <td>{order.createdAt.substring(0, 10)}</td>
+                                <td>{order.orderTotal.cartSubtotal}</td>
+                                {/* TO DO: figure out order details page */}
+                                <td><Link to={`/admin/order-details/${order._id}`}> Go to order</Link></td>
+                            </tr>
+                        ))}
+                                
                             </tbody>
                         </table>
                     </div>
