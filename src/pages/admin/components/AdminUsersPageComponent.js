@@ -2,12 +2,18 @@ import React, { useState, useEffect } from "react";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
 import { Link } from "react-router-dom";
 
-const AdminUsersPageComponent = ({ fetchUsers }) => {
+const AdminUsersPageComponent = ({ fetchUsers, deleteUser }) => {
 
     const [users, setUsers] = useState([]);
+    const [userDeleted, setUserDeleted] = useState(false);
 
-    const deleteHandler = () => {
-        if (window.confirm("Are you sure?")) alert("user deleted")
+    const deleteHandler = async (userId) => {
+        if (window.confirm("Are you sure?")) {
+            const data = await deleteUser(userId)
+            if(data === "user removed"){
+                setUserDeleted(!userDeleted)
+            }
+        }
     }
 
     useEffect(() => {
@@ -17,7 +23,7 @@ const AdminUsersPageComponent = ({ fetchUsers }) => {
             )
         );
         return () => abctrl.abort();
-    }, [])
+    }, [userDeleted])
 
     return (
         <>

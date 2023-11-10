@@ -1,8 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
 
-const AdminProductsPageComponent = () => {
+const AdminProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
+
+    const [products, setProducts] = useState([])
+    const [productDelete, setProductDelete] = useState(false);
+
+    const deleteHandler = async (productId) => {
+        if (window.confirm("Are you sure?")) {
+            const data = await deleteProduct(productId)
+            if (data.message === "product removed") {
+                setProductDelete(!productDelete)
+            }
+        }
+    }
+
+    useEffect(() => {
+        const abctrl = new AbortController();
+        fetchProducts(abctrl)
+            .then((res) => setProducts(res))
+            .catch((er) =>
+                setProducts([
+                    {name: er.response.data.message ? er.response.data.message : er.response.data}
+                ])
+            );
+        return () => abctrl.abort();
+    }, [productDelete]);
+
+
     return (
         <>
             <div className="grid mt-6 md:mb-10 grid-cols-1 lg:grid-cols-10">
@@ -42,106 +68,29 @@ const AdminProductsPageComponent = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        1
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $2999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        2
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop PC
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $1999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        3
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Accessories
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $99
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr class="border-b bg-gray-50 dark:bg-gray-800 dark:border-gray-700">
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        4
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Phone
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $799
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        5
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        John
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Wearables
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $999
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <a href="#" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Delete</a>
-                                    </td>
-                                </tr>
+                                {products.map((item, idx) => (
+                                    <tr key={idx}>
+                                        <td>{idx + 1}</td>
+                                        <td>{item.name}</td>
+                                        <td>{item.price}</td>
+                                        <td>{item.category}</td>
+                                        <td>
+                                            <Link to={`/admin/edit-product/${item._id}`}>
+                                                <button className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'>
+                                                    Edit
+                                                </button>
+                                            </Link>
+                                            {" / "}
+                                            <button
+                                                variant="danger"
+                                                className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+                                            onClick={() => deleteHandler(item._id)}
+                                            >
+                                                Delete
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>
