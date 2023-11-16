@@ -5,7 +5,7 @@ import CartPageComponent from "./components/CartPageComponent";
 const CartPage = () => {
     return (
         <>
-            <CartPageComponent/>
+            <CartPageComponent item={{image: {path: "/images/BouquetOne.jpg"}, name: "product one", price: 10}}  />
         </>
     )
 };

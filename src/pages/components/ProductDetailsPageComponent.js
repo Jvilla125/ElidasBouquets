@@ -1,7 +1,19 @@
 import React, { useState } from "react";
 
+// used for calling action 
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../../redux/actions/cartActions";
+
 const ProductDetailsPageComponent = () => {
-   
+   const dispatch = useDispatch()
+
+    const addToCartHandler = () => {
+        dispatch(addToCart())
+    }
+
+    const products = useSelector((state) => state.cart.value);
+    
+
     return (
         <>
             <div className="mx-auto grid grid-cols-1 gap-2 mt-4 p-8 sm:grid-cols-4 bg-gray-100 w-10/12 border border-black rounded-xl">
@@ -57,7 +69,9 @@ const ProductDetailsPageComponent = () => {
                     </div> */}
 
                     {/* Quantity selector section */}
-                    <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded-lg w-11/12 sm:w-10/12">
+                    <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded-lg w-11/12 sm:w-10/12"
+                    onClick={addToCartHandler}
+                    >
                         Add to Cart
                     </button>
                     <div className="pt-4">

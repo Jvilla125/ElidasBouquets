@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 //need to fetch id from url request (App.js file)
 import { useParams } from "react-router-dom";
-import CartItemComponent from "../../components/CartPageComponent"
+import CartItemComponent from "../../../components/CartItemComponent";
 
 const AdminOrdersDetailsPageComponent = ({ getOrder }) => {
 
