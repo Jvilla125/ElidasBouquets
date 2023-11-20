@@ -56,20 +56,23 @@ const registerUser = async (req, res, next) => {
 
 const loginUser = async (req, res, next) => {
     try {
-        const { email, password, doNotLogout } = req.body
+        const { email, password, doNotLogout } = req.body;
         if (!(email && password)) {
-            return res.status(400).send("All inputs are required")
+            return res.status(400).send("All inputs are required");
         }
-        const user = await User.findOne({ email })
+
+        const user = await User.findOne({ email }).orFail();
         if (user && comparePasswords(password, user.password)) {
             let cookieParams = {
                 httpOnly: true,
                 secure: process.env.NODE_ENV === "production",
-                sameSite: "strict"
-            }
+                sameSite: "strict",
+            };
+
             if (doNotLogout) {
-                cookieParams = { ...cookieParams, maxAge: 1000 * 60 * 60 * 24 * 7 } // gives 7days, 1000 = 1ms
+                cookieParams = { ...cookieParams, maxAge: 1000 * 60 * 60 * 24 * 7 }; // 1000=1ms
             }
+
             return res.cookie(
                 "access_token",
                 generateAuthToken(
@@ -80,24 +83,25 @@ const loginUser = async (req, res, next) => {
                     user.isAdmin
                 ),
                 cookieParams
-            ).json({
-                success: "user logged in",
-                userLoggedIn: {
-                    _id: user._id,
-                    name: user.name,
-                    lastName: user.lastName,
-                    email: user.email,
-                    isAdmin: user.isAdmin,
-                    doNotLogout,
-                },
-            })
+            )
+                .json({
+                    success: "user logged in",
+                    userLoggedIn: {
+                        _id: user._id,
+                        name: user.name,
+                        lastName: user.lastName,
+                        email: user.email,
+                        isAdmin: user.isAdmin,
+                        doNotLogout,
+                    },
+                });
         } else {
-            return res.status(401).send("wrong credentials")
+            return res.status(401).send("wrong credentials");
         }
-    } catch (err) {
-        next(err)
+    } catch (error) {
+        next(error);
     }
-}
+};
 
 const updateUserProfile = async (req, res, next) => {
     try {
