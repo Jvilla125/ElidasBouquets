@@ -3,11 +3,13 @@ import React, { useState, useEffect } from "react";
 //need to fetch id from url request (App.js file)
 import { useParams } from "react-router-dom";
 import CartItemComponent from "../../../components/CartItemComponent";
+import {logout} from "../../../redux/actions/userActions"
+import { useDispatch } from "react-redux";
 
 const AdminOrdersDetailsPageComponent = ({ getOrder }) => {
 
     const { id } = useParams();
-
+    const dispatch = useDispatch()
     const [userInfo, setUserInfo] = useState([])
     const [cartSubtotal, setCartSubtotal] = useState(0)
     const [cartItems, setCartItems] = useState([])
@@ -19,7 +21,7 @@ const AdminOrdersDetailsPageComponent = ({ getOrder }) => {
                 setCartSubtotal(order.orderTotal.cartSubtotal)
                 setCartItems(order.cartItems)
             })
-            .catch(er => console.log(er.response.data.message ? er.response.data.message : er.response.data))
+            .catch((er) => dispatch(logout()))
     }, [id])
 
     return (

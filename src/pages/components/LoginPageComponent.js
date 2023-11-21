@@ -23,15 +23,15 @@ const LoginPageComponent = ({ loginUserApiRequest, reduxDispatch, setReduxUserSt
         if (event.currentTarget.checkValidity() === true && email && password) {
             loginUserApiRequest(email, password, doNotLogout)
                 .then((res) => {
-                    setLoginUserResponseState({success: res.success, error: ""})
+                    setLoginUserResponseState({ success: res.success, error: "" })
 
-                    if(res.userLoggedIn){
+                    if (res.userLoggedIn) {
                         reduxDispatch(setReduxUserState(res.userLoggedIn))
                     }
 
-                    if (res.success === "user logged in" && !res.userLoggedIn.isAdmin) 
-                    navigate('/', {replace: true})
-                    else navigate("/admin/orders", {replace: true})
+                    if (res.success === "user logged in" && !res.userLoggedIn.isAdmin)
+                        window.location.href = "/user"
+                    else window.location.href = "/admin/orders"
                 })
                 .catch((er) =>
                     setLoginUserResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data })
@@ -87,7 +87,7 @@ const LoginPageComponent = ({ loginUserApiRequest, reduxDispatch, setReduxUserSt
                             <div className="flex justify-center items-center">
                                 <button type="submit" className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >
                                     Log In
-                                    
+
                                 </button>
 
                             </div>

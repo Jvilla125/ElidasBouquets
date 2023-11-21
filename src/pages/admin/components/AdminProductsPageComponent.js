@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
+import { logout } from "../../../redux/actions/userActions"
+import { useDispatch } from "react-redux";
 
 const AdminProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
 
     const [products, setProducts] = useState([])
     const [productDelete, setProductDelete] = useState(false);
+    const dispatch = useDispatch();
 
     const deleteHandler = async (productId) => {
         if (window.confirm("Are you sure?")) {
@@ -21,9 +24,7 @@ const AdminProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
         fetchProducts(abctrl)
             .then((res) => setProducts(res))
             .catch((er) =>
-                setProducts([
-                    {name: er.response.data.message ? er.response.data.message : er.response.data}
-                ])
+                dispatch(logout())
             );
         return () => abctrl.abort();
     }, [productDelete]);
@@ -84,7 +85,7 @@ const AdminProductsPageComponent = ({ fetchProducts, deleteProduct }) => {
                                             <button
                                                 variant="danger"
                                                 className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-                                            onClick={() => deleteHandler(item._id)}
+                                                onClick={() => deleteHandler(item._id)}
                                             >
                                                 Delete
                                             </button>

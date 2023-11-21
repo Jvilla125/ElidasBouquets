@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import AdminLinksComponent from "../../../components/admin/AdminLinksComponent";
 import { Link } from "react-router-dom";
+import { logout } from "../../../redux/actions/userActions"
+import { useDispatch } from "react-redux";
 
 const AdminUsersPageComponent = ({ fetchUsers, deleteUser }) => {
 
     const [users, setUsers] = useState([]);
     const [userDeleted, setUserDeleted] = useState(false);
-
+    const dispatch = useDispatch();
     const deleteHandler = async (userId) => {
         if (window.confirm("Are you sure?")) {
             const data = await deleteUser(userId)
@@ -19,8 +21,8 @@ const AdminUsersPageComponent = ({ fetchUsers, deleteUser }) => {
     useEffect(() => {
         const abctrl = new AbortController();
         fetchUsers(abctrl).then(res => setUsers(res)).catch((er) =>
-            console.log(er.response.data.message ? er.response.data.message : er.response.data
-            )
+        dispatch(logout())
+            
         );
         return () => abctrl.abort();
     }, [userDeleted])

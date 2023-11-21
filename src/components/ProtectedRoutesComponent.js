@@ -1,29 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 
+import axios from "axios";
+import LoginPage from "../pages/LoginPage";
+
+
 const ProtectedRoutesComponent = ({ admin }) => {
-    let auth = false
-    if (admin) {
-        let adminAuth = true
-        if (adminAuth) auth = true
-    } else {
-        let userAuth = true
-        if (userAuth) auth = true
-    }
-    return auth ? <Outlet /> : <Navigate to="/login" />
+    const [isAuth, setIsAuth] = useState();
+
+    useEffect(() => {
+        axios.get("/api/get-token").then(function (data) {
+            if(data.data.token) {
+                setIsAuth(data.data.token);
+            }
+            return isAuth;
+        })
+    }, [isAuth])
+
+    if (isAuth === undefined) return <LoginPage />
+
+    return isAuth && admin && isAuth !== "admin" ? (
+        <Navigate to="/login" />
+    ) : isAuth && admin ? (
+        <Outlet />
+    ) : isAuth && !admin ? (
+        <>
+            <Outlet />
+        </>
+    ) : (
+        <Navigate to="/login" />
+    )
 
 }
 
 export default ProtectedRoutesComponent;
-
-// return
-// if (admin) {
-//     // Line 57 in app.js, admin is false => return to login page
-//     // Line 68 in app.js admin is true => Outlet gives admin access to each route path
-//     let adminAuth = true;
-//     return adminAuth ? <Outlet /> : <Navigate to="/login" />
-// } else {
-//     // Line 
-//     let userAuth = true;
-//     return userAuth ? <> <Outlet /> </> : <Navigate to="/login" />
-// }

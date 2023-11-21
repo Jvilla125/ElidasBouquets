@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import HeaderNavComponent from "./HeaderNavComponent";
-
+import { logout } from "../redux/actions/userActions";
+import { useDispatch } from "react-redux";
 
 const HeaderComponent = () => {
     const [isNavOpen, setIsNavOpen] = useState(false);
 
+    const dispatch = useDispatch();
     return (
         <>
             <header>
@@ -31,7 +33,7 @@ const HeaderComponent = () => {
                                 <ul className="dropdown-menu absolute grid grid-cols-2 gap-4 hidden text-gray-700 pt-1 z-20">
                                     <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">My orders</a></li>
                                     <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">My Profile</a></li>
-                                    <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" href="#">Logout</a></li>
+                                    <li className=""><a className="rounded-t bg-gray-200 hover:bg-gray-400 py-2 px-4 block whitespace-no-wrap" onClick={() => dispatch(logout())}>Logout</a></li>
                                 </ul>
                             </div>
                                 <Link to="/register" className=" mr-4  uppercase "  >
