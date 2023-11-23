@@ -31,15 +31,14 @@ const registerUser = async (req, res, next) => {
                 email: email.toLowerCase(),
                 password: hashedPassword
             });
-            res
-                .cookie("access_token", generateAuthToken(user._id, user.name, user.lastName, user.email, user.isAdmin), {
+            res.cookie("access_token", generateAuthToken(user._id, user.name, user.lastName, user.email, user.isAdmin), {
                     httpOnly: true,
                     secure: process.env.NODE_ENV === "production",
                     sameSite: "strict"
                 })
                 .status(201)
                 .json({
-                    succes: "User created",
+                    success: "User created",
                     userCreated: {
                         _id: user._id,
                         name: user.name,
@@ -49,8 +48,8 @@ const registerUser = async (req, res, next) => {
                     },
                 })
         }
-    } catch (err) {
-        next(err)
+    } catch (error) {
+        next(error)
     }
 }
 

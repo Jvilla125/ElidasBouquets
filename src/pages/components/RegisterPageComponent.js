@@ -1,25 +1,55 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-const RegisterPageComponent = () => {
+const RegisterPageComponent = ({ registerUserApiRequest, reduxDispatch, setReduxUserState }) => {
 
     const [validated, setValidated] = useState(false);
+    const [registerUserResponseState, setRegisterUserResponseState] = useState({
+        success: "", error: ""
+    })
+    const [passwordsMatchState, setPasswordsMatchState] = useState(true)
 
     const onChange = () => {
         const password = document.querySelector("input[name=password]")
-        const confirm = document.querySelector("input[name=confirmPassword]")
-        if (confirm.value === password.value) {
-            confirm.setCustomValidity("")
+        const confirmPassword = document.querySelector("input[name=confirmPassword]")
+        if (confirmPassword.value === password.value) {
+            setPasswordsMatchState(true)
         } else {
-            confirm.setCustomValidity("Passwords do not match")
+            setPasswordsMatchState(false)
         }
     }
 
     const handleSubmit = (event) => {
-        const form = event.currentTarget;
-        if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+        event.preventDefault();
+        event.stopPropagation();
+        const form = event.currentTarget.elements;
+        const email = form.email.value;
+        const name = form.name.value;
+        const lastName = form.lastName.value;
+        const password = form.password.value;
+        if (
+            event.currentTarget.checkValidity() === true &&
+            email &&
+            password &&
+            name &&
+            lastName &&
+            form.password.value === form.confirmPassword.value
+        ) {
+            registerUserApiRequest(name, lastName, email, password)
+                .then((data) => {
+                    setRegisterUserResponseState({
+                        success: data.success,
+                    
+                    });
+                    reduxDispatch(setReduxUserState(data.userCreated));
+                })
+                .catch((er) =>
+                    setRegisterUserResponseState({
+                        error: er.response.data.message
+                            ? er.response.data.message
+                            : er.response.data,
+                    })
+                );
         }
 
         setValidated(true);
@@ -29,19 +59,20 @@ const RegisterPageComponent = () => {
             <div className="grid h-screen place-items-center">
                 <div className="bg-white w-full md:w-1/3  shadow-md rounded px-8 pt-6 pb-8 border-2 border-black bg-fuchsia-400">
                     <h1 className="text-center text-2xl">Create An Account</h1> <br />
-                    <form noValidate validated={validated} onSubmit={handleSubmit}>
+                    <form noValidate validated={validated} onSubmit={handleSubmit} >
                         <div class="grid md:grid-cols-2 md:gap-6">
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2 text-xl"
-                                    for="firstName">
+                                    for="name">
                                     First Name
                                 </label>
                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
-                                    id="firstName"
+                                    id="name"
                                     type="text"
                                     placeholder="First Name"
-                                    name="name" />
+                                    name="name"
+                                />
                             </div>
                             <div className="mb-4">
                                 <label className="block text-gray-700 text-sm font-bold mb-2 text-xl"
@@ -51,9 +82,9 @@ const RegisterPageComponent = () => {
                                 <input className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                                     required
                                     id="lastName"
+                                    name="lastName"
                                     type="text"
                                     placeholder="Last Name"
-                                    name="lastname"
                                 />
                             </div>
                         </div>
@@ -82,7 +113,9 @@ const RegisterPageComponent = () => {
                                         type="password"
                                         placeholder="Password"
                                         onChange={onChange}
+                                        isInvalid={!passwordsMatchState}
                                     />
+
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2 text-xl"
@@ -94,11 +127,13 @@ const RegisterPageComponent = () => {
                                         name="confirmPassword"
                                         type="password"
                                         placeholder="Confirm Password"
-                                        onChange={onChange} />
+                                        onChange={onChange}
+                                        isInvalid={!passwordsMatchState}
+                                    />
                                 </div>
                             </div>
                             <div className="flex justify-center items-center">
-                                <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
+                                <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
                                     Register
                                 </button>
                             </div>
@@ -112,8 +147,8 @@ const RegisterPageComponent = () => {
                                 </button>
                             </Link>
                         </div>
-                        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                            User with that email already exists!
+                        <div className={`bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative ${registerUserResponseState && registerUserResponseState.error === "user exists" ? 'block' : 'hidden'}`} role="alert">
+                            <strong className="font-bold">User with that email already exists!</strong>
                         </div>
                     </form>
                 </div>
