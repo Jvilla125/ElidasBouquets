@@ -9,12 +9,14 @@ import SocialMediaBannerComponent from "../components/SocialMediaBannerComponent
 const HomePage = () => {
     return (
         <>
-            <div className="background-container pb-4">
-                <CustomBouquetsComponent />
-                {/* <HomeBannerComponent /> */}
-                <BrowseBouquets />
-                <ShopbyOccassionComponent />
-                {/* <SocialMediaBannerComponent/> */}
+            <div className="bg-slate-950 pb-4">
+                <div className="w-10/12 mx-auto bg-gray-300">
+                    <CustomBouquetsComponent />
+                    {/* <HomeBannerComponent /> */}
+                    <BrowseBouquets />
+                    <ShopbyOccassionComponent />
+                    {/* <SocialMediaBannerComponent/> */}
+                </div>
             </div>
         </>
 
@@ -22,3 +24,5 @@ const HomePage = () => {
 }
 
 export default HomePage;
+
+// <div className="background-container pb-4">

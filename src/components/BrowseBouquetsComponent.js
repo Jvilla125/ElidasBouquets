@@ -25,35 +25,34 @@ const BrowseBouquets = () => {
 
     return (
         <>
-            <div className="flex flex-col w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900 ">
-                <div className="flex flex-row justify-center items-center items-end ">
-                    <h1 className="font-semibold text-4xl ml-4 mr-4 ">
+            <div className="flex flex-col w-11/12 mx-auto bg-slate-300 bg-opacity-50  ">
+                <div className="pb-2">
+                    <h1 className="font-semibold sm:text-4xl text-2xl ">
                         Browse All Bouquets
                     </h1>
+                    <Link className="underline sm:text-xl text-xl" to="/shopAll">
+                        Shop All Bouquets -
+                    </Link>
+
                 </div>
-                <div className="flex flex-row flex-wrap justify-center items-center space-x-2">
+                <div className="flex flex-wrap justify-between items-center grid sm:grid-cols-2 lg:grid-cols-4  ">
                     {bouquets.map((item, idx) => (
-                        <div key={idx} className="w-full max-w-xs sm:w-1/2 md:w-1/4 lg:w-1/4 xl:w-1/4 p-2">
+                        <div key={idx} className="w-full ">
                             <a href="#">
-                                <img className=" rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
+                                <img src="/images/BouquetOne.jpg" alt="product image" className="sm:w-full w-1/2" />
                             </a>
-                            <div className=" pb-5 flex flex-col ml-4">
-                            <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
+                            <div className="pb-5 flex flex-col ">
+                                <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
                                 <a href="#">
-                                    <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
+                                    <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                                 </a>
-                                
                                 <a href="#">Buy Now -</a>
                             </div>
                         </div>
                     ))}
                 </div>
                 <div className="flex flex-row justify-around items-center mb-6">
-                    <Link to="/shopAll">
-                        <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                            Shop All Bouquets -
-                        </button>
-                    </Link>
+
                 </div>
             </div>
 
