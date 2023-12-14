@@ -39,7 +39,7 @@ const CustomBouquetsComponent = () => {
     return (
         <>
             <div className="flex-grow border-t border-gray-900 pt-5"></div>
-            <div className="containerimg flex flex-col w-11/12 sm:w-11/12 mx-auto bg-slate-300 bg-opacity-50 border border-gray-900 rounded-lg dark:bg-gray-200 dark:border-gray-900  ">
+            <div className="containerimg flex flex-col w-11/12 sm:w-full mx-auto ">
                 <img src="/images/custom.avif" className="object-cover sm:h-96" alt="banner" />
                 <div className="centered text-white sm:text-7xl text-5xl"> Elida's Bouquets are customizable!</div>
             </div>

@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import ShopAllBreadCrumbComponent from "../../components/ShopAllBreadCrumbComponent";
 import PaginationComponent from "../../components/PaginationComponent";
 
 import PriceFilterComponent from "../../components/filterQueryOptions/PriceFilterComponent";
@@ -13,7 +12,7 @@ import axios from "axios";
 
 
 const ShopAllPageComponent = () => {
-    axios.get("/api/products").then((res) => console.log(res))
+    // axios.get("/api/products").then((res) => console.log(res))
 
     const bouquets = [
         {
@@ -40,18 +39,15 @@ const ShopAllPageComponent = () => {
 
     return (
         <>
-            <div className="mx-auto w-11/12 grid grid-cols-3 bg-gray-400">
-                <div className="text-lg font-bold text-center rounded-lg col-span-3">
-                    <ShopAllBreadCrumbComponent />
-                </div>
-                <div className="col-span-3 lg:col-start-2 md:w-10/12 justify-center text-lg font-bold  rounded-lg">
-                    <ul className="flex flex-col sm:flex-row items-center justify-between">
-                        <li><h1 className="text-4xl">Shop All</h1></li>
+            <div className="mx-auto w-11/12 grid grid-cols-3 ">
+                <div className="col-span-3 col-start-1 sm:w-full w-11/12 justify-center text-lg font-bold  rounded-lg">
+                    <ul className="flex  sm:flex-row items-center justify-between">
+                        <li><h1 className="sm:text-4xl text-xl  ">Shop All</h1></li>
                         <li>
                             <div className="flex flex-row">
                                 <h1 className="m-2">Sort</h1>
                                 <div>
-                                    <select className="bg-pink-300 rounded-lg">
+                                    <select className="bg-pink-300 rounded-lg ">
                                         <option>SORT BY</option>
                                         <option value="price_1">Price: Low to High</option>
                                         <option value="price_-1">Price: High to Low</option>
@@ -62,10 +58,10 @@ const ShopAllPageComponent = () => {
                             </div>
                         </li>
                     </ul>
-                    <hr className="h-px my-8 bg-gray-900 border-0" />
+                    <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
-                <div className="text-lg font-bold w-11/12 rounded-lg col-span-3 flex flex-col sm:flex-row items-start">
-                    <div className="bg-blue-200 p-6 sm:p-4 sm:w-11/12 w-full flex flex-col sm:items-start items-center ">
+                <div className="text-lg font-bold w-11/12 rounded-lg col-span-4 flex flex-col sm:flex-row space-x-2">
+                    <div className="bg-blue-200 p-6 sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center ">
                         <h1 className="text-2xl"><u>Shopping Options</u></h1>
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
@@ -78,14 +74,14 @@ const ShopAllPageComponent = () => {
                         </button>
                     </div>
                     {/* Start of Cards */}
-                    <div className="grid md:mb-10 md:grid-cols-2 lg:grid-cols-3 pl-10 sm:ml-0 md:ml-24 lg:ml-2 md:gap-6 lg:gap-8">
+                    <div className="flex flex-wrap justify-between grid sm:grid-cols-3 grid-cols-2">
                         {bouquets.map((item, idx) => (
                             <Link to="/product-details" key={idx}>
-                                <div className="w-full rounded-xl bg-pink-200 border-2 border-black">
-                                    <img className="rounded-xl" src="/images/BouquetOne.jpg" alt="product image" />
-                                    <div className="px-5 pb-5 flex flex-col items-center">
-                                        <h5 className="text-xl font-semibold tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
-                                        <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
+                                <div className="w-full ">
+                                    <img className=" sm:w-10/12 w-11/12" src="/images/BouquetOne.jpg" alt="product image" />
+                                    <div className="flex flex-col ">
+                                        <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
+                                        <span className="text-xl text-gray-900 dark:text-white">{item.price}</span>
                                         Buy Now -
                                     </div>
                                 </div>
