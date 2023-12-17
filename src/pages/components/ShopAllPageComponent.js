@@ -6,7 +6,6 @@ import PaginationComponent from "../../components/PaginationComponent";
 import PriceFilterComponent from "../../components/filterQueryOptions/PriceFilterComponent";
 import FlowerTypeFilterComponent from "../../components/filterQueryOptions/FlowerTypeFilterComponent";
 import ColorFilterComponent from "../../components/filterQueryOptions/ColorFilterComponent";
-
 // connects frontend with backend
 import axios from "axios";
 
@@ -39,9 +38,9 @@ const ShopAllPageComponent = () => {
 
     return (
         <>
-            <div className="mx-auto w-11/12 grid grid-cols-3 ">
-                <div className="col-span-3 col-start-1 sm:w-full w-11/12 justify-center text-lg font-bold  rounded-lg">
-                    <ul className="flex  sm:flex-row items-center justify-between">
+            <div className="mx-auto w-11/12 grid grid-cols-4">
+                <div className="col-span-4 col-start-1 sm:w-full w-11/12 justify-center text-lg font-bold rounded-lg">
+                    <ul className="flex sm:flex-row items-center justify-between">
                         <li><h1 className="sm:text-4xl text-xl  ">Shop All</h1></li>
                         <li>
                             <div className="flex flex-row">
@@ -60,21 +59,25 @@ const ShopAllPageComponent = () => {
                     </ul>
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
-                <div className="text-lg font-bold w-11/12 rounded-lg col-span-4 flex flex-col sm:flex-row space-x-2">
-                    <div className="bg-blue-200 p-6 sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center ">
-                        <h1 className="text-2xl"><u>Shopping Options</u></h1>
+                
+                <div className="text-lg font-bold w-full col-span-6 flex flex-col sm:flex-row space-x-4">
+                    <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
+                        <h1 className="text-2xl">Filter By</h1>
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
                         <ColorFilterComponent />
-                        <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-                            Apply filters
-                        </button> {" "}
-                        <button className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-                            Reset
-                        </button>
+                        <br/>
+                        <div class="inline-flex space-x-2">
+                            <button class="bg-blue-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                                <h3>Apply</h3>
+                            </button> {" "}
+                            <button className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                                Reset
+                            </button>
+                        </div>
                     </div>
                     {/* Start of Cards */}
-                    <div className="flex flex-wrap justify-between grid sm:grid-cols-3 grid-cols-2">
+                    <div className="bg-blue-200 grid sm:grid-cols-3 grid-cols-2">
                         {bouquets.map((item, idx) => (
                             <Link to="/product-details" key={idx}>
                                 <div className="w-full ">
