@@ -4,9 +4,11 @@ import UserProfilePageComponent from "./components/UserProfilePageComponent";
 
 const UserProfilePage = () => {
     return (
-        
-            <UserProfilePageComponent />
-        
+        <div className="bg-slate-600 ">
+            <div className="w-10/12 mx-auto bg-gray-300">
+                <UserProfilePageComponent />
+            </div>
+        </div>
     )
 }
 

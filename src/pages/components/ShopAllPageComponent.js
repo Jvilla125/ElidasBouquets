@@ -61,6 +61,7 @@ const ShopAllPageComponent = () => {
                 </div>
                 
                 <div className="text-lg font-bold w-full col-span-6 flex flex-col sm:flex-row space-x-4">
+                    {/* Start of Filters */}
                     <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
                         <h1 className="text-2xl">Filter By</h1>
                         <PriceFilterComponent />

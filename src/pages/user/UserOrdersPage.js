@@ -3,9 +3,13 @@ import UserOrdersPageComponent from "./components/UserOrdersPageComponent";
 
 const UserOrdersPage = () => {
     return (
-        <>
-            <UserOrdersPageComponent />
-        </>
+
+        <div className="bg-slate-600 ">
+            <div className="w-10/12 mx-auto bg-gray-300">
+                <UserOrdersPageComponent />
+            </div>
+        </div>
+
     )
 }
 

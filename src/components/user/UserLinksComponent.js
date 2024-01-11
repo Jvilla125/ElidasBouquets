@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 const UserLinksComponent = () => {
     return (
         <>
-            <div class=" row-start-2  col-span-2 col-start-2 w-48 text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white">
+            <div className="w-full text-gray-900 bg-white border border-gray-200 rounded-lg dark:bg-gray-700 dark:border-gray-600 dark:text-white h-fit ">
                 <h1 className=" bg-gray-200 text-center text-2xl p-2 border border-gray-200 dark:bg-gray-700 dark:border-gray-600 dark:text-white">User's Info</h1>
                 <Link to="/user">
                     <button type="button" class="relative inline-flex items-center w-full px-4 py-2 text-sm font-medium border-b border-gray-200 rounded-t-lg hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-2 focus:ring-blue-700 focus:text-blue-700 dark:border-gray-600 dark:hover:bg-gray-600 dark:hover:text-white dark:focus:ring-gray-500 dark:focus:text-white">
