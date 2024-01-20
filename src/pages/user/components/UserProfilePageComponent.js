@@ -1,14 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import UserLinksComponent from "../../../components/user/UserLinksComponent";
 
-const UserProfilePageComponent = ({ updateUserApiRequest }) => {
+const UserProfilePageComponent = ({ updateUserApiRequest, fetchUser, userInfo }) => {
     const [validated, setValidated] = useState(false)
     const [updateUserResponseState, setUpdateUserResponseState] = useState({
         success: "", error: ""
     })
     const [passwordsMatchState, setPasswordsMatchState] = useState(true)
+    const [user, setUser] = useState({})
 
+    useEffect(() => {
+        fetchUser(userInfo._id)
+        .then((data) => setUser(data))
+        .catch((er) => console.log(er))
+    }, [userInfo._id])
 
     const onChange = () => {
         const password = document.querySelector("input[name=password]");
@@ -34,6 +40,8 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
         }
         setValidated(true)
     }
+
+
 
     return (
         <>
@@ -67,7 +75,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                                                 required
                                                 type="text"
                                                 name="name"
-                                                placehonlder="First Name" />
+                                                placeholder={user.name} />
                                         </div>
                                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                             <label className="text-sm font-medium text-gray-500"
@@ -79,7 +87,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                                                 required
                                                 type="text"
                                                 name="lastName"
-                                                placeholder="Last Name" />
+                                                placeholder={user.lastName} />
                                         </div>
                                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
 
@@ -101,7 +109,7 @@ const UserProfilePageComponent = ({ updateUserApiRequest }) => {
                                                 disabled
                                                 id="email"
                                                 type="email"
-                                                placeholder="Email Address " />
+                                                placeholder={user.email} />
                                         </div>
                                         <div className="grid md:grid-cols-2 md:gap-6 mt-4 p-2  ">
                                             <div className="mb-4">
