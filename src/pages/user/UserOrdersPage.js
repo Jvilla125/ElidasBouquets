@@ -5,7 +5,7 @@ const UserOrdersPage = () => {
     return (
 
         <div className="bg-slate-600 ">
-            <div className="w-10/12 mx-auto bg-gray-300">
+            <div className="w-10/12 mx-auto bg-gray-300 h-screen">
                 <UserOrdersPageComponent />
             </div>
         </div>

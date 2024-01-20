@@ -33,7 +33,7 @@ const UserProfilePageComponent = () => {
                                             <input className="text-sm text-gray-900 w-full leading-tight rounded"
                                                 id="firstName"
                                                 type="text"
-                                                placeholder="First Name" />
+                                                placehonlder="First Name" />
                                         </div>
                                         <div className="py-3 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
                                             <label className="text-sm font-medium text-gray-500"
