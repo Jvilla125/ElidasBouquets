@@ -39,7 +39,7 @@ const RegisterPageComponent = ({ registerUserApiRequest, reduxDispatch, setRedux
                 .then((data) => {
                     setRegisterUserResponseState({
                         success: data.success,
-                    
+
                     });
                     reduxDispatch(setReduxUserState(data.userCreated));
                 })
@@ -115,7 +115,9 @@ const RegisterPageComponent = ({ registerUserApiRequest, reduxDispatch, setRedux
                                         onChange={onChange}
                                         isInvalid={!passwordsMatchState}
                                     />
-
+                                    <span type="invalid" className={`flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 ${passwordsMatchState === false ? 'block' : 'hidden'}`}>
+                                        Invalid password field !
+                                    </span>
                                 </div>
                                 <div className="mb-4">
                                     <label className="block text-gray-700 text-sm font-bold mb-2 text-xl"
@@ -131,6 +133,9 @@ const RegisterPageComponent = ({ registerUserApiRequest, reduxDispatch, setRedux
                                         isInvalid={!passwordsMatchState}
                                     />
                                 </div>
+                                <span type="invalid" className={`flex items-center font-medium tracking-wide text-red-500 text-xs mt-1 ml-1 ${passwordsMatchState === false ? 'block' : 'hidden'}`}>
+                                                    Both passwords should match
+                                                </span>
                             </div>
                             <div className="flex justify-center items-center">
                                 <button className="bg-fuchsia-600 hover:bg-fuchsia-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
