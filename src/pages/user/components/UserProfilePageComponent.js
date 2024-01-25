@@ -2,18 +2,19 @@ import React, { useState, useEffect } from "react";
 
 import UserLinksComponent from "../../../components/user/UserLinksComponent";
 
-const UserProfilePageComponent = ({ updateUserApiRequest, fetchUser, userInfo }) => {
+const UserProfilePageComponent = ({ updateUserApiRequest, fetchUser, userInfoFromRedux, setReduxUserState, reduxDispatch, localStorage, windowStorage }) => {
     const [validated, setValidated] = useState(false)
     const [updateUserResponseState, setUpdateUserResponseState] = useState({
         success: "", error: ""
     })
     const [passwordsMatchState, setPasswordsMatchState] = useState(true)
     const [user, setUser] = useState({})
+    const userInfo = userInfoFromRedux
 
     useEffect(() => {
         fetchUser(userInfo._id)
-        .then((data) => setUser(data))
-        .catch((er) => console.log(er))
+            .then((data) => setUser(data))
+            .catch((er) => console.log(er))
     }, [userInfo._id])
 
     const onChange = () => {
@@ -35,7 +36,10 @@ const UserProfilePageComponent = ({ updateUserApiRequest, fetchUser, userInfo })
         const password = form.password.value
         if (event.currentTarget.checkValidity() === true && form.password.value === form.confirmPassword.value) {
             updateUserApiRequest(name, lastName, password).then(data => {
-                setUpdateUserResponseState({ success: data.success, error: "" })
+                setUpdateUserResponseState({ success: data.success, error: "" });
+                reduxDispatch(setReduxUserState({ doNotLogout: userInfo.doNotLogout, ...data.userUpdated }))
+                if (userInfo.doNotLogout) localStorage.setItem("userInfo", JSON.stringify({doNotLogout: true, ...data.userUpdated}))
+                else sessionStorage.setItem("userInfo", JSON.stringify({doNotLogout: false, ...data.userUpdated}))
             }).catch((er) => setUpdateUserResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data }))
         }
         setValidated(true)

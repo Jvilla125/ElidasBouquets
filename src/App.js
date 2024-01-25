@@ -34,6 +34,7 @@ import ProtectedRoutesComponent from './components/ProtectedRoutesComponent';
 
 // Util
 import ScrollToTop from './utils/ScrollToTop';
+import ProductDetailsPageComponent from './pages/components/ProductDetailsPageComponent';
 
 function App() {
   return (
@@ -53,6 +54,7 @@ function App() {
         <Route path="/refund-policy" element={<RefundPolicyPage />} />
         <Route path="/termsofservice" element={<TermsOfServicePage />} />
         <Route path="/product-details" element={<ProductDetailsPage />} />
+        <Route path="/product-details/:id" element={<ProductDetailsPageComponent />} />
         <Route path="*" element="Page not exists 404" />
 
         {/* user protected routes */}

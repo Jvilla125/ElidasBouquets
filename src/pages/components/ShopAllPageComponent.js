@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import PaginationComponent from "../../components/PaginationComponent";
@@ -6,35 +6,17 @@ import PaginationComponent from "../../components/PaginationComponent";
 import PriceFilterComponent from "../../components/filterQueryOptions/PriceFilterComponent";
 import FlowerTypeFilterComponent from "../../components/filterQueryOptions/FlowerTypeFilterComponent";
 import ColorFilterComponent from "../../components/filterQueryOptions/ColorFilterComponent";
-// connects frontend with backend
-import axios from "axios";
+import ProductDetailsPageComponent from "./ProductDetailsPageComponent";
 
+const ShopAllPageComponent = ({ getProducts }) => {
 
-const ShopAllPageComponent = () => {
-    // axios.get("/api/products").then((res) => console.log(res))
+    const [products, setProducts] = useState([])
 
-    const bouquets = [
-        {
-            name: "bouquet1",
-            price: "$59",
-        },
-        {
-            name: "bouquet2",
-            price: "$59"
-        },
-        {
-            name: "bouquet3",
-            price: "$59"
-        },
-        {
-            name: "bouquet4",
-            price: "$59"
-        },
-        {
-            name: "bouquet4",
-            price: "$59"
-        }
-    ]
+    useEffect(() => {
+        getProducts().then(products => setProducts(products.products))
+        .catch((er) => console.log(er))
+    }, [])
+
 
     return (
         <>
@@ -59,7 +41,7 @@ const ShopAllPageComponent = () => {
                     </ul>
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
-                
+
                 <div className="text-lg font-bold w-full col-span-6 flex flex-col sm:flex-row space-x-4">
                     {/* Start of Filters */}
                     <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
@@ -67,7 +49,7 @@ const ShopAllPageComponent = () => {
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
                         <ColorFilterComponent />
-                        <br/>
+                        <br />
                         <div class="inline-flex space-x-2">
                             <button class="bg-blue-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
                                 <h3>Apply</h3>
@@ -79,13 +61,14 @@ const ShopAllPageComponent = () => {
                     </div>
                     {/* Start of Cards */}
                     <div className="bg-blue-200 grid sm:grid-cols-3 grid-cols-2">
-                        {bouquets.map((item, idx) => (
-                            <Link to="/product-details" key={idx}>
+                        {products.map((product) => (
+                            
+                            <Link to={`/product-details/${product._id}`} key={product._id}>
                                 <div className="w-full ">
-                                    <img className=" sm:w-10/12 w-11/12" src="/images/BouquetOne.jpg" alt="product image" />
+                                    <img className=" sm:w-10/12 w-11/12" src={product.images[0].path} alt="product image" />
                                     <div className="flex flex-col ">
-                                        <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
-                                        <span className="text-xl text-gray-900 dark:text-white">{item.price}</span>
+                                        <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
+                                        <span className="text-xl text-gray-900 dark:text-white">{product.price}</span>
                                         Buy Now -
                                     </div>
                                 </div>
