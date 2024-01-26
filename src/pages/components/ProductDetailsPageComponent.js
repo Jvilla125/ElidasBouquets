@@ -1,18 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-// used for calling action 
-import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../../redux/actions/cartActions";
+import { useParams } from "react-router-dom";
 
-const ProductDetailsPageComponent = () => {
-   const dispatch = useDispatch()
+
+const ProductDetailsPageComponent = ({ addToCartReduxAction, reduxDispatch }) => {
+
+    const { id } = useParams()
+    const [quantity, setQuantity] = useState(1)
 
     const addToCartHandler = () => {
-        dispatch(addToCart())
+        reduxDispatch(addToCartReduxAction(id, quantity))
     }
-
-    const products = useSelector((state) => state.cart.value);
-    
 
     return (
         <>
@@ -33,7 +31,7 @@ const ProductDetailsPageComponent = () => {
                     {/* Select Bouquet Size Div */}
                     <div>
                         <div className="text-3xl text-left ml-3 pb-2">
-                            <h1>"Sunset Serenade Bouquet"</h1>
+                            <h1>"Sunset Serenade Bouquet" </h1>
                             <p className="text-2xl p-2">$125</p>
                         </div>
                         <div className="p-2">
@@ -48,13 +46,16 @@ const ProductDetailsPageComponent = () => {
                         </div>
                         <div className="p-2 ">
                             <p className="mb-2">Quantity</p>
-                            <div>
-                                <input type="number" id="first_product" className="bg-gray-50 w-14 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block px-2.5 py-1 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="1" required />
-                            </div>
-
+                            <select type="number" id="first_product" value={quantity}
+                                onChange={e => setQuantity(e.target.value)}
+                                className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                <option selected>Choose Your Quantity</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                            </select>
                         </div>
-
-
                     </div>
 
                     {/* Update the following section when we have additional items to add */}
@@ -70,7 +71,7 @@ const ProductDetailsPageComponent = () => {
 
                     {/* Quantity selector section */}
                     <button className="bg-gray-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded rounded-lg w-11/12 sm:w-10/12"
-                    onClick={addToCartHandler}
+                        onClick={addToCartHandler}
                     >
                         Add to Cart
                     </button>
@@ -86,12 +87,12 @@ const ProductDetailsPageComponent = () => {
                             <li>Cheese</li>
                         </ul>
                     </div>
-                    
+
                 </div>
             </div>
             <div className=" mx-auto sm:w-10/12  grid grid-cols-1 md:grid-cols-1 lg:grid-cols-1 xl:grid-cols-1 p-4 sm:p-4 gap-4 ">
                 {/* Your grid content */}
-            
+
                 <h1 className="text-3xl underline"> Pet Safe </h1>
                 <p className="text-lg"> My Bouquets Are made with your pets in mind. I use Flowers that are consider non-toxic to cats and dogs. If you or the person you
                     are gifting flowers to has a fur baby at home, I recommend using these flower arrangements.
@@ -99,9 +100,7 @@ const ProductDetailsPageComponent = () => {
                 <p>*As with any pllpant material there could be concern for vomiting or gastrointestinal discomfort when ingested.</p>
             </div>
 
-            <div >
 
-            </div>
         </>
     )
 }
