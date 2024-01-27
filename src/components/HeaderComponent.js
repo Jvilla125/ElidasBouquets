@@ -9,6 +9,7 @@ const HeaderComponent = () => {
 
     const dispatch = useDispatch();
     const { userInfo } = useSelector((state) => state.userRegisterLogin)
+    const itemsCount = useSelector((state) => state.cart.itemsCount)
 
     return (
         <>
@@ -41,18 +42,22 @@ const HeaderComponent = () => {
                                         </ul>
                                     </div>
                                 ) : (
-                                <>
-                                    <Link to="/register" className="mr-4 uppercase "  >
-                                        Register
-                                    </Link>
-                                    <Link to="/login" className="mr-4 uppercase" >
-                                        Login
-                                    </Link>
-                                </>)}
+                                    <>
+                                        <Link to="/register" className="mr-4 uppercase "  >
+                                            Register
+                                        </Link>
+                                        <Link to="/login" className="mr-4 uppercase" >
+                                            Login
+                                        </Link>
+                                    </>)}
 
                                 <Link to="/cart" className="uppercase ">
                                     <div className="relative inline-flex items-center p-3 text-sm font-medium text-center text-white hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                        <div class="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">20</div>
+                                        {itemsCount === 0 ? "" :
+                                            <div className="absolute inline-flex items-center justify-center w-6 h-6 text-xs font-bold text-white bg-red-500 border-2 border-white rounded-full -top-2 -end-2 dark:border-gray-900">
+                                                {itemsCount}
+                                            </div>
+                                        }
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6 ">
                                             <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.674-.421 60.358 60.358 0 002.96-7.228.75.75 0 00-.525-.965A60.864 60.864 0 005.68 4.509l-.232-.867A1.875 1.875 0 003.636 2.25H2.25zM3.75 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM16.5 20.25a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" />
                                         </svg>

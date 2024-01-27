@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import AddedToCartMessageComponent from '../../components/AddedToCartMessageComponent';
 
 import { useParams } from "react-router-dom";
 
@@ -7,9 +8,12 @@ const ProductDetailsPageComponent = ({ addToCartReduxAction, reduxDispatch }) =>
 
     const { id } = useParams()
     const [quantity, setQuantity] = useState(1)
+    const [showCartMessage, setShowCartMessage] = useState(false)
+
 
     const addToCartHandler = () => {
         reduxDispatch(addToCartReduxAction(id, quantity))
+        setShowCartMessage(true)
     }
 
     return (
@@ -29,6 +33,9 @@ const ProductDetailsPageComponent = ({ addToCartReduxAction, reduxDispatch }) =>
                 </div>
                 <div className="w-11/12 col-span-2">
                     {/* Select Bouquet Size Div */}
+                    <AddedToCartMessageComponent
+                    showCartMessage={showCartMessage}
+                    setShowCartMessage={setShowCartMessage} />
                     <div>
                         <div className="text-3xl text-left ml-3 pb-2">
                             <h1>"Sunset Serenade Bouquet" </h1>
