@@ -4,6 +4,7 @@ const products = [
         description: "Amazing Bouquets!",
         itemList: ["roses", "daisies"],
         category: "Birthday",
+        count: 5,
         price: "25.99",
         attrs: [
             {key: "color", value: "red"},

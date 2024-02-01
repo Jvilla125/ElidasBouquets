@@ -22,7 +22,9 @@ const orderSchema = mongoose.Schema({
             name: { type: String, required: true },
             price: { type: Number, required: true },
             image: { path: { type: String, required: true } },
-            quantity: { type: Number, required: true }
+            quantity: { type: Number, required: true },
+            // Count is the total amount of items available in stock
+            count: { type: Number, required: true },
         }
 ],
     transactionResult: {
