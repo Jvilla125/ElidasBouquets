@@ -3,7 +3,7 @@ import React from "react";
 import CheckOutFormComponent from "../../components/CheckOutFormComponent";
 import CartItemComponent from "../../components/CartItemComponent";
 
-const CartPageComponent = ({ item, addToCart, removeFromCart, cartItems, cartSubtotal, reduxDispatch }) => {
+const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartItems, cartSubtotal, reduxDispatch }) => {
 
     const changeCount = (productID, count) => {
         reduxDispatch(addToCart(productID, count));
@@ -17,6 +17,26 @@ const CartPageComponent = ({ item, addToCart, removeFromCart, cartItems, cartSub
             reduxDispatch(removeFromCart(productID, quantity, price))
         }
     }
+
+    const orderHandler = () => {
+        const orderData = {
+            orderTotal: {
+                itemsCount: itemsCount,
+                cartSubtotal: cartSubtotal,
+            },
+        cartItems: cartItems.map(item => {
+            return {
+                productID: item.productID,
+                name: item.name,
+                price: item.price,
+                image: {path: item.image ? (item.image.path ?? null) : null},
+                quantity: item.quantity,
+                count: item.count 
+            }
+        }),
+    }
+    console.log(orderData)
+}
 
     return (
         <>
@@ -41,7 +61,7 @@ const CartPageComponent = ({ item, addToCart, removeFromCart, cartItems, cartSub
                         <p >$250</p>
                     </div>
                     <div>
-                        <CheckOutFormComponent cartSubtotal={cartSubtotal} />
+                        <CheckOutFormComponent orderHandler={orderHandler} cartSubtotal={cartSubtotal} />
                     </div>
                 </div>
             </div>

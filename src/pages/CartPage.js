@@ -9,12 +9,13 @@ const CartPage = () => {
 
     const cartItems = useSelector((state) => state.cart.cartItems);
     const cartSubtotal = useSelector((state) => state.cart.cartSubtotal);
+    const itemsCount = useSelector((state) => state.cart.itemsCount);
     const reduxDispatch = useDispatch();
 
     return (
         <>
             <div className="bg-slate-300">
-                <CartPageComponent addToCart={addToCart} removeFromCart={removeFromCart} cartItems={cartItems} cartSubtotal={cartSubtotal} reduxDispatch={reduxDispatch}/>
+                <CartPageComponent addToCart={addToCart} itemsCount={itemsCount} removeFromCart={removeFromCart} cartItems={cartItems} cartSubtotal={cartSubtotal} reduxDispatch={reduxDispatch}/>
             </div>
         </>
     )
