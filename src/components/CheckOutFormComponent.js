@@ -1,16 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
+import DatePicker from "react-datepicker"
+import 'react-datepicker/dist/react-datepicker.module.css'
 
-const CheckOutFormComponent = ({cartSubtotal, orderHandler}) => {
+const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
+
+    const [selectedDate, setSelectedDate] = useState(null);
+    const currentDate = new Date();
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
+
     return (
         <>
             <form className="p-6 bg-blue-200 rounded-lg w-fit">
-                <div class="relative max-w-sm mb-4">
-                    <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none ">
-                        <svg className="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                        </svg>
+                <div className="max-w-md mx-auto mt-8 ">
+                    <div className="mb-4 ">
+                        <DatePicker
+                            id="calendar"
+                            selected={selectedDate}
+                            onChange={handleDateChange}
+                            minDate={currentDate}
+                            dateFormat="MM/dd/yyyy"
+                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                            placeholderText="Select a date"
+                        />
                     </div>
-                    <input datepicker datepicker-autohide type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Select date" />
+                    {/* Other form fields go here */}
                 </div>
                 <div className="grid md:grid-cols-2 md:gap-6 ">
                     <div className="relative z-0 w-full  group py-2 px-4 mb-4 bg-white rounded-lg ">
@@ -37,15 +53,15 @@ const CheckOutFormComponent = ({cartSubtotal, orderHandler}) => {
                         placeholder="Special instructions or comments" required></textarea>
                 </div>
                 <div className="p-2">
-                            <p>Perferred method of contact for Order Confirmation:</p>
-                            <select className=" rounded-lg w-11/12 sm:w-1/2">
+                    <p>Perferred method of contact for Order Confirmation:</p>
+                    <select className=" rounded-lg w-11/12 sm:w-1/2">
 
-                                <option value="text">Text</option>
-                                <option value="call">Call</option>
-                                <option value="email">Email</option>
+                        <option value="text">Text</option>
+                        <option value="call">Call</option>
+                        <option value="email">Email</option>
 
-                            </select>
-                        </div>
+                    </select>
+                </div>
                 <button disabled={cartSubtotal === 0} onClick={orderHandler} type="submit" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                     Check Out!
                 </button>

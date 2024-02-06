@@ -17,6 +17,7 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
             reduxDispatch(removeFromCart(productID, quantity, price))
         }
     }
+    
 
     const orderHandler = () => {
         const orderData = {
