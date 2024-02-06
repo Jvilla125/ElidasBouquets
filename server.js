@@ -38,7 +38,7 @@ app.use((error, req, res, next) => {
 })
 
 app.post('/submit-form', (req, res) => {
-  const formData = req.body;
+  const {formData, orderData} = req.body;
 
   // Configure the email transporter (replace with your email service details)
   const transporter = nodemailer.createTransport({
@@ -51,19 +51,35 @@ app.post('/submit-form', (req, res) => {
 
   // Create the email content
   const mailOptions = {
-    from: formData.floating_email,
+    from: process.env.EMAIL,
     to: process.env.EMAIL,
     subject: 'New Form Submission',
     html: `
-      <h1>New Form Submission</h1>
-      <p>Date: ${formData.calendar}</p>
-      <p>First Name: ${formData.floating_first_name}</p>
-      <p>Last Name: ${formData.floating_last_name}</p>
-      <p>Email Address: ${formData.floating_email}</p>
-      <p>Phone Number: ${formData.floating_phone}</p>
-      <p>Comments: ${formData.comment}</p>
-      <p>Contact Method: ${formData.contact_method}</p>
-    `
+    <h1>New Form Submission</h1>
+    <p>Date: ${formData.calendar}</p>
+    <p>First Name: ${formData.floating_first_name}</p>
+    <p>Last Name: ${formData.floating_last_name}</p>
+    <p>Email Address: ${formData.floating_email}</p>
+    <p>Phone Number: ${formData.floating_phone}</p>
+    <p>Comments: ${formData.comment}</p>
+    <p>Contact Method: ${formData.contact_method}</p>
+    <h2>Order Details:</h2>
+    <p>Total Items: ${orderData.orderTotal.itemsCount}</p>
+    <p>Cart Subtotal: ${orderData.orderTotal.cartSubtotal}</p>
+    <h3>Cart Items:</h3>
+    <ul>
+      ${orderData.cartItems.map(item => `
+        <li>
+          Product ID: ${item.productID}<br>
+          Name: ${item.name}<br>
+          Price: ${item.price}<br>
+          Image: ${item.image ? item.image.path : 'N/A'}<br>
+          Quantity: ${item.quantity}<br>
+          Count: ${item.count}<br>
+        </li>
+      `).join('')}
+    </ul>
+  `
   };
 
   // Send the email

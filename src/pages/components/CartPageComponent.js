@@ -37,11 +37,12 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
         }),
     }
     console.log(orderData)
+    return orderData
 }
 
     return (
         <>
-            <div className=" w-10/12 mx-auto flex sm:flex-row flex-col pb-12">
+            <div className=" w-10/12 mx-auto flex sm:flex-row flex-col pb-12 ">
                 {cartItems.length === 0 ? (
                     <div> empty</div>
                 ) : (
@@ -56,9 +57,9 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
                 )}
 
 
-                <div className="p-3 flex flex-col justify-center">
-                    <div>
-                        <h1 className="text-3xl ">Subtotal {cartItems.length} {cartItems.length === 1 ? "Product" : "Products"} </h1>
+                <div className="p-3 flex flex-col justify-center ">
+                    <div className="pb-4">
+                        <h1 className="text-3xl underline">Subtotal {cartItems.length} {cartItems.length === 1 ? "Product" : "Products"} </h1>
                         <p >$250</p>
                     </div>
                     <div>

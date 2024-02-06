@@ -27,16 +27,17 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
         try {
+            const orderData = orderHandler();
+            console.log('formData:', formData);
+            console.log('orderData:', orderData);
             const response = await fetch('http://localhost:3000/submit-form', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({formData: formData, orderData: orderData}),
             });
-
             if (response.ok) {
                 console.log('Form submitted successfully!');
                 // Optionally, you can reset the form here
@@ -59,8 +60,8 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
 
     return (
         <>
-        <form className="p-6 bg-blue-200 rounded-lg w-fit">
-            <div className="max-w-md mx-auto mt-8 ">
+        <form className="p-6 bg-blue-200 border-2 border-black rounded-lg w-fit">
+            <div className="max-w-md mx-auto ">
                 <div className="mb-4 ">
                     <DatePicker
                         id="calendar"
@@ -68,13 +69,13 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                         onChange={handleDateChange}
                         minDate={currentDate}
                         dateFormat="MM/dd/yyyy"
-                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                        className="bg-gray-50 border-2 border-gray-500 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 p-2.5  dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholderText="Select a date"
                     />
                 </div>
-                <div className="grid md:grid-cols-2 md:gap-6 ">
+                <div className="grid md:grid-cols-2 md:gap-6  ">
                     {['First', 'Last'].map((name, index) => (
-                        <div key={index} className="relative z-0 w-full group py-2 px-4 mb-4 bg-white rounded-lg">
+                        <div key={index} className="relative z-0 border-2 border-gray-500 w-full group py-2 px-4 mb-4 bg-white rounded-lg">
                             <input
                                 type="text"
                                 name={`floating_${name.toLowerCase()}_name`}
@@ -94,7 +95,7 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                         </div>
                     ))}
                 </div>
-                <div className="relative z-0 w-full mb-6 group py-2 px-4 mb-4 bg-white rounded-lg">
+                <div className="relative z-0 border-2 border-gray-500 w-full mb-6 group py-2 px-4 mb-4 bg-white rounded-lg">
                     <input
                         type="email"
                         name="floating_email"
@@ -112,7 +113,7 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                         Email address
                     </label>
                 </div>
-                <div className="relative z-0 w-full mb-6 group py-2 px-4 mb-4 bg-white rounded-lg">
+                <div className="relative z-0 border-2 border-gray-500 w-full mb-6 group py-2 px-4 mb-4 bg-white rounded-lg">
                     <input
                         type="tel"
                         pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
@@ -131,7 +132,7 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                         Phone number (123-456-7890)
                     </label>
                 </div>
-                <div className="py-2 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
+                <div className="py-2 border-2 border-gray-500 px-4 mb-4 bg-white rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
                     <label htmlFor="comment" className="sr-only">
                         Special instructions or comments
                     </label>
@@ -160,7 +161,7 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                     </select>
                 </div>
                 <button
-                    disabled={cartSubtotal === 0}
+                    disabled={cartSubtotal === 0 }
                     onClick={handleSubmit}
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

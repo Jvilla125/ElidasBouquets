@@ -4,13 +4,13 @@ import RemoveFromCartComponent from "./RemoveFromCartComponent";
 const CartItemComponent = ({ item, changeCount = false, removeFromCartHandler = false, }) => {
     return (
         <>
-            <div className="w-2/3 mt-4 ">
-                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <caption className="p-2 text-3xl font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800">
+            <div className="w-2/3 mt-4  ">
+                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400  ">
+                    <caption className="p-2 text-3xl font-semibold text-left text-gray-900 bg-white dark:text-white dark:bg-gray-800 ">
                         Your Cart
                         <hr className="h-px my-2 bg-gray-900 border-0 " />
                     </caption>
-                    <thead className="underline underline-offset-4 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <thead className="underline underline-offset-4 text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400 ">
                         <tr>
                             <th scope="col" className="px-6 py-3">
                                 Image
@@ -69,7 +69,6 @@ const CartItemComponent = ({ item, changeCount = false, removeFromCartHandler = 
                     </tbody>
                 </table>
             </div>
-
         </>
     )
 };
