@@ -1,5 +1,8 @@
 const express = require("express");
 const fileUpload = require("express-fileupload")
+// the following two are installed to send an email
+const nodemailer = require('nodemailer');
+const bodyParser = require('body-parser');
 const cookieParser = require("cookie-parser")
 const app = express();
 const cors = require("cors");
@@ -10,6 +13,10 @@ app.use(cors());
 app.use(express.json());
 app.use(cookieParser());
 app.use(fileUpload());
+// email connection
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
 // mongodb connection
 const connectDB = require("./config/database.js");
 connectDB();
@@ -29,6 +36,49 @@ app.use((error, req, res, next) => {
   }
   next(error)
 })
+
+app.post('/submit-form', (req, res) => {
+  const formData = req.body;
+
+  // Configure the email transporter (replace with your email service details)
+  const transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: process.env.EMAIL,
+      pass: process.env.PASSWORD
+    }
+  });
+
+  // Create the email content
+  const mailOptions = {
+    from: formData.floating_email,
+    to: process.env.EMAIL,
+    subject: 'New Form Submission',
+    html: `
+      <h1>New Form Submission</h1>
+      <p>Date: ${formData.calendar}</p>
+      <p>First Name: ${formData.floating_first_name}</p>
+      <p>Last Name: ${formData.floating_last_name}</p>
+      <p>Email Address: ${formData.floating_email}</p>
+      <p>Phone Number: ${formData.floating_phone}</p>
+      <p>Comments: ${formData.comment}</p>
+      <p>Contact Method: ${formData.contact_method}</p>
+    `
+  };
+
+  // Send the email
+  transporter.sendMail(mailOptions, (error, info) => {
+    if (error) {
+      console.error(error);
+      res.status(500).send('Internal Server Error');
+    } else {
+      console.log('Email sent: ' + info.response);
+      res.status(200).send('Form submitted successfully!');
+    }
+  });
+});
+
+
 app.use((error, req, res, next) => {
   if (process.env.NODE_ENV === "development") {
     res.status(500).json({
