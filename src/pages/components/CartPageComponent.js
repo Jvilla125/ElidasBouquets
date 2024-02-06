@@ -5,6 +5,7 @@ import CartItemComponent from "../../components/CartItemComponent";
 
 const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartItems, cartSubtotal, reduxDispatch }) => {
 
+
     const changeCount = (productID, count) => {
         reduxDispatch(addToCart(productID, count));
     };
@@ -60,7 +61,7 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
                 <div className="p-3 flex flex-col justify-center ">
                     <div className="pb-4">
                         <h1 className="text-3xl underline">Subtotal {cartItems.length} {cartItems.length === 1 ? "Product" : "Products"} </h1>
-                        <p >$250</p>
+                        <p >{cartSubtotal}</p>
                     </div>
                     <div>
                         <CheckOutFormComponent orderHandler={orderHandler} cartSubtotal={cartSubtotal} />

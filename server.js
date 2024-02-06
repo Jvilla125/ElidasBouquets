@@ -38,7 +38,7 @@ app.use((error, req, res, next) => {
 })
 
 app.post('/submit-form', (req, res) => {
-  const {formData, orderData} = req.body;
+  const { formData, orderData } = req.body;
 
   // Configure the email transporter (replace with your email service details)
   const transporter = nodemailer.createTransport({

@@ -2,6 +2,11 @@ import React from "react";
 import RemoveFromCartComponent from "./RemoveFromCartComponent";
 
 const CartItemComponent = ({ item, changeCount = false, removeFromCartHandler = false, }) => {
+    const handleChange = (e) => {
+        console.log('Selected value:', e.target.value);
+        changeCount(item.productID, e.target.value);
+    };
+
     return (
         <>
             <div className="w-2/3 mt-4  ">
@@ -40,11 +45,10 @@ const CartItemComponent = ({ item, changeCount = false, removeFromCartHandler = 
 
                             <td className="px-6 py-4">
                                 <div className="flex items-center space-x-3">
-                                    <select type="number" 
+                                    <select
+                                        type="number"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-1/2 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                        onChange={changeCount ? (e) => changeCount(item.productID, e.target.value) :
-                                undefined}
-                                        value={item.quantity}
+                                        onChange={(e) => changeCount && changeCount(item.productID, e.target.value)}
                                     >
                                         <option>{item.quantity}</option>
                                         <option value="2">2</option>
@@ -61,7 +65,6 @@ const CartItemComponent = ({ item, changeCount = false, removeFromCartHandler = 
                                     productID={item.productID}
                                     quantity={item.quantity}
                                     price={item.price}
-
                                     removeFromCartHandler={removeFromCartHandler ? removeFromCartHandler : undefined}
                                 />
                             </td>
