@@ -1,10 +1,13 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
 import CheckOutFormComponent from "../../components/CheckOutFormComponent";
 import CartItemComponent from "../../components/CartItemComponent";
 
-const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartItems, cartSubtotal, reduxDispatch }) => {
+const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartItems, cartSubtotal, reduxDispatch, createOrder }) => {
 
+
+    const navigate = useNavigate()
 
     const changeCount = (productID, count) => {
         reduxDispatch(addToCart(productID, count));
@@ -18,7 +21,7 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
             reduxDispatch(removeFromCart(productID, quantity, price))
         }
     }
-    
+
 
     const orderHandler = () => {
         const orderData = {
@@ -26,20 +29,27 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
                 itemsCount: itemsCount,
                 cartSubtotal: cartSubtotal,
             },
-        cartItems: cartItems.map(item => {
-            return {
-                productID: item.productID,
-                name: item.name,
-                price: item.price,
-                image: {path: item.image ? (item.image.path ?? null) : null},
-                quantity: item.quantity,
-                count: item.count 
+            cartItems: cartItems.map(item => {
+                return {
+                    productID: item.productID,
+                    name: item.name,
+                    price: item.price,
+                    image: { path: item.image ? (item.image.path ?? null) : null },
+                    quantity: item.quantity,
+                    count: item.count
+                }
+            }),
+        }
+        createOrder(orderData)
+        .then(data => {
+            if (data) {
+                navigate("/user/order-details/" + data._id)
             }
-        }),
+        })
+        .catch((err) => console.log(err))
+        console.log(orderData)
+        return orderData
     }
-    console.log(orderData)
-    return orderData
-}
 
     return (
         <>
@@ -64,7 +74,7 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
                         <p >{cartSubtotal}</p>
                     </div>
                     <div>
-                        <CheckOutFormComponent orderHandler={orderHandler} cartSubtotal={cartSubtotal} />
+                        <CheckOutFormComponent orderHandler={orderHandler} cartSubtotal={cartSubtotal}  />
                     </div>
                 </div>
             </div>

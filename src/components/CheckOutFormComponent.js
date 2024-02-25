@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.module.css'
 
-const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
+import { useNavigate } from "react-router-dom";
+
+
+const CheckOutFormComponent = ({ cartSubtotal, orderHandler}) => {
+    const navigate = useNavigate()
 
     const [formData, setFormData] = useState({
         calendar: null,
@@ -40,6 +44,8 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
             });
             if (response.ok) {
                 console.log('Form submitted successfully!');
+                // You can navigate to any page after successfully placing an order here VVVV
+                navigate("/")
                 // Optionally, you can reset the form here
                 setFormData({
                     calendar: null,
@@ -165,6 +171,7 @@ const CheckOutFormComponent = ({ cartSubtotal, orderHandler }) => {
                     onClick={handleSubmit}
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    
                 >
                     Check Out!
                 </button>
