@@ -1,14 +1,15 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { useNavigate } from "react-router-dom";
 import CheckOutFormComponent from "../../components/CheckOutFormComponent";
 import CartItemComponent from "../../components/CartItemComponent";
+import CompletedOrderComponent from "../../components/CompletedOrderComponent";
 
 const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartItems, cartSubtotal, reduxDispatch, createOrder }) => {
 
 
     const navigate = useNavigate()
-
+    const [showMessage, setShowMessage] = useState(false)
     const changeCount = (productID, count) => {
         reduxDispatch(addToCart(productID, count));
     };
@@ -54,6 +55,10 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
     return (
         <>
             <div className=" w-10/12 mx-auto flex sm:flex-row flex-col pb-12 ">
+            <CompletedOrderComponent
+                    showMessage={showMessage}
+                    setShowMessage={setShowMessage} />
+
                 {cartItems.length === 0 ? (
                     <div> empty</div>
                 ) : (
@@ -71,10 +76,12 @@ const CartPageComponent = ({ item, addToCart, itemsCount, removeFromCart, cartIt
                 <div className="p-3 flex flex-col justify-center ">
                     <div className="pb-4">
                         <h1 className="text-3xl underline">Subtotal {cartItems.length} {cartItems.length === 1 ? "Product" : "Products"} </h1>
-                        <p >{cartSubtotal}</p>
+                        <p>Items price: </p>
+                        <p>Shipping: </p>
+                        <p > Total Price: {cartSubtotal}</p>
                     </div>
                     <div>
-                        <CheckOutFormComponent orderHandler={orderHandler} cartSubtotal={cartSubtotal}  />
+                        <CheckOutFormComponent setShowMessage={setShowMessage} orderHandler={orderHandler} cartSubtotal={cartSubtotal}  />
                     </div>
                 </div>
             </div>
