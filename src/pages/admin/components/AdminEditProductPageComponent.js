@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
 
-const AdminEditProductPageComponent = () => {
+const AdminEditProductPageComponent = ({ categories }) => {
+
+    const [validated, setValidated] = useState(false);
+
     // State to manage form inputs
     const [product, setProduct] = useState({
         name: '',
@@ -17,6 +20,7 @@ const AdminEditProductPageComponent = () => {
     const sampleProduct = {
         name: 'Sample Product',
         description: 'A beautiful flower bouquet.',
+        category: "Birthday",
         smallPrice: '19.99',
         mediumPrice: '29.99',
         largePrice: '39.99',
@@ -85,6 +89,17 @@ const AdminEditProductPageComponent = () => {
                             rows="4"
                             required
                         ></textarea>
+                    </div>
+                    <div>
+                        <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                        <select id="categorires" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option selected>Choose category</option>
+                            {categories.map((category, idx) => (
+                                <option key={idx} value={category.name}>
+                                    {category.name}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="mb-4">
                         <label htmlFor="smallPrice" className="block text-gray-700 text-sm font-bold mb-2">
