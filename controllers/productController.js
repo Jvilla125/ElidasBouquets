@@ -166,17 +166,17 @@ const adminUpdateProduct = async (req, res, next) => {
         const { name, description, count, price, category, attributesTable } = req.body;
         product.name = name || product.name
         product.description = description || product.description
-        product.count = count || product.count
+        // product.count = count || product.count
         product.price = price || product.price
         product.category = category || product.category
-        if (attributesTable.length > 0) {
-            product.attrs = [];
-            attributesTable.map((item) => {
-                product.attrs.push(item)
-            })
-        } else {
-            product.attrs = []
-        }
+        // if (attributesTable.length > 0) {
+        //     product.attrs = [];
+        //     attributesTable.map((item) => {
+        //         product.attrs.push(item)
+        //     })
+        // } else {
+        //     product.attrs = []
+        // }
         await product.save()
         res.json({
             message: "product updated"

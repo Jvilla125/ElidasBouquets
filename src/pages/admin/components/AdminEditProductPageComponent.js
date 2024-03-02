@@ -1,51 +1,57 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 
-const AdminEditProductPageComponent = ({ categories }) => {
+const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProductApiRequest }) => {
 
     const [validated, setValidated] = useState(false);
-
-    // State to manage form inputs
-    const [product, setProduct] = useState({
-        name: '',
-        description: '',
-        smallPrice: '',
-        mediumPrice: '',
-        largePrice: '',
-        imageUrl: '',
+    const [product, setProduct] = useState({});
+    const [updateProductResponseState, setUpdateProductResponseState] = useState({
+        message: '',
+        error: ''
     });
 
-    // Simulated product data for testing
-    const sampleProduct = {
-        name: 'Sample Product',
-        description: 'A beautiful flower bouquet.',
-        category: "Birthday",
-        smallPrice: '19.99',
-        mediumPrice: '29.99',
-        largePrice: '39.99',
-        imageUrl: 'https://example.com/sample-image.jpg',
-    };
+    const { id } = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        // Simulated API request to fetch product data based on match.params.productId
-        // Replace this with actual API call in your application
-        // For now, we'll use the sampleProduct data
-        setProduct(sampleProduct);
-    }, []);
+        fetchProduct(id)
+            .then((product) => setProduct(product))
+            .catch((er) => console.log(er));
+    }, [id]);
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setProduct({
-            ...product,
-            [name]: value,
-        });
-    };
+    // const handleInputChange = (e) => {
+    //     const { name, value } = e.target;
+    //     setProduct({
+    //         ...product,
+    //         [name]: value,
+    //     });
+    // };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // Add logic here to update the product data, considering optional prices
-        console.log('Updated Product Data:', product);
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const form = event.currentTarget.elements;
+
+        const formInputs = {
+            name: form.name.value,
+            description: form.description.value,
+            category: form.category.value,
+            price: form.price.value,
+        }
+
+        if (event.currentTarget.checkValidity() === true) {
+            updateProductApiRequest(id, formInputs)
+            .then(data => {
+                if (data.message === "product updated") navigate('/admin/products')
+            })
+            .catch((er) => setUpdateProductResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data }));
+
+        }
+        setValidated(true)
+        // console.log('Updated Product Data:', product);
     };
 
     return (
@@ -61,17 +67,15 @@ const AdminEditProductPageComponent = ({ categories }) => {
 
             <div className="container mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
                 <h1 className="text-3xl font-semibold mb-6 text-center">Edit Product</h1>
-                <form onSubmit={handleSubmit} className="max-w-md mx-auto">
+                <form noValidate validated={validated} onSubmit={handleSubmit} className="max-w-md mx-auto">
                     <div className="mb-4">
                         <label htmlFor="name" className="block text-gray-700 text-sm font-bold mb-2">
                             Product Name
                         </label>
                         <input
                             type="text"
-                            id="name"
                             name="name"
-                            value={product.name}
-                            onChange={handleInputChange}
+                            defaultValue={product.name}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                             required
                         />
@@ -81,40 +85,44 @@ const AdminEditProductPageComponent = ({ categories }) => {
                             Description
                         </label>
                         <textarea
-                            id="description"
                             name="description"
-                            value={product.description}
-                            onChange={handleInputChange}
+                            defaultValue={product.description}
+
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                             rows="4"
                             required
                         ></textarea>
                     </div>
                     <div>
-                        <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                        <select id="categorires" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                        <select id="categories" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Choose category</option>
-                            {categories.map((category, idx) => (
-                                <option key={idx} value={category.name}>
-                                    {category.name}
-                                </option>
-                            ))}
+                            {categories.map((category, idx) => {
+                                return product.category === category.name ? (
+                                    <option selected key={idx} value={category.name}>
+                                        {category.name}
+                                    </option>
+                                ) : (
+                                    <option key={idx} value={category.name}>
+                                        {category.name}
+                                    </option>
+                                )
+                            })}
                         </select>
                     </div>
                     <div className="mb-4">
-                        <label htmlFor="smallPrice" className="block text-gray-700 text-sm font-bold mb-2">
+                        <label htmlFor="price" className="block text-gray-700 text-sm font-bold mb-2">
                             Small Price (Optional)
                         </label>
                         <input
                             type="number"
-                            id="smallPrice"
-                            name="smallPrice"
-                            value={product.smallPrice}
-                            onChange={handleInputChange}
+                            id="price"
+                            name="price"
+                            defaultValue={product.price}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                         />
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="mediumPrice" className="block text-gray-700 text-sm font-bold mb-2">
                             Medium Price (Optional)
                         </label>
@@ -123,7 +131,6 @@ const AdminEditProductPageComponent = ({ categories }) => {
                             id="mediumPrice"
                             name="mediumPrice"
                             value={product.mediumPrice}
-                            onChange={handleInputChange}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                         />
                     </div>
@@ -136,23 +143,28 @@ const AdminEditProductPageComponent = ({ categories }) => {
                             id="largePrice"
                             name="largePrice"
                             value={product.largePrice}
-                            onChange={handleInputChange}
                             className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
                         />
-                    </div>
+                    </div> */}
+
                     <div className="mb-4">
-                        <label htmlFor="imageUrl" className="block text-gray-700 text-sm font-bold mb-2">
-                            Image URL
-                        </label>
+                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
+                        {product.images && product.images.map((image, idx) => (
+                            <a href="#">
+                                <img src={image.path ?? null} alt="product image" className=" sm:w-10/12 w-11/12" />
+                            </a>
+                        ))}
+
                         <input
-                            type="url"
-                            id="imageUrl"
                             name="imageUrl"
                             value={product.imageUrl}
-                            onChange={handleInputChange}
-                            className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500"
-                            required
-                        />
+                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                            aria-describedby="file_input_help"
+                            id="file_input"
+                            type="file" />
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
+
+
                     </div>
                     <div className="text-center">
                         <button
@@ -161,6 +173,7 @@ const AdminEditProductPageComponent = ({ categories }) => {
                         >
                             Update Product
                         </button>
+                        {updateProductResponseState.error ?? "" }
                     </div>
                 </form>
             </div>
