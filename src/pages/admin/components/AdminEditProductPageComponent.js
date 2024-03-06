@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
-const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProductApiRequest }) => {
+const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProductApiRequest, imageDeleteHandler, uploadHandler }) => {
 
     const [validated, setValidated] = useState(false);
     const [product, setProduct] = useState({});
@@ -12,6 +12,9 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
         message: '',
         error: ''
     });
+    const [imageRemoved, setImageRemoved] = useState(false)
+    const [isUploading, setIsUploading] = useState("");
+    const [imageUploaded, setImageUploaded] = useState(false);
 
     const { id } = useParams();
     const navigate = useNavigate();
@@ -20,15 +23,7 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
         fetchProduct(id)
             .then((product) => setProduct(product))
             .catch((er) => console.log(er));
-    }, [id]);
-
-    // const handleInputChange = (e) => {
-    //     const { name, value } = e.target;
-    //     setProduct({
-    //         ...product,
-    //         [name]: value,
-    //     });
-    // };
+    }, [id, imageRemoved, imageUploaded]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -44,10 +39,10 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
 
         if (event.currentTarget.checkValidity() === true) {
             updateProductApiRequest(id, formInputs)
-            .then(data => {
-                if (data.message === "product updated") navigate('/admin/products')
-            })
-            .catch((er) => setUpdateProductResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data }));
+                .then(data => {
+                    if (data.message === "product updated") navigate('/admin/products')
+                })
+                .catch((er) => setUpdateProductResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data }));
 
         }
         setValidated(true)
@@ -149,11 +144,38 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
 
                     <div className="mb-4">
                         <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="file_input">Upload file</label>
-                        {product.images && product.images.map((image, idx) => (
-                            <a href="#">
-                                <img src={image.path ?? null} alt="product image" className=" sm:w-10/12 w-11/12" />
-                            </a>
-                        ))}
+                        {product.images &&
+                            product.images.map((image, idx) => (
+                                <div key={idx} className="relative">
+                                    <a href="#">
+                                        <img
+                                            src={image.path ?? null}
+                                            alt="product image"
+                                            className="sm:w-10/12 w-11/12"
+                                        />
+                                    </a>
+
+                                    {/* 'x' icon */}
+                                    <div className="absolute top-0 left-0" 
+                                    onClick={() => imageDeleteHandler(image.path, id).then(data => setImageRemoved(!imageRemoved))}
+                                    >
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            fill="none"
+                                            viewBox="0 0 24 24"
+                                            stroke="red"
+                                            className="h-8 w-8 text-white cursor-pointer"
+                                        >
+                                            <path
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                                strokeWidth="5"
+                                                d="M6 18L18 6M6 6l12 12"
+                                            />
+                                        </svg>
+                                    </div>
+                                </div>
+                            ))}
 
                         <input
                             name="imageUrl"
@@ -161,10 +183,19 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
                             className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                             aria-describedby="file_input_help"
                             id="file_input"
-                            type="file" />
+                            type="file"
+                            multiple 
+                            onChange={e => {
+                                setIsUploading("upload files in progress...")
+                                uploadHandler(e.target.files, id)
+                                .then(data => {
+                                    setIsUploading("upload file completed");
+                                    setImageUploaded(!imageUploaded);
+                                })
+                                .catch((er) => setIsUploading(er.response.data.message ? er.response.data.message : er.response.data))
+                            }}/>
+                            {isUploading}
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
-
-
                     </div>
                     <div className="text-center">
                         <button
@@ -173,7 +204,7 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
                         >
                             Update Product
                         </button>
-                        {updateProductResponseState.error ?? "" }
+                        {updateProductResponseState.error ?? ""}
                     </div>
                 </form>
             </div>
