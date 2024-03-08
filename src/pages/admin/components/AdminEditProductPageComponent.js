@@ -185,6 +185,7 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
                             id="file_input"
                             type="file"
                             multiple 
+                            required
                             onChange={e => {
                                 setIsUploading("upload files in progress...")
                                 uploadHandler(e.target.files, id)

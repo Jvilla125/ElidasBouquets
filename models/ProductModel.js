@@ -26,7 +26,7 @@ const productSchema = mongoose.Schema({
     },
     count: {
         type: Number,
-        required: true,
+        // required: true,
     },
     price: {
         type: Number,

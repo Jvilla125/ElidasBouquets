@@ -1,27 +1,57 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AdminCreateProductPageComponent = ({categories}) => {
-    const [product, setProduct] = useState({
-        name: '',
-        description: '',
-        price: '',
-        imageUrl: '',
-    });
 
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setProduct({
-            ...product,
-            [name]: value,
-        });
+const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, createProductApiRequest, uploadImagesCloudinaryApiRequest }) => {
+    const [validated, setValidated] = useState(false)
+    const [images, setImages] = useState(false);
+    const [isCreating, setIsCreating] = useState("");
+    const [createProductResponseState, setCreateProductResponseState] = useState({ message: "", error: "" })
+
+    const navigate = useNavigate();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        const form = event.currentTarget.elements;
+        const formInputs = {
+            name: form.name.value,
+            description: form.description.value,
+            category: form.category.value,
+            price: form.price.value,
+        }
+        if (event.currentTarget.checkValidity() === true) {
+            createProductApiRequest(formInputs)
+                .then(data => {
+                    if (images) {
+                        if (process.env.NODE_ENV === "production") {
+                            uploadImagesApiRequest(images, data.productId)
+                                .then(res => { })
+                                .catch((er) => setIsCreating(er.response.data.message ? er.response.data.message : er.response.data))
+                        } else {
+                            uploadImagesCloudinaryApiRequest(images, data.productId)
+                        }
+                    }
+                    return data;
+                })
+                .then(data => {
+                    setIsCreating("Product is being created...")
+                    setTimeout(() => {
+                        setIsCreating("");
+                        if (data.message === "product created") navigate("/admin/products");
+                    }, 2000)
+                })
+                .catch(er => {
+                    setCreateProductResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data });
+                })
+        }
+        setValidated(true)
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        // You can add logic here to save the product data to your backend or perform other actions
-        console.log('Product Data:', product);
-    };
+    const uploadHandler = (images) => {
+        setImages(images);
+    }
 
     return (
         <>
@@ -43,8 +73,7 @@ const AdminCreateProductPageComponent = ({categories}) => {
                             type="text"
                             id="name"
                             name="name"
-                            value={product.name}
-                            onChange={handleInputChange}
+
                             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                             required
                         />
@@ -54,8 +83,7 @@ const AdminCreateProductPageComponent = ({categories}) => {
                         <textarea
                             id="description"
                             name="description"
-                            value={product.description}
-                            onChange={handleInputChange}
+
                             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                             rows="4"
                             required
@@ -67,8 +95,7 @@ const AdminCreateProductPageComponent = ({categories}) => {
                             type="number"
                             id="price"
                             name="price"
-                            value={product.price}
-                            onChange={handleInputChange}
+
                             className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
                         />
                     </div>
@@ -77,7 +104,7 @@ const AdminCreateProductPageComponent = ({categories}) => {
                     </div>
                     <div>
                         <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                        <select id="categorires" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                        <select id="categorires" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option selected>Choose a Category</option>
                             {categories.map((category, idx) => (
                                 <option key={idx} value={category.name}>
@@ -88,18 +115,23 @@ const AdminCreateProductPageComponent = ({categories}) => {
                     </div>
                     <div className="mb-4">
                         <label htmlFor="imageUrl" className="block text-gray-600">Image URL</label>
-                        
-                        <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            for="file_input"
-                            id="imageUrl"
-                            name="imageUrl"
-                            value={product.imageUrl}
-                            onChange={handleInputChange}
-                            required
-                        >
-                            Upload file
+                        <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                            >
+                            
                         </label>
-                        <input class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" id="file_input" type="file"></input>
+                        <input 
+                        for="file_input"
+                        id="file_input"
+                        name="imageUrl"
+                        type="file"
+                        multiple
+                        required
+                        onChange={(e) => uploadHandler(e.target.files)}
+                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                        />
+
+                        {isCreating}
+                            Upload file
                     </div>
                     <div className="text-center">
                         <button
@@ -108,6 +140,7 @@ const AdminCreateProductPageComponent = ({categories}) => {
                         >
                             Create Product
                         </button>
+                        {createProductResponseState.error ?? ""}
                     </div>
                 </form>
             </div>

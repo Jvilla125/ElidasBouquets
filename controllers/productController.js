@@ -139,17 +139,17 @@ const adminDeleteProduct = async (req, res, next) => {
 const adminCreateProduct = async (req, res, next) => {
     try {
         const product = new Product()
-        const { name, description, count, price, category, attributesTable } = req.body;
+        const { name, description, price, category } = req.body;
         product.name = name;
         product.description = description;
-        product.count = count;
+        // product.count = count;
         product.price = price;
         product.category = category;
-        if (attributesTable.length > 0) {
-            attributesTable.map((item) => {
-                product.attrs.push(item) // bc attrs is an array in the model
-            })
-        }
+        // if (attributesTable.length > 0) {
+        //     attributesTable.map((item) => {
+        //         product.attrs.push(item) // bc attrs is an array in the model
+        //     })
+        // }
         await product.save()
         res.json({
             message: "product created",
@@ -163,7 +163,7 @@ const adminCreateProduct = async (req, res, next) => {
 const adminUpdateProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id).orFail()
-        const { name, description, count, price, category, attributesTable } = req.body;
+        const { name, description,  price, category } = req.body;
         product.name = name || product.name
         product.description = description || product.description
         // product.count = count || product.count
@@ -190,6 +190,17 @@ const adminUpdateProduct = async (req, res, next) => {
 // use as a middleware in server.js
 
 const adminUpload = async (req, res, next) => {
+    if (req.query.cloudinary === "true"){
+        try {
+            let product = await Product.findById(req.query.productId).orFail();
+            product.images.push({path: req.body.url});
+            await product.save();
+        } catch (err) {
+            next(err)
+        }
+        return
+    }
+
     try {
         if (!req.files || !!req.files.images === false) {
             return res.status(400).send("No files were uploaded.")
