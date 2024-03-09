@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
-    createProductApiRequest, uploadImagesCloudinaryApiRequest, reduxDispatch, newCategory }) => {
+    createProductApiRequest, uploadImagesCloudinaryApiRequest, reduxDispatch, newCategory, deleteCategory }) => {
     const [validated, setValidated] = useState(false)
     const [images, setImages] = useState(false);
     const [isCreating, setIsCreating] = useState("");
@@ -59,9 +59,14 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
                 element.value = e.target.value;
                 setCategoryChosen(e.target.value);
                 e.target.value = "";
-            })
-
+            }, 200);
         }
+    };
+
+    const deleteCategoryHandler = () => {
+        let element = document.getElementById("categories");
+        reduxDispatch(deleteCategory(element.value));
+        setCategoryChosen("Choose category");
     }
 
     return (
@@ -114,7 +119,17 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
                         Attributes
                     </div>
                     <div>
+                        
+
                         <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
+                        <button type="button"
+                            onClick={deleteCategoryHandler}
+                            className="bg-white rounded-md p-2 inline-flex items-center justify-center text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                            <span class="sr-only">Close menu</span>
+                            <svg class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
                         <select id="categories" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                             <option value="Choose category">Choose a Category</option>
                             {categories.map((category, idx) => (
