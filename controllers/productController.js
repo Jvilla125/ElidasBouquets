@@ -163,7 +163,7 @@ const adminCreateProduct = async (req, res, next) => {
 const adminUpdateProduct = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id).orFail()
-        const { name, description,  price, category } = req.body;
+        const { name, description, price, category } = req.body;
         product.name = name || product.name
         product.description = description || product.description
         // product.count = count || product.count
@@ -190,10 +190,10 @@ const adminUpdateProduct = async (req, res, next) => {
 // use as a middleware in server.js
 
 const adminUpload = async (req, res, next) => {
-    if (req.query.cloudinary === "true"){
+    if (req.query.cloudinary === "true") {
         try {
             let product = await Product.findById(req.query.productId).orFail();
-            product.images.push({path: req.body.url});
+            product.images.push({ path: req.body.url });
             await product.save();
         } catch (err) {
             next(err)
@@ -243,6 +243,17 @@ const adminUpload = async (req, res, next) => {
 }
 
 const adminDeleteProductImage = async (req, res, next) => {
+    const imagePath = decodeURIComponent(req.params.imagePath);
+    if (req.query.cloudinary === "true") {
+        try {
+           await Product.findOneAndUpdate({ _id: req.params.productId }, { $pull: { images: { path: imagePath } } }).orFail(); 
+            return res.end();
+        } catch(er) {
+            next(er);
+        }
+        return
+    }
+
     try {
         const imagePath = decodeURIComponent(req.params.imagePath)
         const path = require("path")

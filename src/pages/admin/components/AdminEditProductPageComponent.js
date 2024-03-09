@@ -4,7 +4,14 @@ import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
 
-const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProductApiRequest, imageDeleteHandler, uploadHandler }) => {
+const AdminEditProductPageComponent = ({ categories,
+    fetchProduct,
+    updateProductApiRequest,
+    imageDeleteHandler,
+    uploadHandler,
+    uploadImagesApiRequest,
+    uploadImagesCloudinaryApiRequest
+}) => {
 
     const [validated, setValidated] = useState(false);
     const [product, setProduct] = useState({});
@@ -156,8 +163,8 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
                                     </a>
 
                                     {/* 'x' icon */}
-                                    <div className="absolute top-0 left-0" 
-                                    onClick={() => imageDeleteHandler(image.path, id).then(data => setImageRemoved(!imageRemoved))}
+                                    <div className="absolute top-0 left-0"
+                                        onClick={() => imageDeleteHandler(image.path, id).then(data => setImageRemoved(!imageRemoved))}
                                     >
                                         <svg
                                             xmlns="http://www.w3.org/2000/svg"
@@ -184,18 +191,26 @@ const AdminEditProductPageComponent = ({ categories, fetchProduct, updateProduct
                             aria-describedby="file_input_help"
                             id="file_input"
                             type="file"
-                            multiple 
+                            multiple
                             required
                             onChange={e => {
                                 setIsUploading("upload files in progress...")
-                                uploadHandler(e.target.files, id)
-                                .then(data => {
-                                    setIsUploading("upload file completed");
-                                    setImageUploaded(!imageUploaded);
-                                })
-                                .catch((er) => setIsUploading(er.response.data.message ? er.response.data.message : er.response.data))
-                            }}/>
-                            {isUploading}
+                                if (process.env.NODE_ENV !== "production"){
+                                    uploadImagesApiRequest(e.target.files, id)
+                                    .then(data => {
+                                        setIsUploading("upload file completed");
+                                        setImageUploaded(!imageUploaded)
+                                    })
+                                    .catch((er) => setIsUploading(er.response.data.message ? er.response.data.message : er.response.data));
+                                } else {
+                                    uploadImagesCloudinaryApiRequest(e.target.files, id);
+                                    setIsUploading("upload file completed. wait for the result to take effect, refresh if necessary ");
+                                    setTimeout(() => {
+                                        setImageUploaded(!imageUploaded);
+                                    }, 5000)
+                                }
+                            }} />
+                        {isUploading}
                         <p class="mt-1 text-sm text-gray-500 dark:text-gray-300" id="file_input_help">SVG, PNG, JPG or GIF (MAX. 800x400px).</p>
                     </div>
                     <div className="text-center">

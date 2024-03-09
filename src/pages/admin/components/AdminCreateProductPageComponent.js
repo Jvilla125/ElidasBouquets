@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-
-const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, createProductApiRequest, uploadImagesCloudinaryApiRequest }) => {
+const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
+    createProductApiRequest, uploadImagesCloudinaryApiRequest, reduxDispatch, newCategory }) => {
     const [validated, setValidated] = useState(false)
     const [images, setImages] = useState(false);
     const [isCreating, setIsCreating] = useState("");
     const [createProductResponseState, setCreateProductResponseState] = useState({ message: "", error: "" })
+    const [categoryChosen, setCategoryChosen] = useState("Choose category")
 
     const navigate = useNavigate();
 
@@ -22,10 +23,14 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, c
             price: form.price.value,
         }
         if (event.currentTarget.checkValidity() === true) {
+            if (images.length > 3) {
+                setIsCreating("too many files");
+                return
+            }
             createProductApiRequest(formInputs)
                 .then(data => {
                     if (images) {
-                        if (process.env.NODE_ENV === "production") {
+                        if (process.env.NODE_ENV !== "production") {
                             uploadImagesApiRequest(images, data.productId)
                                 .then(res => { })
                                 .catch((er) => setIsCreating(er.response.data.message ? er.response.data.message : er.response.data))
@@ -33,14 +38,7 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, c
                             uploadImagesCloudinaryApiRequest(images, data.productId)
                         }
                     }
-                    return data;
-                })
-                .then(data => {
-                    setIsCreating("Product is being created...")
-                    setTimeout(() => {
-                        setIsCreating("");
-                        if (data.message === "product created") navigate("/admin/products");
-                    }, 2000)
+                    if (data.message === "product created") navigate("/admin/products");
                 })
                 .catch(er => {
                     setCreateProductResponseState({ error: er.response.data.message ? er.response.data.message : er.response.data });
@@ -51,6 +49,19 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, c
 
     const uploadHandler = (images) => {
         setImages(images);
+    }
+
+    const newCategoryHandler = (e) => {
+        if (e.keyCode && e.keyCode === 13 && e.target.value) {
+            reduxDispatch(newCategory(e.target.value));
+            setTimeout(() => {
+                let element = document.getElementById("categories");
+                element.value = e.target.value;
+                setCategoryChosen(e.target.value);
+                e.target.value = "";
+            })
+
+        }
     }
 
     return (
@@ -104,8 +115,8 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, c
                     </div>
                     <div>
                         <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
-                        <select id="categorires" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Choose a Category</option>
+                        <select id="categories" name="category" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                            <option value="Choose category">Choose a Category</option>
                             {categories.map((category, idx) => (
                                 <option key={idx} value={category.name}>
                                     {category.name}
@@ -114,24 +125,35 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest, c
                         </select>
                     </div>
                     <div className="mb-4">
+                        <label htmlFor="newCategory" className="block text-gray-600">Add a new Category</label>
+                        <input
+                            type="text"
+                            id="newCategory"
+                            name="newCategory"
+                            onKeyUp={newCategoryHandler}
+                            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+                        />
+                    </div>
+                    <div className="mb-4">
                         <label htmlFor="imageUrl" className="block text-gray-600">Image URL</label>
                         <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                            >
-                            
+                        >
+
                         </label>
-                        <input 
-                        for="file_input"
-                        id="file_input"
-                        name="imageUrl"
-                        type="file"
-                        multiple
-                        required
-                        onChange={(e) => uploadHandler(e.target.files)}
-                        className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" 
+                        <input
+                            for="file_input"
+                            id="file_input"
+                            name="imageUrl"
+                            type="file"
+                            multiple
+                            required
+                            onChange={(e) => uploadHandler(e.target.files)}
+                            className="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                         />
 
                         {isCreating}
-                            Upload file
+                        Upload file
                     </div>
                     <div className="text-center">
                         <button
