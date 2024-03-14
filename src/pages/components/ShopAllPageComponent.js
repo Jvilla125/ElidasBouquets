@@ -11,10 +11,20 @@ import ProductDetailsPageComponent from "./ProductDetailsPageComponent";
 const ShopAllPageComponent = ({ getProducts }) => {
 
     const [products, setProducts] = useState([])
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false)
+
 
     useEffect(() => {
-        getProducts().then(products => setProducts(products.products))
-        .catch((er) => console.log(er))
+        getProducts()
+        .then(products => {
+            setProducts(products.products)
+            setLoading(false)
+        })
+        .catch((er) => {
+            console.log(er)
+            setError(true)
+        })
     }, [])
 
 
@@ -60,8 +70,12 @@ const ShopAllPageComponent = ({ getProducts }) => {
                         </div>
                     </div>
                     {/* Start of Cards */}
-                    <div className="bg-blue-200 grid sm:grid-cols-3 grid-cols-2">
-                        {products.map((product) => (
+                    {loading ? (
+                        <h1>Loading products... </h1>
+                    ) : error ? (
+                        <h1>Error while loading products. Try again later.</h1>
+                    ) : (
+                        products.map((product) => (
                             
                             <Link to={`/product-details/${product._id}`} key={product._id}>
                                 <div className="w-full ">
@@ -73,7 +87,10 @@ const ShopAllPageComponent = ({ getProducts }) => {
                                     </div>
                                 </div>
                             </Link>
-                        ))}
+                        ))
+                    )}
+                    <div className="bg-blue-200 grid sm:grid-cols-3 grid-cols-2">
+                        
                     </div>
                 </div>
                 <div className="text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">
