@@ -1,30 +1,48 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 import PaginationComponent from "../../components/PaginationComponent";
 
+import CategoryFilterComponent from "../../components/filterQueryOptions/CategoryFilterComponent";
 import PriceFilterComponent from "../../components/filterQueryOptions/PriceFilterComponent";
 import FlowerTypeFilterComponent from "../../components/filterQueryOptions/FlowerTypeFilterComponent";
 import ColorFilterComponent from "../../components/filterQueryOptions/ColorFilterComponent";
 import ProductDetailsPageComponent from "./ProductDetailsPageComponent";
 
-const ShopAllPageComponent = ({ getProducts }) => {
+const ShopAllPageComponent = ({ getProducts, categories }) => {
 
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false)
 
+    // TO DO: Fix attributes later!!!
+    // to display flower types, colors, etc.
+    // const [attrsFiler, setAttrsFilter ] = useState([])
+
+    const { categoryName } = useParams() || "";
+
+    // useEffect(() => {
+    //     if (categoryName){
+    //         let categoryAllData = categories.find((item) => item.name === categoryName.replaceAll(",", "/"))
+    //         console.log(categoryAllData)
+    //         if (categoryAllData){
+    //             let index = categories.findIndex((item) => item.name === categoryAllData)
+    //             // setAttrsFilter(categories[index].attrs)
+    //         }
+    //     }
+    //     // else { setAttrsFilter([])}
+    // }, [categoryName, categories])
 
     useEffect(() => {
         getProducts()
-        .then(products => {
-            setProducts(products.products)
-            setLoading(false)
-        })
-        .catch((er) => {
-            console.log(er)
-            setError(true)
-        })
+            .then(products => {
+                setProducts(products.products)
+                setLoading(false)
+            })
+            .catch((er) => {
+                console.log(er)
+                setError(true)
+            })
     }, [])
 
 
@@ -56,6 +74,7 @@ const ShopAllPageComponent = ({ getProducts }) => {
                     {/* Start of Filters */}
                     <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
                         <h1 className="text-2xl">Filter By</h1>
+                        <CategoryFilterComponent/>
                         <PriceFilterComponent />
                         <FlowerTypeFilterComponent />
                         <ColorFilterComponent />
@@ -76,7 +95,7 @@ const ShopAllPageComponent = ({ getProducts }) => {
                         <h1>Error while loading products. Try again later.</h1>
                     ) : (
                         products.map((product) => (
-                            
+
                             <Link to={`/product-details/${product._id}`} key={product._id}>
                                 <div className="w-full ">
                                     <img className=" sm:w-10/12 w-11/12" src={product.images[0].path} alt="product image" />
@@ -90,7 +109,7 @@ const ShopAllPageComponent = ({ getProducts }) => {
                         ))
                     )}
                     <div className="bg-blue-200 grid sm:grid-cols-3 grid-cols-2">
-                        
+
                     </div>
                 </div>
                 <div className="text-green-500 text-lg font-bold text-center p-10 rounded-lg col-span-3">

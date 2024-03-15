@@ -49,6 +49,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/shopAll" element={<ShopAllPage />} />
+        <Route path="/shopAll/category/:categoryName" element={<ShopAllPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/delivery-options" element={<DeliveryOptionsPage />} />
         <Route path="/refund-policy" element={<RefundPolicyPage />} />

@@ -1,6 +1,15 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 
-const ShopbyOccassionComponent = () => {
+import { Link } from "react-router-dom";
+
+const ShopbyOccassionComponent = ({ categories }) => {
+
+    const [mainCategories, setMainCategories] = useState([])
+
+    useEffect(() => {
+        setMainCategories((cat) => categories.filter((item) => !item.name.includes("/")))
+    }, [categories])
+
 
     const Occasions = [
         {
@@ -34,17 +43,14 @@ const ShopbyOccassionComponent = () => {
             </div>
             {/* Start of Occasion Cards Section */}
             <div className="flex flex-row justify-evenly w-11/12 mx-auto grid sm:grid-cols-4 grid-cols-2">
-                {Occasions.map((item, idx) => (
+                {categories.map((item, idx) => (
                     <div key={idx} className="sm:w-full w-11/12 p-2 ">
-                        <a href="#">
-                            <img className=" rounded-xl" src={item.img} alt="product image" />
-                        </a>
-                        <div className=" pb-5 flex flex-col ml-4">
-                            <a href="#">
-                                <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
-                            </a>
-                            <span className="text-xl font-bold text-gray-900 dark:text-white">{item.price}</span>
-                        </div>
+                        <Link to={`/shopAll/category/${item.name}`}>
+                            <img className=" rounded-xl" src={categories.image ?? "/images/justbc.jpeg"} alt="product image" />
+                            <div className=" pb-5 flex flex-col ml-4">
+                                    <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
+                            </div>
+                        </Link>
                     </div>
                 ))}
             </div>
