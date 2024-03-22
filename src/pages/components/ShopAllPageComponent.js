@@ -14,7 +14,14 @@ const ShopAllPageComponent = ({ getProducts, categories }) => {
     const [products, setProducts] = useState([])
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false)
+    const [showResetFiltersButton, setShowResetFiltersButton] = useState(false)
+    const [filters, setFilters] = useState({}) // collects all filters
+    const [price, setPrice] = useState(500)
+    const [flowerFilter, setFlowerFilters] = useState({})
+    const [categoriesFromFilter, setCategoriesFromFilter] = useState({});
 
+
+    console.log(filters)
     // TO DO: Fix attributes later!!!
     // to display flower types, colors, etc.
     // const [attrsFiler, setAttrsFilter ] = useState([])
@@ -43,7 +50,24 @@ const ShopAllPageComponent = ({ getProducts, categories }) => {
                 console.log(er)
                 setError(true)
             })
-    }, [])
+            console.log(filters)
+    }, [filters])
+
+    const handleFilters = () => {
+        setShowResetFiltersButton(true)
+        setFilters({
+            price: price,
+            flower: flowerFilter,
+            category: categoriesFromFilter
+            // attrs: attrsFromFilter,
+        })
+    }
+
+    const resetFilters = () => {
+        setShowResetFiltersButton(false)
+        setFilters({})
+        window.location.href ="/shopAll"
+    }
 
 
     return (
@@ -74,18 +98,20 @@ const ShopAllPageComponent = ({ getProducts, categories }) => {
                     {/* Start of Filters */}
                     <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
                         <h1 className="text-2xl">Filter By</h1>
-                        <CategoryFilterComponent/>
-                        <PriceFilterComponent />
-                        <FlowerTypeFilterComponent />
+                        <CategoryFilterComponent setCategoriesFromFilter={setCategoriesFromFilter} />
+                        <PriceFilterComponent price={price} setPrice={setPrice} />
+                        <FlowerTypeFilterComponent flowerFilter={flowerFilter} />
                         <ColorFilterComponent />
                         <br />
                         <div class="inline-flex space-x-2">
-                            <button class="bg-blue-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
+                            <button onClick={handleFilters} className="bg-blue-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
                                 <h3>Apply</h3>
                             </button> {" "}
-                            <button className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
-                                Reset
-                            </button>
+                            {showResetFiltersButton && ( 
+                                <button onClick={resetFilters} className="bg-red-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded">
+                                    Reset
+                                </button>
+                            )}
                         </div>
                     </div>
                     {/* Start of Cards */}

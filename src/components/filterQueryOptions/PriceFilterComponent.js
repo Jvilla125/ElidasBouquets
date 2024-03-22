@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
-const PriceFilterComponent = () => {
+
+
+const PriceFilterComponent = ({ price, setPrice }) => {
     let prices = ["Under $50", "$50 - $100", "$100 - $200", "Above $200"]
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
@@ -28,6 +30,7 @@ const PriceFilterComponent = () => {
                             </div>
                         </li>
                     ))}
+
                     <hr class="h-px my-2 bg-black border-0" />
                 </ul>
             )}

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import { IoMdArrowDropdown, IoMdArrowDropup } from "react-icons/io";
 
-const FlowerTypeFilterComponent = () => {
+const FlowerTypeFilterComponent = ({flowerFilter}) => {
     let flowers = ["Roses", "Dandelions", "Sunflowers", "Lilies", "Tulips"]
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 

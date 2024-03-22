@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
-const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
-    createProductApiRequest, uploadImagesCloudinaryApiRequest, reduxDispatch, newCategory, deleteCategory }) => {
+// import { changeCategory, setValuesForAttrFromDbSelectForm, setAttributesTableWrapper } from './utils/utils';
+
+
+const AdminCreateProductPageComponent = ({ categories,
+    uploadImagesApiRequest,
+    createProductApiRequest,
+    uploadImagesCloudinaryApiRequest,
+    reduxDispatch,
+    newCategory,
+    deleteCategory,
+    saveAttributeToCatDoc
+}) => {
     const [validated, setValidated] = useState(false)
+    // const [attributesTable, setAttributesTable] = useState([]);
+    // const [attributesFromDb, setAttributesFromDb] = useState([]);
     const [images, setImages] = useState(false);
     const [isCreating, setIsCreating] = useState("");
     const [createProductResponseState, setCreateProductResponseState] = useState({ message: "", error: "" })
     const [categoryChosen, setCategoryChosen] = useState("Choose category")
+    // const [newAttrKey, setNewAttrKey] = useState(false);
+    // const [newAttrValue, setNewAttrValue] = useState(false);
+
+    // const attrVal = useRef(null);
+    // const attrKey = useRef(null);
+    // const createNewAttrKey = useRef(null);
+    // const createNewAttrVal = useRef(null);
 
     const navigate = useNavigate();
 
@@ -69,6 +88,42 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
         setCategoryChosen("Choose category");
     }
 
+    // const attributeValueSelected = (e) => {
+    //     if (e.target.value !== "Choose attribute value") {
+    //         setAttributesTableWrapper(attrKey.current.value, e.target.value, setAttributesTable);
+    //     }
+    // }
+
+    // const deleteAttribute = (key) => {
+    //     setAttributesTable((table) => table.filter((item) => item.key !== key));
+    // }
+
+    // const newAttrKeyHandler = (e) => {
+    //     e.preventDefault();
+    //     setNewAttrKey(e.target.value);
+    //     addNewAttributeManually(e);
+    // }
+
+    // const newAttrValueHandler = (e) => {
+    //     e.preventDefault();
+    //     setNewAttrValue(e.target.value);
+    //     addNewAttributeManually(e);
+    // }
+
+    // const addNewAttributeManually = (e) => {
+    //     if (e.keyCode && e.keyCode === 13) {
+    //         if (newAttrKey && newAttrValue) {
+    //             reduxDispatch(saveAttributeToCatDoc(newAttrKey, newAttrValue, categoryChosen));
+    //             setAttributesTableWrapper(newAttrKey, newAttrValue, setAttributesTable);
+    //             e.target.value = "";
+    //             createNewAttrKey.current.value = "";
+    //             createNewAttrVal.current.value = "";
+    //             setNewAttrKey(false);
+    //             setNewAttrValue(false);
+    //         }
+    //     }
+    // }
+
     return (
         <>
             <Link to="/admin/users">
@@ -119,7 +174,7 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
                         Attributes
                     </div>
                     <div>
-                        
+
 
                         <label for="categories" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select an option</label>
                         <button type="button"
@@ -150,6 +205,44 @@ const AdminCreateProductPageComponent = ({ categories, uploadImagesApiRequest,
 
                         />
                     </div>
+                    
+                        {/* <div className="mt-5 grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <label htmlFor="formBasicAttributes" className="block mb-1">Choose attribute and set value</label>
+                                <input
+                            type="text"
+                            id="newCategory"
+                            name="newCategory"
+                            onKeyUp={newCategoryHandler}
+                            className="w-full p-2 border rounded-md focus:outline-none focus:border-blue-500"
+
+                        />
+                                <select
+                                    id="formBasicAttributes"
+                                    name="atrrKey"
+                                    className="w-full px-4 py-2 border rounded-md bg-white"
+                                    ref={attrKey}
+                                    onChange={(e) => setValuesForAttrFromDbSelectForm(e, attrVal, attributesFromDb)}
+                                >
+                                    <option value="">Choose attribute</option>
+                                    {attributesFromDb.map((item, idx) => (
+                                        <option key={idx} value={item.key}>{item.key}</option>
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <label htmlFor="formBasicAttributeValue" className="block mb-1">Attribute value</label>
+                                <select
+                                    id="formBasicAttributeValue"
+                                    name="atrrVal"
+                                    className="w-full px-4 py-2 border rounded-md bg-white"
+                                    ref={attrVal}
+                                    onChange={attributeValueSelected}
+                                >
+                                    <option value="">Choose attribute value</option>
+                                </select>
+                            </div>
+                        </div> */}
                     
                     <div className="mb-4">
                         <label htmlFor="imageUrl" className="block text-gray-600">Image URL</label>
