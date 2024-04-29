@@ -41,10 +41,10 @@ const ProductDetailsPageComponent = ({ addToCartReduxAction, reduxDispatch, getP
                             {product.images ? product.images.map((image, id) => (
                                 <div key={id}>
                                     <div key={id} id={`imageId${id + 1}`}>
-                                        <img 
-                                        className="rounded-xl" 
-                                        src={`${image.path ?? null}`} 
-                                        alt="product-image" />
+                                        <img
+                                            className="rounded-xl"
+                                            src={`${image.path ?? null}`}
+                                            alt="product-image" />
                                     </div>
                                 </div>
                             ))
@@ -63,19 +63,53 @@ const ProductDetailsPageComponent = ({ addToCartReduxAction, reduxDispatch, getP
                                 showCartMessage={showCartMessage}
                                 setShowCartMessage={setShowCartMessage} />
                             <div>
-                                <div className="text-3xl text-left ml-3 pb-2">
+                                <div className="text-3xl text-left ml-3 ">
                                     <h1>{product.name}</h1>
-                                    <p className="text-2xl p-2">$125</p>
+                                    <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
                                 </div>
                                 <div className="p-2">
-                                    <p>Price Options</p>
+                                    
                                     ${product.price}
-                                    <select className=" rounded-lg w-11/12 sm:w-1/2">
+                                    {/* start of price options */}
+                                    <h3 className="mb-5 text-xl font-medium ">Price Options</h3>
+                                    <ul className="grid w-full gap-6 sm:grid-cols-3 ">
+                                        <li >
+                                            <input type="radio" id="hosting-small" name="hosting" value="hosting-small" className="hidden peer" required />
+                                            <label for="hosting-small" className="inline-flex items-center justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                <div className="block">
+                                                    <div className="w-full text-lg font-semibold">Standard</div>
+                                                    <div className="w-full">$24.99</div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="hosting-medium" name="hosting" value="hosting-medium" className="hidden peer" />
+                                            <label for="hosting-medium" className="inline-flex items-center justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                <div className="block">
+                                                    <div className="w-full text-lg font-semibold">Deluxe</div>
+                                                    <div className="w-full">$49.99</div>
+                                                </div>
+
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <input type="radio" id="hosting-big" name="hosting" value="hosting-big" className="hidden peer" />
+                                            <label for="hosting-big" className="inline-flex items-center justify-between w-full p-5 text-black bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-700 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-600 hover:bg-gray-100 dark:text-gray-400 dark:bg-gray-800 dark:hover:bg-gray-700">
+                                                <div className="block">
+                                                    <div className="w-full text-lg font-semibold">Premium</div>
+                                                    <div className="w-full">$89.99</div>
+                                                </div>
+                                                
+                                            </label>
+                                        </li>
+                                    </ul>
+                                    <hr class="h-px my-6 bg-gray-200 border-0 dark:bg-gray-700"></hr>
+                                    {/* <select className=" rounded-lg w-11/12 sm:w-1/2">
 
                                         <option value="price_small">Small: $24.99</option>
                                         <option value="price_medium">Medium: $49.99</option>
                                         <option value="name_large">Large: $74.99</option>
-                                    </select>
+                                    </select> */}
                                 </div>
                                 <div className="p-2 ">
                                     <p className="mb-2">Quantity</p>

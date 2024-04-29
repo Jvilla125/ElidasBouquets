@@ -22,7 +22,7 @@ const HeaderComponent = () => {
                                 Small Business in East Los Angeles
                             </li>
                             <li className="text-2xl">
-                                {/* Oct. 3 National Boyfriends Day */}
+                                {/* Oct. 3 National Boyfriends Day  */}
                             </li>
                             <li className="flex flex-col items-center lg:flex-row lg:justify-between lg:items-center py-2">
                                 {userInfo.isAdmin ? (
@@ -43,10 +43,10 @@ const HeaderComponent = () => {
                                     </div>
                                 ) : (
                                     <>
-                                        <Link to="/register" className="mr-4 uppercase "  >
+                                        <Link to="/register" className="mr-4 uppercase text-white hover:bg-blue-800"  >
                                             Register
                                         </Link>
-                                        <Link to="/login" className="mr-4 uppercase" >
+                                        <Link to="/login" className="mr-4 uppercase text-white hover:bg-blue-800" >
                                             Login
                                         </Link>
                                     </>)}

@@ -10,29 +10,19 @@ const ShopbyOccassionComponent = ({ categories }) => {
         setMainCategories((cat) => categories.filter((item) => !item.name.includes("/")))
     }, [categories])
 
+    const [startIndex, setStartIndex] = useState(0);
+    const itemsPerPage = 5;
 
-    const Occasions = [
-        {
-            name: "Anniversary!",
-            price: "check it out!",
-            img: "/images/happyanniversary.jpg"
-        },
-        {
-            name: "Birthday!",
-            price: "check it out!",
-            img: "/images/happybirthday.jpg"
-        },
-        {
-            name: "Just Because!",
-            price: "check it out!",
-            img: "/images/justbc.jpeg"
-        },
-        {
-            name: "Mother's Day!",
-            price: "check it out!",
-            img: "/images/mothersday.jpg"
-        }
-    ]
+    const handleNext = () => {
+        const nextIndex = startIndex + itemsPerPage;
+        setStartIndex(nextIndex >= categories.length ? 0 : nextIndex);
+    };
+
+    const handlePrev = () => {
+        const prevIndex = startIndex - itemsPerPage;
+        setStartIndex(prevIndex < 0 ? categories.length - itemsPerPage : prevIndex);
+    };
+
 
     return (
         <>
@@ -48,12 +38,28 @@ const ShopbyOccassionComponent = ({ categories }) => {
                         <Link to={`/shopAll/category/${item.name}`}>
                             <img className=" rounded-xl" src={categories.image ?? "/images/justbc.jpeg"} alt="product image" />
                             <div className=" pb-5 flex flex-col ml-4">
-                                    <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
+                                <h5 className="text-xl  tracking-tight text-gray-900 dark:text-white">{item.name}</h5>
                             </div>
                         </Link>
                     </div>
                 ))}
             </div>
+            {/* <div className="max-w-screen-lg mx-auto">
+                <div className="flex items-center justify-between">
+                    <button onClick={handlePrev} className="text-gray-500">&#8592;</button>
+                    <button onClick={handleNext} className="text-gray-500">&#8594;</button>
+                </div>
+                <div className="flex flex-wrap justify-center mt-4">
+                    {categories.slice(startIndex, startIndex + itemsPerPage).map((item, index) => (
+                        <div key={index} className="w-1/5 p-4">
+                            <div className="border border-gray-200 rounded-lg p-4">
+                                <h2 className="text-lg font-semibold mb-2">{item.name}</h2>
+                                <p className="text-sm text-gray-500">Find the perfect flowers for your {item.name}!</p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div> */}
         </>
     )
 }

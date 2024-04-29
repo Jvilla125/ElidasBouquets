@@ -94,9 +94,9 @@ const ShopAllPageComponent = ({ getProducts, categories }) => {
                     <hr className="h-px my-8 bg-gray-900 border-0 " />
                 </div>
 
-                <div className="text-lg font-bold w-full col-span-6 flex flex-col sm:flex-row space-x-4">
+                <div className="text-lg font-bold w-full col-span-3 flex flex-col sm:flex-row space-x-4">
                     {/* Start of Filters */}
-                    <div className="p-6 mx-auto sm:p-4 sm:w-8/12 w-10/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
+                    <div className="p-6 mx-auto sm:p-4 sm:w-3/12 w-8/12 h-fit flex flex-col sm:items-start items-center border-solid border rounded-md border-black ">
                         <h1 className="text-2xl">Filter By</h1>
                         <CategoryFilterComponent setCategoriesFromFilter={setCategoriesFromFilter} />
                         <PriceFilterComponent price={price} setPrice={setPrice} />
@@ -124,7 +124,7 @@ const ShopAllPageComponent = ({ getProducts, categories }) => {
 
                             <Link to={`/product-details/${product._id}`} key={product._id}>
                                 <div className="w-full ">
-                                    <img className=" sm:w-10/12 w-11/12" src={product.images[0].path} alt="product image" />
+                                    <img className=" sm:w-10/12 w-11/12 size-64" src={product.images[0].path} alt="product image" />
                                     <div className="flex flex-col ">
                                         <h5 className="text-xl tracking-tight text-gray-900 dark:text-white">{product.name}</h5>
                                         <span className="text-xl text-gray-900 dark:text-white">{product.price}</span>
